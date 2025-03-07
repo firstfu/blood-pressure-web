@@ -464,38 +464,6 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
         </motion.div>
-
-        {/* 向下滾動指示器 */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
-        >
-          <span className="text-base text-neutral-500 mb-2">向下滾動探索更多</span> {/* 增加文字大小 */}
-          <motion.div
-            className="w-8 h-12 border-2 border-neutral-300 rounded-full flex justify-center pt-1 bg-white" // 移除霧化效果，增加大小
-            animate={{ y: [0, 5, 0] }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          >
-            <motion.div
-              className="w-2 h-2 bg-gradient-primary-to-secondary rounded-full" // 增加指示點大小
-              animate={{
-                y: [0, 4, 0],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-            />
-          </motion.div>
-        </motion.div>
       </div>
     </section>
   );
