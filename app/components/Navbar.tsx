@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronRight, Heart, Activity, Bell, BarChart2, Droplets } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { ThemeToggle } from "./theme-toggle";
 
 const navItems = [
   { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
@@ -72,7 +73,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-white shadow-medium py-2" // 移除霧化效果，使用純白背景
+            ? "bg-background/95 dark:bg-card/95 shadow-medium py-2" // 使用主題變量
             : "bg-transparent py-4"
         }`}
       >
@@ -113,7 +114,7 @@ export default function Navbar() {
                       }}
                     >
                       守護
-                      <Droplets className="w-6 h-6 ml-1 text-secondary-400" /> {/* 增加圖標大小 */}
+                      <Droplets className="w-6 h-6 ml-1 text-secondary-400 dark:text-secondary" /> {/* 適配暗黑模式 */}
                     </motion.span>
                   </span>
                   <motion.span
@@ -129,7 +130,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <motion.div
-                className="flex items-center bg-white rounded-full px-1 py-1 shadow-soft" // 移除霧化效果
+                className="flex items-center bg-background/90 dark:bg-card/90 rounded-full px-1 py-1 shadow-soft" // 適配暗黑模式
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -139,7 +140,7 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       className={`relative flex items-center space-x-1.5 px-5 py-2.5 rounded-full text-base font-medium transition-all duration-300 ${
-                        activeItem === item.href ? "gradient-primary-to-secondary text-white shadow-md" : "text-neutral-700 hover:text-primary hover:bg-primary-50"
+                        activeItem === item.href ? "gradient-primary-to-secondary text-white shadow-md" : "text-foreground hover:text-primary hover:bg-muted dark:hover:bg-muted/50" // 適配暗黑模式
                       }`}
                       onClick={() => setActiveItem(item.href)}
                     >
@@ -157,6 +158,11 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
+              </motion.div>
+
+              {/* 主題切換按鈕 */}
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.5 }}>
+                <ThemeToggle />
               </motion.div>
 
               <motion.div
@@ -204,13 +210,16 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Navigation */}
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center space-x-2">
+              {/* 移動端主題切換按鈕 */}
+              <ThemeToggle />
+
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="relative bg-white rounded-full p-2" // 移除霧化效果
+                    className="relative bg-background/90 dark:bg-card/90 rounded-full p-2" // 適配暗黑模式
                   >
                     <AnimatePresence mode="wait">
                       {isMobileMenuOpen ? (
@@ -221,7 +230,7 @@ export default function Navbar() {
                           exit={{ rotate: 90, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <X className="h-6 w-6 text-neutral-700" /> {/* 增加圖標大小 */}
+                          <X className="h-6 w-6 text-foreground" /> {/* 使用主題變量 */}
                         </motion.div>
                       ) : (
                         <motion.div
@@ -231,15 +240,15 @@ export default function Navbar() {
                           exit={{ rotate: -90, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <Menu className="h-6 w-6 text-neutral-700" /> {/* 增加圖標大小 */}
+                          <Menu className="h-6 w-6 text-foreground" /> {/* 使用主題變量 */}
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white border-none">
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background dark:bg-card border-none">
                   {" "}
-                  {/* 移除霧化效果 */}
+                  {/* 適配暗黑模式 */} {/* 使用主題變量 */}
                   <nav className="flex flex-col gap-6 mt-12">
                     <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                       <span className="text-4xl font-bold">
@@ -257,14 +266,14 @@ export default function Navbar() {
                           className={`flex items-center space-x-3 px-5 py-4 rounded-xl text-xl transition-all duration-300 ${
                             activeItem === item.href
                               ? "gradient-primary-to-secondary text-white font-medium shadow-medium"
-                              : "text-neutral-700 hover:text-primary hover:bg-primary-50"
+                              : "text-foreground hover:text-primary hover:bg-muted dark:hover:bg-muted/50" // 適配暗黑模式
                           }`}
                           onClick={() => {
                             setActiveItem(item.href);
                             setIsMobileMenuOpen(false);
                           }}
                         >
-                          <span className={activeItem === item.href ? "text-white" : "text-primary"}>{item.icon}</span>
+                          <span className={activeItem === item.href ? "text-white" : "text-primary dark:text-primary"}>{item.icon}</span>
                           <span>{item.label}</span>
                         </Link>
                       </motion.div>

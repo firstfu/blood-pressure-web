@@ -1,138 +1,123 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-
-const navigation = {
-  product: [
-    { name: "功能特色", href: "#features" },
-    { name: "價格方案", href: "#pricing" },
-    { name: "常見問題", href: "#faq" },
-    { name: "使用教學", href: "#" },
-  ],
-  support: [
-    { name: "聯絡我們", href: "#contact" },
-    { name: "意見回饋", href: "#" },
-    { name: "技術支援", href: "#" },
-    { name: "使用條款", href: "#" },
-  ],
-  company: [
-    { name: "關於我們", href: "#" },
-    { name: "最新消息", href: "#" },
-    { name: "合作夥伴", href: "#" },
-    { name: "徵才資訊", href: "#" },
-  ],
-  legal: [
-    { name: "隱私權政策", href: "#" },
-    { name: "服務條款", href: "#" },
-    { name: "資料安全", href: "#" },
-    { name: "免責聲明", href: "#" },
-  ],
-  social: [
-    {
-      name: "Facebook",
-      href: "#",
-      icon: Facebook,
-    },
-    {
-      name: "Instagram",
-      href: "#",
-      icon: Instagram,
-    },
-    {
-      name: "Twitter",
-      href: "#",
-      icon: Twitter,
-    },
-    {
-      name: "Youtube",
-      href: "#",
-      icon: Youtube,
-    },
-  ],
-};
+import { Facebook, Twitter, Instagram, Linkedin, Heart } from "lucide-react";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-900 text-slate-200">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+    <footer className="bg-background dark:bg-card border-t border-border dark:border-primary-900/20">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-1">
+            <Link href="/" className="flex items-center">
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">健康守護</span>
+            </Link>
+            <p className="mt-4 text-muted-foreground">專業的血壓管理應用，幫助您輕鬆追蹤、分析和管理血壓數據，守護您的心臟健康。</p>
+            <div className="flex space-x-4 mt-6">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Twitter">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Instagram">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+
           <div>
-            <h3 className="text-sm font-semibold mb-4">產品</h3>
-            <ul className="space-y-3">
-              {navigation.product.map(item => (
-                <li key={item.name}>
-                  <a href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors">
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="font-semibold text-lg mb-4 text-foreground">產品</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#features" className="text-muted-foreground hover:text-primary transition-colors">
+                  功能特點
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  價格方案
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  下載應用
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  更新日誌
+                </Link>
+              </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="text-sm font-semibold mb-4">支援</h3>
-            <ul className="space-y-3">
-              {navigation.support.map(item => (
-                <li key={item.name}>
-                  <a href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors">
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="font-semibold text-lg mb-4 text-foreground">支援</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#faq" className="text-muted-foreground hover:text-primary transition-colors">
+                  常見問題
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  使用指南
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  聯絡我們
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  意見反饋
+                </Link>
+              </li>
             </ul>
           </div>
+
           <div>
-            <h3 className="text-sm font-semibold mb-4">公司</h3>
-            <ul className="space-y-3">
-              {navigation.company.map(item => (
-                <li key={item.name}>
-                  <a href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors">
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold mb-4">法務</h3>
-            <ul className="space-y-3">
-              {navigation.legal.map(item => (
-                <li key={item.name}>
-                  <a href={item.href} className="text-sm text-slate-400 hover:text-white transition-colors">
-                    {item.name}
-                  </a>
-                </li>
-              ))}
+            <h3 className="font-semibold text-lg mb-4 text-foreground">法律</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  隱私政策
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  使用條款
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  Cookie 政策
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                  資料安全
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-800">
-          <div className="flex space-x-6 mb-4 md:mb-0">
-            {navigation.social.map(item => {
-              const Icon = item.icon;
-              return (
-                <a key={item.name} href={item.href} className="text-slate-400 hover:text-white transition-colors">
-                  <span className="sr-only">{item.name}</span>
-                  <Icon className="h-6 w-6" />
-                </a>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
-            <p className="text-sm text-slate-400">© 2024 健康守護. 保留所有權利.</p>
-            <div className="flex space-x-4">
-              <Button variant="link" className="text-slate-400 hover:text-white p-0 h-auto">
-                隱私權政策
-              </Button>
-              <Button variant="link" className="text-slate-400 hover:text-white p-0 h-auto">
-                服務條款
-              </Button>
-            </div>
+        <div className="border-t border-border dark:border-primary-900/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-muted-foreground text-sm mb-4 md:mb-0">&copy; {currentYear} 健康守護. 保留所有權利.</p>
+          <div className="flex items-center space-x-4">
+            <span className="text-muted-foreground text-sm flex items-center">
+              以 <Heart className="h-4 w-4 text-red-500 mx-1" /> 製作
+            </span>
+            <ThemeToggle />
           </div>
         </div>
       </div>

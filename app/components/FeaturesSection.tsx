@@ -1,127 +1,110 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
+import { useInView } from "framer-motion";
+import { motion } from "framer-motion";
+import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-react";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PenLine, BarChart3, Bell, Share2 } from "lucide-react";
 
-interface Feature {
-  id: string;
-  title: string;
+interface FeatureProps {
   icon: React.ReactNode;
+  title: string;
   description: string;
-  subFeatures: string[];
-  image: string;
+  delay: number;
 }
 
-const features: Feature[] = [
-  {
-    id: "record",
-    title: "簡易記錄",
-    icon: <PenLine className="w-5 h-5" />,
-    description: "簡潔的記錄介面，支援手動輸入與智能血壓計連接，讓您輕鬆追蹤血壓數據。",
-    subFeatures: ["快速記錄模板", "一鍵記錄功能", "多人數據管理", "日曆視圖查看"],
-    image: "/images/feature-record.png",
-  },
-  {
-    id: "analyze",
-    title: "數據分析",
-    icon: <BarChart3 className="w-5 h-5" />,
-    description: "多維度數據視覺化，清晰呈現血壓趨勢，協助您和醫生更好地了解您的健康狀況。",
-    subFeatures: ["週/月/年趨勢圖表", "異常值提示", "數據篩選功能", "健康指標對比"],
-    image: "/images/feature-analyze.png",
-  },
-  {
-    id: "remind",
-    title: "智能提醒",
-    icon: <Bell className="w-5 h-5" />,
-    description: "智能提醒系統，根據您的作息與醫囑設定提醒，確保按時測量血壓和服藥。",
-    subFeatures: ["定時測量提醒", "個性化提醒設置", "用藥提醒功能", "重要事項推送通知"],
-    image: "/images/feature-remind.png",
-  },
-  {
-    id: "share",
-    title: "報告分享",
-    icon: <Share2 className="w-5 h-5" />,
-    description: "一鍵生成專業醫療報告，支援多種分享方式，方便您與醫療團隊溝通。",
-    subFeatures: ["PDF報告導出", "多格式支援", "醫生直接訪問權限", "報告加密保護"],
-    image: "/images/feature-share.png",
-  },
-];
+function Feature({ icon, title, description, delay }: FeatureProps) {
+  return (
+    <motion.div className="flex flex-col items-center text-center p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay }}>
+      <div className="mb-4 p-3 rounded-full bg-primary-100 dark:bg-primary-900/30">{icon}</div>
+      <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
+      <p className="text-muted-foreground">{description}</p>
+    </motion.div>
+  );
+}
 
 export default function FeaturesSection() {
-  const [activeFeature, setActiveFeature] = useState("record");
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  const features = [
+    {
+      icon: <LineChart className="h-6 w-6 text-primary" />,
+      title: "趨勢分析",
+      description: "透過直觀的圖表，輕鬆掌握血壓變化趨勢，及早發現潛在問題",
+    },
+    {
+      icon: <Bell className="h-6 w-6 text-primary" />,
+      title: "智能提醒",
+      description: "自定義測量提醒，確保按時記錄，養成良好的健康管理習慣",
+    },
+    {
+      icon: <Share2 className="h-6 w-6 text-primary" />,
+      title: "醫療分享",
+      description: "一鍵生成專業報告，輕鬆與醫生分享，提升診療效率與準確性",
+    },
+    {
+      icon: <Calendar className="h-6 w-6 text-primary" />,
+      title: "歷史記錄",
+      description: "完整保存所有測量數據，隨時查閱，全面了解健康狀況變化",
+    },
+    {
+      icon: <Cloud className="h-6 w-6 text-primary" />,
+      title: "雲端同步",
+      description: "數據自動同步至雲端，多設備訪問，不怕資料遺失或設備更換",
+    },
+    {
+      icon: <Smartphone className="h-6 w-6 text-primary" />,
+      title: "跨平台支援",
+      description: "支援手機、平板與電腦，隨時隨地管理您的健康數據",
+    },
+  ];
 
   return (
-    <section id="features" className="py-20 bg-slate-50">
+    <section id="features" className="py-20 relative overflow-hidden">
+      {/* 背景裝飾 */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary-100/30 to-secondary-100/30 dark:from-primary-900/10 dark:to-secondary-900/10 blur-3xl"></div>
+      </div>
+
       <div className="container mx-auto px-4">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold mb-4">強大功能，簡單操作</h2>
-          <p className="text-muted-foreground text-lg">健康守護提供多種實用功能，幫助您輕鬆管理血壓健康</p>
+        <div className="text-center mb-16">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            功能特點
+          </motion.h2>
+          <motion.p
+            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            我們的血壓管理應用提供全方位的功能，幫助您輕鬆追蹤、分析和管理血壓數據
+          </motion.p>
         </div>
 
-        <Tabs defaultValue="record" className="w-full" onValueChange={setActiveFeature}>
-          <div className="flex justify-center mb-8">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 bg-muted/50">
-              {features.map(feature => (
-                <TabsTrigger key={feature.id} value={feature.id} className="flex items-center gap-2 data-[state=active]:bg-white">
-                  <span className="hidden md:inline">{feature.icon}</span>
-                  {feature.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+        <div ref={ref} className="relative">
+          {/* 應用截圖 */}
+          <motion.div className="mb-16 flex justify-center" initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7 }}>
+            <div className="relative w-full max-w-3xl h-[400px] md:h-[500px] rounded-xl overflow-hidden shadow-2xl dark:shadow-primary-900/10">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <p className="text-xl text-center text-muted-foreground px-4">應用截圖展示區</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 功能列表 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <Feature key={index} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + index * 0.1} />
+            ))}
           </div>
-
-          {features.map(feature => (
-            <TabsContent key={feature.id} value={feature.id} className="mt-0">
-              <Card>
-                <CardContent className="p-0">
-                  <div className="flex flex-col md:flex-row">
-                    {/* 左側功能說明 */}
-                    <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-center">
-                      <div className="mb-6">
-                        <div className="inline-flex items-center gap-2 text-2xl font-semibold mb-4">
-                          <span className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">{feature.icon}</span>
-                          {feature.title}
-                        </div>
-                        <p className="text-muted-foreground">{feature.description}</p>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {feature.subFeatures.map((subFeature, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-                              <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                            </div>
-                            <span className="text-sm text-muted-foreground">{subFeature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* 右側功能螢幕截圖 */}
-                    <div className="md:w-1/2 bg-muted/10">
-                      <div className="p-6 md:p-8 h-full flex items-center justify-center">
-                        <div className="relative max-w-sm mx-auto">
-                          <div className="bg-background rounded-[2rem] p-3 shadow-xl">
-                            <div className="aspect-[9/19] relative rounded-[1.5rem] overflow-hidden border-[6px] border-muted">
-                              <div className="absolute inset-0 flex items-center justify-center bg-muted">
-                                <p className="text-muted-foreground">App 截圖範例</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
-        </Tabs>
+        </div>
       </div>
     </section>
   );
