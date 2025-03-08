@@ -40,11 +40,11 @@ export default function FaqSection() {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-neutral-50/50 dark:bg-background/30">
+    <section id="faq" className="py-24 bg-neutral-50/50 dark:bg-background/30">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            className="text-4xl md:text-5xl font-bold mb-6 text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -52,7 +52,7 @@ export default function FaqSection() {
             常見問題
           </motion.h2>
           <motion.p
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -61,13 +61,13 @@ export default function FaqSection() {
           </motion.p>
         </div>
 
-        <div ref={ref} className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="w-full">
+        <div ref={ref} className="max-w-4xl mx-auto">
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
               <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}>
-                <AccordionItem value={`item-${index}`} className="border-b border-border dark:border-primary-900/20">
-                  <AccordionTrigger className="text-left font-medium text-foreground hover:text-primary">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
+                <AccordionItem value={`item-${index}`} className="border border-border dark:border-primary-900/20 rounded-lg mb-4 overflow-hidden shadow-sm">
+                  <AccordionTrigger className="text-left text-lg md:text-xl font-medium text-foreground hover:text-primary px-6 py-4">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-base md:text-lg text-muted-foreground px-6 pb-6">{faq.answer}</AccordionContent>
                 </AccordionItem>
               </motion.div>
             ))}

@@ -51,62 +51,69 @@ export default function SubscriptionForm() {
   };
 
   return (
-    <section id="subscribe" className="py-20 relative overflow-hidden">
+    <section id="subscribe" className="py-28 relative overflow-hidden">
       {/* 背景裝飾 */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary-100/30 to-secondary-100/30 dark:from-primary-900/10 dark:to-secondary-900/10 blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4">
-        <div ref={ref} className="max-w-3xl mx-auto">
-          <motion.div className="text-center mb-10" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">獲取最新健康資訊</h2>
-            <p className="text-lg text-muted-foreground">訂閱我們的電子報，獲取血壓管理技巧、健康生活方式建議和產品更新</p>
+        <div ref={ref} className="max-w-4xl mx-auto">
+          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">完整預先註冊</h2>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議</p>
           </motion.div>
 
           <motion.div
-            className="bg-background dark:bg-card rounded-xl p-8 shadow-xl dark:shadow-primary-900/10"
+            className="bg-background dark:bg-card rounded-xl p-10 shadow-2xl dark:shadow-primary-900/10 border border-primary-100 dark:border-primary-800/20"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             {isSuccess ? (
               <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-8 w-8 text-green-600 dark:text-green-400" />
+                <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Mail className="h-10 w-10 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-foreground">訂閱成功！</h3>
-                <p className="text-muted-foreground">感謝您的訂閱，我們將定期發送有價值的健康資訊給您。</p>
-                <Button className="mt-6" onClick={() => setIsSuccess(false)}>
-                  返回訂閱
+                <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground">註冊成功！</h3>
+                <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。</p>
+                <Button className="mt-8 text-lg h-12 px-6" onClick={() => setIsSuccess(false)}>
+                  返回
                 </Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground">
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="text-lg font-medium text-foreground">
                     電子郵件
                   </Label>
                   <div className="flex gap-2">
-                    <Input id="email" type="email" placeholder="your.email@example.com" value={email} onChange={e => setEmail(e.target.value)} className="flex-1" />
-                    <Button type="submit" disabled={isSubmitting} className="gap-2">
-                      訂閱
-                      <ArrowRight className="h-4 w-4" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your.email@example.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="flex-1 text-lg h-14 px-4"
+                    />
+                    <Button type="submit" disabled={isSubmitting} className="gap-2 text-lg h-14 px-6">
+                      預先註冊
+                      <ArrowRight className="h-5 w-5" />
                     </Button>
                   </div>
-                  {error && <p className="text-sm text-red-500 dark:text-red-400 mt-1">{error}</p>}
+                  {error && <p className="text-base text-red-500 dark:text-red-400 mt-2">{error}</p>}
                 </div>
 
-                <div className="flex items-start space-x-2">
-                  <Checkbox id="terms" />
-                  <div className="grid gap-1.5 leading-none">
-                    <Label htmlFor="terms" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-muted-foreground">
-                      我同意接收健康資訊和產品更新的電子郵件
+                <div className="flex items-start space-x-3 mt-6">
+                  <Checkbox id="terms" className="mt-1" />
+                  <div className="grid gap-1.5 leading-normal">
+                    <Label htmlFor="terms" className="text-base font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-muted-foreground">
+                      我同意接收產品發布通知、獨家優惠及健康管理建議
                     </Label>
                   </div>
                 </div>
 
-                <div className="text-sm text-muted-foreground">
+                <div className="text-base text-muted-foreground mt-6">
                   <p>
                     我們重視您的隱私，您可以隨時取消訂閱。查看我們的{" "}
                     <a href="#" className="text-primary hover:underline">

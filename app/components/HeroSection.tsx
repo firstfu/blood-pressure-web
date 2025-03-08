@@ -6,8 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone } from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
+import { Input } from "@/components/ui/input";
 
 export default function HeroSection() {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+
   const [isVisible, setIsVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(heroRef, { once: false, amount: 0.1 });
@@ -25,6 +31,41 @@ export default function HeroSection() {
   const springConfig = { damping: 50, stiffness: 300 };
   const mouseX = useSpring(0, springConfig);
   const mouseY = useSpring(0, springConfig);
+
+  const handleQuickSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) {
+      setError("請輸入您的電子郵件");
+      return;
+    }
+
+    // 簡單的電子郵件格式驗證
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("請輸入有效的電子郵件地址");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // 模擬 API 請求
+    try {
+      // 在實際應用中，這裡會是一個真正的 API 請求
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsSuccess(true);
+      setEmail("");
+
+      // 3秒後重置成功狀態
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+    } catch (err) {
+      setError("註冊失敗，請稍後再試");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   useEffect(() => {
     setIsVisible(true);
@@ -201,11 +242,14 @@ export default function HeroSection() {
             <motion.div className="flex flex-col sm:flex-row gap-4" variants={itemVariants}>
               <Button
                 size="lg"
-                asChild
+                onClick={() => {
+                  const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
+                  if (emailInput) emailInput.focus();
+                }}
                 className="rounded-full gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 group py-7 text-lg" // 增加按鈕大小和文字大小
               >
-                <motion.a href="#subscribe" whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                  立即加入
+                <motion.span whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+                  立即預先註冊
                   <motion.span
                     initial={{ x: 0 }}
                     animate={{ x: [0, 5, 0] }}
@@ -219,7 +263,7 @@ export default function HeroSection() {
                   >
                     <ArrowRight className="ml-2 h-5 w-5 inline-block" /> {/* 增加圖標大小 */}
                   </motion.span>
-                </motion.a>
+                </motion.span>
               </Button>
               <Button
                 size="lg"
@@ -244,6 +288,33 @@ export default function HeroSection() {
                 </motion.a>
               </Button>
             </motion.div>
+
+            {/* 快速註冊表單 */}
+            <motion.form onSubmit={handleQuickSignup} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md" variants={itemVariants}>
+              <div className="flex-1 relative">
+                <Input
+                  type="email"
+                  placeholder="您的電子郵件"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="h-12 pr-24 rounded-full border-primary-200 dark:border-primary-800/40 bg-white dark:bg-card"
+                />
+                <Button type="submit" disabled={isSubmitting} className="absolute right-1 top-1 h-10 rounded-full px-4">
+                  {isSubmitting ? "處理中..." : "預先註冊"}
+                </Button>
+              </div>
+              {error && <p className="text-sm text-red-500 dark:text-red-400 mt-1">{error}</p>}
+              {isSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="text-sm text-green-600 dark:text-green-400 mt-1 absolute -bottom-6 left-0"
+                >
+                  註冊成功！我們將在產品發布時通知您。
+                </motion.div>
+              )}
+            </motion.form>
 
             <motion.div
               className="pt-8 border-t border-border" // 使用主題變量
