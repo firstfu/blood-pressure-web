@@ -5,6 +5,7 @@ import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
 import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-react";
 import Image from "next/image";
+import AppScreenshotCarousel from "./AppScreenshotCarousel";
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -89,11 +90,11 @@ export default function FeaturesSection() {
 
         <div ref={ref} className="relative">
           {/* 應用截圖 */}
-          <motion.div className="mb-16 flex justify-center" initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7 }}>
-            <div className="relative w-full max-w-3xl h-[400px] md:h-[500px] rounded-xl overflow-hidden shadow-2xl dark:shadow-primary-900/10">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <p className="text-xl text-center text-muted-foreground px-4">應用截圖展示區</p>
+          <motion.div className="mb-24 flex justify-center" initial={{ opacity: 0, scale: 0.9 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.7 }}>
+            <div className="relative w-full max-w-xs md:max-w-sm h-[500px] md:h-[600px] rounded-xl overflow-hidden shadow-2xl dark:shadow-primary-900/10">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5 dark:from-primary-900/10 dark:to-secondary-900/10"></div>
+              <div className="absolute inset-0">
+                <AppScreenshotCarousel />
               </div>
             </div>
           </motion.div>
