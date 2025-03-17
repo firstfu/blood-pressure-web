@@ -87,6 +87,27 @@
   --sidebar-accent-foreground: var(--color-neutral-900);
   --sidebar-border: var(--color-neutral-200);
   --sidebar-ring: var(--color-primary-500);
+
+  /* 字型系統 */
+  --font-sans: var(--font-noto-sans-tc), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-heading: var(--font-noto-sans-tc), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+
+  /* 字型渲染優化 */
+  --font-smoothing: antialiased;
+  --webkit-font-smoothing: antialiased;
+  --moz-osx-font-smoothing: grayscale;
+  --text-rendering: optimizeLegibility;
+
+  /* 字體 kerning 和 ligatures 優化 */
+  --font-kerning: normal;
+  --font-feature-settings: "kern", "liga", "clig", "calt";
+
+  /* 中文字型微調 */
+  --webkit-locale: "zh-TW";
+  --hanging-punctuation: allow-end;
 }
 
 .dark {
@@ -213,9 +234,17 @@
 }
 
 body {
-  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+  font-family: var(--font-sans);
   background-color: var(--background);
   color: var(--foreground);
+  -webkit-font-smoothing: var(--webkit-font-smoothing);
+  -moz-osx-font-smoothing: var(--moz-osx-font-smoothing);
+  text-rendering: var(--text-rendering);
+  letter-spacing: -0.011em;
+  font-kerning: var(--font-kerning);
+  font-feature-settings: var(--font-feature-settings);
+  -webkit-locale: var(--webkit-locale);
+  hanging-punctuation: var(--hanging-punctuation);
 }
 
 /* 容器 */
@@ -339,19 +368,25 @@ html {
 
 /* 文字漸變 */
 .text-gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary-400), var(--color-primary-600));
+  background: linear-gradient(to right, var(--color-primary-400), var(--color-primary-600));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   color: transparent;
+  display: inline-block;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .text-gradient-secondary {
-  background: linear-gradient(135deg, var(--color-secondary-400), var(--color-secondary-600));
+  background: linear-gradient(to right, var(--color-secondary-400), var(--color-secondary-600));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   color: transparent;
+  display: inline-block;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .text-gradient-accent {
@@ -601,4 +636,31 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* 字型樣式類 */
+.font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-feature-settings: "kern", "liga", "clig", "calt", "dlig";
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+  font-feature-settings: var(--font-feature-settings);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "kern", "liga", "clig", "calt", "dlig";
+}
+
+/* 文字渲染優化 */
+.text-optimized {
+  -webkit-font-smoothing: var(--webkit-font-smoothing);
+  -moz-osx-font-smoothing: var(--moz-osx-font-smoothing);
+  text-rendering: var(--text-rendering);
+  font-kerning: var(--font-kerning);
+  font-feature-settings: var(--font-feature-settings);
 }

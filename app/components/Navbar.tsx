@@ -83,7 +83,7 @@ export default function Navbar() {
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
               <Link href="/" className="flex items-center space-x-2 group">
                 <motion.div className="relative flex items-center" whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                  <span className="text-3xl font-bold relative flex items-center">
+                  <span className="text-3xl font-heading font-bold relative flex items-center">
                     {" "}
                     {/* 增加 Logo 字體大小 */}
                     <motion.span
@@ -98,31 +98,11 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      健康
+                      <Droplets className="h-8 w-8 mr-1" />
                     </motion.span>
-                    <motion.span
-                      className="text-gradient-secondary flex items-center"
-                      animate={{
-                        opacity: [0.8, 1, 0.8],
-                        scale: [0.98, 1, 0.98],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                        delay: 1.5,
-                      }}
-                    >
-                      守護
-                      <Droplets className="w-6 h-6 ml-1 text-secondary-400 dark:text-secondary" /> {/* 適配暗黑模式 */}
-                    </motion.span>
+                    健康
+                    <span className="text-gradient-secondary">守護</span>
                   </span>
-                  <motion.span
-                    className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-primary-to-secondary rounded-full"
-                    initial={{ width: "0%" }}
-                    whileHover={{ width: "100%" }}
-                    transition={{ duration: 0.3 }}
-                  />
                 </motion.div>
               </Link>
             </motion.div>
@@ -139,20 +119,20 @@ export default function Navbar() {
                   <motion.div key={item.href} custom={i} initial="hidden" animate="visible" variants={itemVariants}>
                     <Link
                       href={item.href}
-                      className={`relative flex items-center space-x-1.5 px-5 py-2.5 rounded-full text-base font-medium transition-all duration-300 ${
-                        activeItem === item.href ? "gradient-primary-to-secondary text-white shadow-md" : "text-foreground hover:text-primary hover:bg-muted dark:hover:bg-muted/50" // 適配暗黑模式
-                      }`}
+                      className={`text-optimized relative px-4 py-2 text-base font-medium rounded-full flex items-center transition-all duration-300 ${
+                        activeItem === item.href
+                          ? "text-primary-600 dark:text-primary-400"
+                          : "text-foreground/80 hover:text-foreground dark:text-foreground/70 dark:hover:text-foreground"
+                      } hover:bg-background-hover dark:hover:bg-background-hover`}
                       onClick={() => setActiveItem(item.href)}
                     >
-                      <span className="inline-block">{item.icon}</span>
-                      <span>{item.label}</span>
-
-                      {/* 活動指示器 */}
+                      <span className="mr-1 opacity-70">{item.icon}</span>
+                      {item.label}
                       {activeItem === item.href && (
                         <motion.span
-                          className="absolute bottom-0 left-0 right-0 mx-auto w-1 h-1 bg-white rounded-full"
-                          layoutId="navIndicator"
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          layoutId="activeNavIndicator"
+                          className="absolute bottom-0 left-0 right-0 h-full bg-primary-100 dark:bg-primary-900/20 rounded-full -z-10"
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         />
                       )}
                     </Link>

@@ -54,20 +54,20 @@ export default function ValueSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            className="font-heading text-3xl md:text-4xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            我們的核心價值
+            為什麼選擇<span className="text-gradient-primary">健康守護</span>？
           </motion.h2>
           <motion.p
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            className="text-optimized text-lg text-muted-foreground max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            我們致力於提供最優質的血壓管理體驗，以下是我們的承諾
+            健康守護不僅僅是一個記錄血壓的應用，而是您全方位的健康管理助手，將數據、分析和醫療專業完美結合。
           </motion.p>
         </div>
 
