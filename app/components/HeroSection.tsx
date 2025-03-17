@@ -214,7 +214,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div className="space-y-4" variants={itemVariants}>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+              <h1 className="heading-serif text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
                 {" "}
                 {/* 增加標題字體大小 */}
                 <span className="text-foreground">健康守護：您的個人</span>
@@ -229,11 +229,11 @@ export default function HeroSection() {
                 </div>
                 <span className="text-foreground block md:inline">助手</span>
               </h1>
-              <p className="text-2xl text-muted-foreground">簡單紀錄，智能分析，連結醫療專業</p> {/* 使用主題變量 */}
+              <p className="font-rounded text-2xl text-muted-foreground">簡單紀錄，智能分析，連結醫療專業</p> {/* 使用主題變量 */}
             </motion.div>
 
             <motion.p
-              className="text-xl text-muted-foreground max-w-lg" // 使用主題變量
+              className="text-optimized font-sans text-xl text-muted-foreground max-w-lg" // 使用主題變量
               variants={itemVariants}
             >
               透過直覺式介面輕鬆記錄血壓數據，查看趨勢圖表分析健康狀況，並與醫療團隊分享完整報告，讓血壓管理變得簡單有效。

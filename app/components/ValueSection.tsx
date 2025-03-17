@@ -16,8 +16,8 @@ function Value({ icon, title, description, delay }: ValueProps) {
   return (
     <motion.div className="flex flex-col items-center text-center p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay }}>
       <div className="mb-4 p-3 rounded-full bg-primary-100 dark:bg-primary-900/30">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      <h3 className="heading-modern text-xl font-semibold mb-2 text-foreground">{title}</h3>
+      <p className="text-optimized font-sans text-muted-foreground">{description}</p>
     </motion.div>
   );
 }
@@ -54,7 +54,7 @@ export default function ValueSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2
-            className="font-heading text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            className="heading-serif text-3xl md:text-4xl font-bold mb-4 text-foreground"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
@@ -62,7 +62,7 @@ export default function ValueSection() {
             為什麼選擇<span className="text-gradient-primary">健康守護</span>？
           </motion.h2>
           <motion.p
-            className="text-optimized text-lg text-muted-foreground max-w-3xl mx-auto"
+            className="text-optimized font-rounded text-lg text-muted-foreground max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}

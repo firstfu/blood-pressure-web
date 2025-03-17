@@ -83,7 +83,7 @@ export default function Navbar() {
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
               <Link href="/" className="flex items-center space-x-2 group">
                 <motion.div className="relative flex items-center" whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                  <span className="text-3xl font-heading font-bold relative flex items-center">
+                  <span className="heading-serif text-3xl font-bold relative flex items-center">
                     {" "}
                     {/* 增加 Logo 字體大小 */}
                     <motion.span
@@ -127,7 +127,7 @@ export default function Navbar() {
                       onClick={() => setActiveItem(item.href)}
                     >
                       <span className="mr-1 opacity-70">{item.icon}</span>
-                      {item.label}
+                      <span className="font-rounded">{item.label}</span>
                       {activeItem === item.href && (
                         <motion.span
                           layoutId="activeNavIndicator"
