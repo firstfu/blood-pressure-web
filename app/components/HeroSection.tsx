@@ -102,11 +102,12 @@ const FeatureCard = ({ feature, index }) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
     whileHover={{ y: -2, boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.1)" }}
+    className="w-full sm:w-auto"
   >
-    <Card className="flex flex-col items-center gap-2 px-4 py-3 bg-background hover:bg-background transition-all duration-300 border-none shadow-soft">
-      <div className={`${feature.color} p-3 rounded-full`}>{feature.icon}</div>
+    <Card className="flex flex-col items-center gap-3 px-5 py-4 bg-background hover:bg-background transition-all duration-300 border-none shadow-soft">
+      <div className={`${feature.color} p-3.5 rounded-full`}>{feature.icon}</div>
       <div className="flex flex-col items-center">
-        <span className="text-base md:text-lg font-medium text-foreground">{feature.text}</span>
+        <span className="text-base md:text-lg font-medium text-foreground mb-1">{feature.text}</span>
         <span className="text-sm md:text-base text-muted-foreground">{feature.description}</span>
       </div>
     </Card>
@@ -205,16 +206,16 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-16 md:pt-24 pb-16 overflow-hidden mt-0">
+    <section id="hero" ref={heroRef} className="relative pt-20 md:pt-28 pb-20 overflow-hidden mt-0">
       <BackgroundDecorations />
 
-      <div className="container mx-auto px-3">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-8 pt-4">
+      <div className="container mx-auto px-5 md:px-8">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-16 pt-4">
           {/* 左側內容 */}
-          <motion.div className="lg:w-2/3 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="lg:w-1/2 space-y-8 md:space-y-10" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed" variants={animations.item}>
+            <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed tracking-wide" variants={animations.item}>
               透過直覺式介面輕鬆記錄血壓數據，查看趨勢圖表分析健康狀況，並與醫療團隊分享完整報告，讓血壓管理變得簡單有效。
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} />
@@ -223,7 +224,7 @@ export default function HeroSection() {
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="lg:w-5/12 relative lg:translate-x-5 mt-8 lg:mt-0"
+            className="lg:w-1/2 relative lg:translate-x-5 mt-12 lg:mt-0"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -310,10 +311,10 @@ const BadgeSection = () => (
 
 // 標題區塊元件
 const HeadingSection = () => (
-  <motion.div className="space-y-2" variants={animations.item}>
-    <h1 className="heading-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight max-w-4xl">
+  <motion.div className="space-y-4" variants={animations.item}>
+    <h1 className="heading-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight max-w-4xl leading-[1.1]">
       <span className="text-foreground">健康守護：您的個人</span>
-      <div className="relative inline-block mt-0.5">
+      <div className="relative inline-block mt-2 md:mt-4">
         <span className="relative z-10 text-gradient-primary">血壓管理</span>
         <motion.span
           className="absolute bottom-1 left-0 h-3 w-full bg-primary-200/50 dark:bg-primary-600/20 -z-0 rounded-full"
@@ -324,7 +325,7 @@ const HeadingSection = () => (
       </div>
       <span className="text-foreground block md:inline">助手</span>
     </h1>
-    <p className="font-rounded text-xl md:text-2xl text-muted-foreground">簡單紀錄，智能分析，連結醫療專業</p>
+    <p className="font-rounded text-xl md:text-2xl text-muted-foreground mt-2 tracking-wide">簡單紀錄，智能分析，連結醫療專業</p>
   </motion.div>
 );
 
@@ -397,8 +398,8 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
 
 // 特色功能區塊元件
 const FeaturesSection = () => (
-  <motion.div className="pt-4 border-t border-border" variants={animations.item}>
-    <div className="flex flex-wrap gap-3 items-center">
+  <motion.div className="pt-8 mt-4 border-t border-border" variants={animations.item}>
+    <div className="flex flex-wrap gap-5 items-start justify-start">
       {features.map((feature, index) => (
         <FeatureCard key={index} feature={feature} index={index} />
       ))}
