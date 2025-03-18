@@ -41,28 +41,6 @@ const heroImages = [
   },
 ];
 
-// 特色功能列表
-const features = [
-  {
-    icon: <Heart className="w-6 h-6" />,
-    text: "簡單記錄",
-    description: "快速輸入並管理血壓數據",
-    color: "bg-primary-100 text-primary-600 dark:bg-primary-900/40 dark:text-primary-300",
-  },
-  {
-    icon: <BarChart2 className="w-6 h-6" />,
-    text: "數據趨勢",
-    description: "清晰視覺化健康數據",
-    color: "bg-secondary-100 text-secondary-600 dark:bg-secondary-900/40 dark:text-secondary-300",
-  },
-  {
-    icon: <Share2 className="w-6 h-6" />,
-    text: "醫療連結",
-    description: "方便與醫生分享報告",
-    color: "bg-accent-100 text-accent-600 dark:bg-accent-900/40 dark:text-accent-300",
-  },
-];
-
 // 社會證明數據
 const socialProofs = [
   {
@@ -113,25 +91,6 @@ const animations = {
     },
   },
 };
-
-// 特色功能卡片元件
-const FeatureCard = ({ feature, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-    whileHover={{ y: -3, boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.1)" }}
-    className="w-full h-full"
-  >
-    <Card className="flex flex-col items-center gap-3 px-5 py-6 h-full bg-background hover:bg-accent-50 dark:hover:bg-accent-900/5 transition-all duration-300 border-none shadow-soft">
-      <div className={`${feature.color} p-4 rounded-full mb-1`}>{feature.icon}</div>
-      <div className="flex flex-col items-center text-center">
-        <span className="text-lg md:text-xl font-semibold text-foreground mb-2">{feature.text}</span>
-        <span className="text-sm md:text-base text-muted-foreground">{feature.description}</span>
-      </div>
-    </Card>
-  </motion.div>
-);
 
 // 手機預覽元件
 const PhonePreview = ({ y }) => (
@@ -241,7 +200,6 @@ export default function HeroSection() {
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
             <SocialProofSection />
-            <FeaturesSection />
           </motion.div>
 
           {/* 右側 App 預覽 */}
@@ -431,20 +389,6 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
         </motion.span>
       </motion.a>
     </Button>
-  </motion.div>
-);
-
-// 特色功能區塊元件
-const FeaturesSection = () => (
-  <motion.div className="pt-8 mt-4 border-t border-border" variants={animations.item}>
-    <h3 className="text-xl md:text-2xl font-bold text-foreground mb-6">
-      產品特色：<span className="text-primary-600 dark:text-primary-400">簡單、直觀、實用</span>
-    </h3>
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      {features.map((feature, index) => (
-        <FeatureCard key={index} feature={feature} index={index} />
-      ))}
-    </div>
   </motion.div>
 );
 
