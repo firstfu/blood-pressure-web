@@ -9,8 +9,8 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { ThemeToggle } from "./theme-toggle";
 
 const navItems = [
-  { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
   { href: "#preview", label: "產品預覽", icon: <BarChart2 className="w-5 h-5" /> },
+  { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
   { href: "#testimonials", label: "未來展望", icon: <Droplets className="w-5 h-5" /> },
   { href: "#faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
 ];

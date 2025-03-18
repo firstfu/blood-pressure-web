@@ -97,7 +97,7 @@ export default function AppScreenshotCarousel() {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
-            className="w-full h-full relative overflow-hidden"
+            className="w-full h-full relative overflow-hidden flex items-center justify-center"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -112,15 +112,17 @@ export default function AppScreenshotCarousel() {
               }
             }}
           >
-            <Image
-              src={screenshots[currentIndex].image}
-              alt={screenshots[currentIndex].title}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              quality={100}
-              priority
-            />
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
+                src={screenshots[currentIndex].image}
+                alt={screenshots[currentIndex].title}
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={100}
+                priority
+              />
+            </div>
 
             {/* 螢幕反光效果 - 增強光澤 */}
             <motion.div

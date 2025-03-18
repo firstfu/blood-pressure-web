@@ -199,12 +199,11 @@ export default function HeroSection() {
               面臨高血壓風險。我們的智能血壓管理平台為您提供簡便的記錄工具、專業的分析功能，並能與醫療團隊協作，幫助您更有效地監測和管理血壓健康。
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
-            <SocialProofSection />
           </motion.div>
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="lg:w-1/2 relative lg:translate-x-5 mt-4 lg:mt-0 lg:-translate-y-40 flex items-center justify-center"
+            className="lg:w-1/2 relative lg:translate-x-5 mt-4 lg:mt-0 lg:-translate-y-10 flex items-center justify-center"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -213,6 +212,33 @@ export default function HeroSection() {
             <PhonePreview y={y} />
             <BackgroundGlow />
           </motion.div>
+        </motion.div>
+
+        {/* 獨立顯示的社會證明區塊 */}
+        <motion.div
+          className="mt-10 pt-10 pb-5 border-t border-primary-100 dark:border-primary-800/30"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <h3 className="text-xl font-medium text-center text-foreground mb-8">預先註冊獨享權益</h3>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+            {socialProofs.map((proof, index) => (
+              <motion.div
+                key={index}
+                className="flex flex-col items-center text-center"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
+              >
+                <div className="p-3 mb-3 rounded-full bg-primary-50 dark:bg-primary-900/30">
+                  <div className="text-primary-600 dark:text-primary-400">{proof.icon}</div>
+                </div>
+                <span className="text-2xl font-bold text-foreground mb-1">{proof.count}</span>
+                <span className="text-base text-muted-foreground">{proof.text}</span>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
 
@@ -406,22 +432,4 @@ const BackgroundGlow = () => (
       repeatType: "reverse",
     }}
   />
-);
-
-// 社會證明區塊元件
-const SocialProofSection = () => (
-  <motion.div className="py-2" variants={animations.item}>
-    <h3 className="text-base font-medium text-foreground mb-3">預先註冊獨享權益：</h3>
-    <div className="flex flex-wrap justify-between gap-4 md:gap-6">
-      {socialProofs.map((proof, index) => (
-        <div key={index} className="flex flex-col items-center md:items-start">
-          <div className="flex items-center mb-1 space-x-2">
-            <div className="text-primary-600 dark:text-primary-400">{proof.icon}</div>
-            <span className="text-lg md:text-xl font-bold text-foreground">{proof.count}</span>
-          </div>
-          <span className="text-sm text-muted-foreground">{proof.text}</span>
-        </div>
-      ))}
-    </div>
-  </motion.div>
 );
