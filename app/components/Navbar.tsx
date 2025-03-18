@@ -74,7 +74,7 @@ export default function Navbar() {
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled
             ? "bg-background/95 dark:bg-card/95 shadow-medium py-2" // 使用主題變量
-            : "bg-transparent py-4"
+            : "bg-transparent py-3"
         }`}
       >
         <div className="container mx-auto px-4">
@@ -230,7 +230,12 @@ export default function Navbar() {
                   {" "}
                   {/* 適配暗黑模式 */} {/* 使用主題變量 */}
                   <nav className="flex flex-col gap-6 mt-12">
-                    <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                    <motion.div
+                      className="flex items-center justify-center mb-8"
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <span className="text-4xl font-bold">
                         {" "}
                         {/* 增加字體大小 */}

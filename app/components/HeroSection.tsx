@@ -205,7 +205,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-28 pb-28 overflow-hidden">
+    <section id="hero" ref={heroRef} className="relative pt-10 pb-28 overflow-hidden">
       {/* 背景裝飾 */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-white dark:from-background dark:to-background/80 -z-10" />
 
