@@ -96,12 +96,12 @@ export default function FeaturesSection() {
         <div ref={ref} className="relative">
           {/* 應用截圖 */}
           <motion.div
-            className="mb-32 flex justify-center"
+            className="mb-40 flex justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="relative w-full max-w-[380px] md:max-w-[420px] h-[680px] md:h-[750px] rounded-[2.5rem] overflow-hidden shadow-2xl dark:shadow-primary-900/20">
+            <div className="relative w-full max-w-[400px] md:max-w-[450px] h-[700px] md:h-[780px] rounded-[2.5rem] overflow-hidden shadow-2xl dark:shadow-primary-900/20">
               <div className="absolute inset-0 bg-gradient-radial from-primary-500/5 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20"></div>
 
               {/* 發光效果 */}

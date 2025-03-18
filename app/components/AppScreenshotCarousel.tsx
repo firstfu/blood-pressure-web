@@ -87,10 +87,9 @@ export default function AppScreenshotCarousel() {
       {/* 上方圓角缺口 */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-4 bg-black/5 dark:bg-white/5 rounded-b-lg z-20"></div>
 
-      {/* 頂部狀態欄 */}
+      {/* 頂部狀態欄 - 移除文字 */}
       <div className="absolute top-4 left-0 right-0 h-6 bg-gradient-to-b from-white/5 to-transparent dark:from-black/5 dark:to-transparent backdrop-blur-sm z-10">
-        <div className="flex justify-between items-center px-5 h-full">
-          <div className="text-[8px] font-medium text-black/50 dark:text-white/50">10:30</div>
+        <div className="flex justify-end items-center px-5 h-full">
           <div className="flex space-x-1">
             <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
             <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
@@ -99,36 +98,38 @@ export default function AppScreenshotCarousel() {
         </div>
       </div>
 
-      {/* 標題和描述 */}
+      {/* 標題和描述 - 移出截圖區域 */}
       <motion.div
-        className="absolute top-14 left-0 right-0 z-20 px-6 py-3"
-        initial={{ opacity: 0, y: -10 }}
+        className="absolute -bottom-14 left-0 right-0 z-40 px-6 py-3"
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
+        exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.3 }}
       >
-        <motion.h3
-          key={`title-${currentIndex}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="text-lg font-bold text-gray-900 dark:text-gray-100 text-center"
-        >
-          {screenshots[currentIndex].title}
-        </motion.h3>
-        <motion.p
-          key={`desc-${currentIndex}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="text-base text-gray-700 dark:text-gray-300 text-center mt-1"
-        >
-          {screenshots[currentIndex].description}
-        </motion.p>
+        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-3 rounded-xl shadow-lg">
+          <motion.h3
+            key={`title-${currentIndex}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-lg font-bold text-gray-900 dark:text-gray-100 text-center"
+          >
+            {screenshots[currentIndex].title}
+          </motion.h3>
+          <motion.p
+            key={`desc-${currentIndex}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="text-base text-gray-700 dark:text-gray-300 text-center mt-1"
+          >
+            {screenshots[currentIndex].description}
+          </motion.p>
+        </div>
       </motion.div>
 
-      {/* 截圖展示區 */}
-      <div className="relative w-full h-full overflow-hidden pt-24 pb-10 px-1">
+      {/* 截圖展示區 - 調整內邊距 */}
+      <div className="relative w-full h-full overflow-hidden pt-12 pb-8 px-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -192,7 +193,7 @@ export default function AppScreenshotCarousel() {
       </div>
 
       {/* 指示器 */}
-      <div className="absolute -bottom-16 left-0 right-0 flex justify-center z-10">
+      <div className="absolute -bottom-32 left-0 right-0 flex justify-center z-10">
         <div className="flex space-x-4">
           {screenshots.map((_, index) => (
             <motion.button
