@@ -226,13 +226,13 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-20 md:pt-28 pb-20 overflow-hidden mt-0">
+    <section id="hero" ref={heroRef} className="relative pt-12 md:pt-20 pb-20 overflow-hidden mt-0">
       <BackgroundDecorations />
 
       <div className="container mx-auto px-5 md:px-8">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-16 pt-4">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-16 pt-0">
           {/* 左側內容 */}
-          <motion.div className="lg:w-1/2 space-y-8 md:space-y-10" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="lg:w-1/2 space-y-6 md:space-y-8 -mt-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
             <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed tracking-wide" variants={animations.item}>
@@ -246,7 +246,7 @@ export default function HeroSection() {
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="lg:w-1/2 relative lg:translate-x-5 mt-12 lg:mt-0 lg:-translate-y-60 flex items-center justify-center"
+            className="lg:w-1/2 relative lg:translate-x-5 mt-4 lg:mt-0 lg:-translate-y-40 flex items-center justify-center"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
