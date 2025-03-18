@@ -213,33 +213,6 @@ export default function HeroSection() {
             <BackgroundGlow />
           </motion.div>
         </motion.div>
-
-        {/* 獨立顯示的社會證明區塊 */}
-        <motion.div
-          className="mt-10 pt-10 pb-5 border-t border-primary-100 dark:border-primary-800/30"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <h3 className="text-xl font-medium text-center text-foreground mb-8">預先註冊獨享權益</h3>
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            {socialProofs.map((proof, index) => (
-              <motion.div
-                key={index}
-                className="flex flex-col items-center text-center"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.9 + index * 0.1 }}
-              >
-                <div className="p-3 mb-3 rounded-full bg-primary-50 dark:bg-primary-900/30">
-                  <div className="text-primary-600 dark:text-primary-400">{proof.icon}</div>
-                </div>
-                <span className="text-2xl font-bold text-foreground mb-1">{proof.count}</span>
-                <span className="text-base text-muted-foreground">{proof.text}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
 
       {/* 成功提示 */}
@@ -268,6 +241,31 @@ export default function HeroSection() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* 頁尾權益展示 */}
+      <div className="absolute bottom-0 left-0 right-0 bg-transparent">
+        <div className="container mx-auto">
+          <motion.div className="flex justify-center items-center py-4 px-4" initial={{ opacity: 0 }} animate={{ opacity: 0.9 }} transition={{ duration: 0.8, delay: 1.2 }}>
+            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+              {socialProofs.map((proof, index) => (
+                <motion.div
+                  key={index}
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
+                >
+                  <div className="text-primary-400/80">{proof.icon}</div>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium text-foreground/80">{proof.count}</span>
+                    <span className="text-xs text-muted-foreground/70">{proof.text}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
