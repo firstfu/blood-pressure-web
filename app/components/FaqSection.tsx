@@ -17,7 +17,8 @@ export default function FaqSection() {
     },
     {
       question: "如何將我的血壓計與應用連接？",
-      answer: "我們的應用支援多種藍牙血壓計連接。只需在應用設置中選擇「連接設備」，然後按照指示將您的血壓計與手機配對即可。對於不支援藍牙的血壓計，您也可以手動輸入測量結果。",
+      answer:
+        "我們的應用支援多種藍牙血壓計連接。只需在應用設置中選擇「連接設備」，然後按照指示將您的血壓計與手機配對即可。對於不支援藍牙的血壓計，您也可以手動輸入測量結果。",
     },
     {
       question: "我的健康數據安全嗎？",
@@ -26,7 +27,8 @@ export default function FaqSection() {
     },
     {
       question: "應用是否提供血壓異常警報？",
-      answer: "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
+      answer:
+        "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
     },
     {
       question: "如何與我的醫生分享我的血壓數據？",
@@ -35,7 +37,18 @@ export default function FaqSection() {
     },
     {
       question: "應用是否需要付費？有哪些訂閱計劃？",
-      answer: "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
+      answer:
+        "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
+    },
+    {
+      question: "我是否需要創建帳戶才能使用應用？",
+      answer:
+        "您可以在不創建帳戶的情況下使用應用的基本功能。但是，我們建議創建帳戶，以便您的數據能夠安全備份，並在更換設備時保持同步。創建帳戶還可以解鎖更多高級功能。",
+    },
+    {
+      question: "應用支持哪些設備型號？",
+      answer:
+        "我們支持大多數主流品牌的藍牙血壓計，包括Omron、iHealth、Withings、Beurer等。您可以在應用的「支持設備」列表中查看完整的兼容設備清單。如果您的設備不在列表中，您仍然可以通過手動輸入使用我們的應用。",
     },
   ];
 
@@ -64,9 +77,16 @@ export default function FaqSection() {
         <div ref={ref} className="max-w-4xl mx-auto">
           <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div key={index} initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              >
                 <AccordionItem value={`item-${index}`} className="border border-border dark:border-primary-900/20 rounded-lg mb-4 overflow-hidden shadow-sm">
-                  <AccordionTrigger className="text-left text-lg md:text-xl font-medium text-foreground hover:text-primary px-6 py-4">{faq.question}</AccordionTrigger>
+                  <AccordionTrigger className="text-left text-lg md:text-xl font-medium text-foreground hover:text-primary px-6 py-4">
+                    {faq.question}
+                  </AccordionTrigger>
                   <AccordionContent className="text-base md:text-lg text-muted-foreground px-6 pb-6">{faq.answer}</AccordionContent>
                 </AccordionItem>
               </motion.div>

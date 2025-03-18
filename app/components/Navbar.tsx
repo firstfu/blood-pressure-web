@@ -11,8 +11,8 @@ import { ThemeToggle } from "./theme-toggle";
 const navItems = [
   { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
   { href: "#preview", label: "產品預覽", icon: <BarChart2 className="w-5 h-5" /> },
-  { href: "#faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
-  { href: "#contact", label: "聯絡我們", icon: <ChevronRight className="w-5 h-5" /> },
+  { href: "/legal/faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
+  { href: "/legal/guide", label: "使用指南", icon: <ChevronRight className="w-5 h-5" /> },
 ];
 
 export default function Navbar() {

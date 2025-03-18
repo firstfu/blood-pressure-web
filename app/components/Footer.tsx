@@ -62,17 +62,17 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4 text-foreground">支援</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#faq" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/faq" className="text-muted-foreground hover:text-primary transition-colors">
                   常見問題
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/guide" className="text-muted-foreground hover:text-primary transition-colors">
                   使用指南
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
                   聯絡我們
                 </Link>
               </li>

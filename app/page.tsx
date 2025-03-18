@@ -6,6 +6,7 @@ import FeaturesSection from "./components/FeaturesSection";
 import TestimonialsSection from "./components/TestimonialsSection";
 import SubscriptionForm from "./components/SubscriptionForm";
 import FaqSection from "./components/FaqSection";
+import GuideSection from "./components/GuideSection";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <SubscriptionForm />
       <FeaturesSection />
       <TestimonialsSection />
+      <GuideSection />
       <FaqSection />
       <Footer />
     </main>
