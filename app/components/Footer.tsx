@@ -88,22 +88,22 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4 text-foreground">法律</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
                   隱私政策
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors">
                   使用條款
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/cookie-policy" className="text-muted-foreground hover:text-primary transition-colors">
                   Cookie 政策
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/legal/data-security" className="text-muted-foreground hover:text-primary transition-colors">
                   資料安全
                 </Link>
               </li>
