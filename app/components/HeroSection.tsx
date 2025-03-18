@@ -95,35 +95,6 @@ const animations = {
   },
 };
 
-// 快速註冊表單元件
-const QuickSignupForm = ({ email, setEmail, isSubmitting, isSuccess, error, handleQuickSignup }) => (
-  <motion.form onSubmit={handleQuickSignup} className="mt-4 flex flex-col sm:flex-row gap-1.5 max-w-xl" variants={animations.item}>
-    <div className="flex-1 relative">
-      <Input
-        type="email"
-        placeholder="您的電子郵件"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        className="h-10 pr-20 rounded-full border-primary-200 dark:border-primary-800/40 bg-white dark:bg-card"
-      />
-      <Button type="submit" disabled={isSubmitting} className="absolute right-1 top-0.5 h-9 rounded-full px-3 text-sm">
-        {isSubmitting ? "處理中..." : "預先註冊"}
-      </Button>
-    </div>
-    {error && <p className="text-xs text-red-500 dark:text-red-400 mt-0.5">{error}</p>}
-    {isSuccess && (
-      <motion.div
-        initial={{ opacity: 0, y: 5 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0 }}
-        className="text-xs text-green-600 dark:text-green-400 mt-0.5 absolute -bottom-5 left-0"
-      >
-        註冊成功！我們將在產品發布時通知您。
-      </motion.div>
-    )}
-  </motion.form>
-);
-
 // 特色功能卡片元件
 const FeatureCard = ({ feature, index }) => (
   <motion.div
@@ -208,10 +179,8 @@ const ReflectionEffect = () => (
 );
 
 export default function HeroSection() {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(heroRef, { once: false, amount: 0.1 });
   const { scrollYProgress } = useScroll({
@@ -222,25 +191,14 @@ export default function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
-  const handleQuickSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) {
-      setError("請輸入您的電子郵件");
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setError("請輸入有效的電子郵件地址");
-      return;
-    }
+  const handlePreRegister = async () => {
     setIsSubmitting(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       setIsSuccess(true);
-      setEmail("");
       setTimeout(() => setIsSuccess(false), 3000);
     } catch (err) {
-      setError("註冊失敗，請稍後再試");
+      console.error("註冊失敗", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -259,8 +217,7 @@ export default function HeroSection() {
             <motion.p className="text-optimized font-sans text-base text-muted-foreground max-w-2xl" variants={animations.item}>
               透過直覺式介面輕鬆記錄血壓數據，查看趨勢圖表分析健康狀況，並與醫療團隊分享完整報告，讓血壓管理變得簡單有效。
             </motion.p>
-            <ActionButtons />
-            <QuickSignupForm email={email} setEmail={setEmail} isSubmitting={isSubmitting} isSuccess={isSuccess} error={error} handleQuickSignup={handleQuickSignup} />
+            <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} />
             <FeaturesSection />
           </motion.div>
 
@@ -271,6 +228,31 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* 成功提示 */}
+      <AnimatePresence>
+        {isSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow-lg z-50 text-center text-sm"
+          >
+            <div className="flex items-center gap-2">
+              <div className="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 p-1.5 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span>預先註冊成功！我們將在產品發布時通知您。</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
@@ -343,31 +325,45 @@ const HeadingSection = () => (
 );
 
 // 動作按鈕元件
-const ActionButtons = () => (
+const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
   <motion.div className="flex flex-col sm:flex-row gap-2" variants={animations.item}>
     <Button
       size="default"
-      onClick={() => {
-        const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-        if (emailInput) emailInput.focus();
-      }}
+      onClick={handlePreRegister}
+      disabled={isSubmitting}
       className="rounded-full gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 group py-5 text-sm"
     >
       <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        立即預先註冊
-        <motion.span
-          initial={{ x: 0 }}
-          animate={{ x: [0, 4, 0] }}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-            repeatDelay: 1,
-          }}
-        >
-          <ArrowRight className="ml-1.5 h-3.5 w-3.5 inline-block" />
-        </motion.span>
+        {isSubmitting ? (
+          <span className="flex items-center">
+            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            處理中...
+          </span>
+        ) : (
+          <>
+            立即預先註冊
+            <motion.span
+              initial={{ x: 0 }}
+              animate={{ x: [0, 4, 0] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop",
+                ease: "easeInOut",
+                repeatDelay: 1,
+              }}
+            >
+              <ArrowRight className="ml-1.5 h-3.5 w-3.5 inline-block" />
+            </motion.span>
+          </>
+        )}
       </motion.span>
     </Button>
     <Button
