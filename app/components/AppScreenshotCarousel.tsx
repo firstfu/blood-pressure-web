@@ -93,36 +93,6 @@ export default function AppScreenshotCarousel() {
         </div>
       </div>
 
-      {/* 標題和描述 */}
-      <motion.div
-        className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-40 w-11/12"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md p-3 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/30">
-          <motion.h3
-            key={`title-${currentIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="text-base font-bold text-gray-900 dark:text-gray-100 text-center"
-          >
-            {screenshots[currentIndex].title}
-          </motion.h3>
-          <motion.p
-            key={`desc-${currentIndex}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="text-sm text-gray-700 dark:text-gray-300 text-center mt-1"
-          >
-            {screenshots[currentIndex].description}
-          </motion.p>
-        </div>
-      </motion.div>
-
       {/* 截圖展示區 */}
       <div className="relative w-full h-full overflow-hidden pt-8 pb-8">
         {/* 側邊提示陰影 */}
