@@ -436,7 +436,7 @@ export default function HeroSection() {
           {/* 右側 App 預覽 */}
           <motion.div className="lg:w-1/2" style={{ y }} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>
             <motion.div
-              className="relative max-w-[360px] mx-auto" // 增加手機模型大小
+              className="relative max-w-[320px] mx-auto" // 減少手機模型寬度
               style={{
                 x: useMotionTemplate`${mouseX.get() * 0.1}deg`,
                 y: useMotionTemplate`${mouseY.get() * 0.1}deg`,
@@ -461,25 +461,7 @@ export default function HeroSection() {
               {/* App 預覽 */}
               <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 100, damping: 10 }} className="relative z-10">
                 <Card className="relative overflow-hidden border-[6px] border-gray-900 dark:border-gray-800 shadow-hard rounded-[2.8rem] bg-background">
-                  {/* iPhone 16 Pro 動態島 */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[38px] bg-black rounded-b-3xl z-30 flex justify-center items-center">
-                    <div className="w-[90px] h-[26px] rounded-full bg-black flex items-center space-x-2 px-2">
-                      <div className="w-3 h-3 rounded-full bg-gray-800 ring-1 ring-gray-700 relative">
-                        <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-blue-400/40"></div>
-                      </div>
-                      <div className="w-2 h-2 rounded-full bg-gray-800/80"></div>
-                    </div>
-                  </div>
-
-                  {/* iPhone 16 Pro 側邊按鈕 */}
-                  <div className="absolute top-24 -left-[6px] w-[6px] h-12 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
-                  <div className="absolute top-40 -left-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
-                  <div className="absolute top-60 -left-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
-
-                  {/* iPhone 16 Pro 右側按鈕 */}
-                  <div className="absolute top-32 -right-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-r-md z-30"></div>
-
-                  <div className="aspect-[9/19] relative">
+                  <div className="aspect-[9/16] relative">
                     {/* 側邊提示陰影 - 增強側滑視覺引導 */}
                     <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/5 to-transparent z-20 pointer-events-none"></div>
                     <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/5 to-transparent z-20 pointer-events-none"></div>
@@ -530,7 +512,26 @@ export default function HeroSection() {
                         )}
                       </motion.div>
                     </AnimatePresence>
+
+                    {/* iPhone 16 Pro 動態島 - 放在這個位置，顯示在圖片上方 */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[38px] bg-black rounded-b-3xl z-50 flex justify-center items-center">
+                      <div className="w-[90px] h-[26px] rounded-full bg-black flex items-center space-x-2 px-2">
+                        <div className="w-3 h-3 rounded-full bg-gray-800 ring-1 ring-gray-700 relative">
+                          <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-blue-400/40"></div>
+                        </div>
+                        <div className="w-2 h-2 rounded-full bg-gray-800/80"></div>
+                      </div>
+                    </div>
                   </div>
+
+                  {/* iPhone 16 Pro 側邊按鈕 */}
+                  <div className="absolute top-20 -left-[6px] w-[6px] h-10 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
+                  <div className="absolute top-32 -left-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
+                  <div className="absolute top-48 -left-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
+
+                  {/* iPhone 16 Pro 右側按鈕 */}
+                  <div className="absolute top-28 -right-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-r-md z-50"></div>
+
                   {/* 螢幕反光效果 */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 dark:via-white/15 to-transparent opacity-0" // 適配暗黑模式
@@ -547,22 +548,22 @@ export default function HeroSection() {
                   {/* 輪播控制按鈕 */}
                   <button
                     onClick={goToPrevImage}
-                    className="absolute left-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-md z-10 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300 hover:scale-110"
+                    className="absolute left-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/40 dark:bg-gray-800/40 flex items-center justify-center shadow-md z-40 hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-300 hover:scale-110"
                     aria-label="上一張"
                   >
                     <ChevronLeft className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
                   </button>
                   <button
                     onClick={goToNextImage}
-                    className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-md z-10 hover:bg-white/70 dark:hover:bg-gray-800/70 transition-all duration-300 hover:scale-110"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/40 dark:bg-gray-800/40 flex items-center justify-center shadow-md z-40 hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-300 hover:scale-110"
                     aria-label="下一張"
                   >
                     <ChevronRight className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
                   </button>
 
                   {/* 底部導航條 - iPhone 16 Pro 風格 */}
-                  <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-2">
-                    <div className="w-[90px] h-[4px] bg-black/15 dark:bg-white/15 rounded-full"></div>
+                  <div className="absolute bottom-1 left-0 right-0 flex justify-center z-40 h-2">
+                    <div className="w-[80px] h-[4px] bg-black/15 dark:bg-white/15 rounded-full"></div>
                   </div>
                 </Card>
               </motion.div>
