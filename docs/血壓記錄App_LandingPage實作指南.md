@@ -197,7 +197,7 @@ export default function HeroSection() {
         <div className="lg:w-1/2 flex justify-center">
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-primary to-secondary rounded-2xl opacity-20 blur-xl"></div>
-            <img src="/images/app-mockup.png" alt="血壓記錄App畫面" className="relative z-10 max-w-full h-auto rounded-xl shadow-xl" />
+            <img src="/images/screen1.png" alt="血壓記錄App畫面" className="relative z-10 max-w-full h-auto rounded-xl shadow-xl" />
           </div>
         </div>
       </div>
