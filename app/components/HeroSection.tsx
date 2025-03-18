@@ -4,9 +4,37 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone } from "lucide-react";
+import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
+
+// 輪播圖片集
+const heroImages = [
+  {
+    src: "/images/screen1.png",
+    alt: "血壓記錄App畫面 - 主頁",
+  },
+  {
+    src: "/images/screen2.png",
+    alt: "血壓記錄App畫面 - 數據分析",
+  },
+  {
+    src: "/images/screen3.png",
+    alt: "血壓記錄App畫面 - 歷史記錄",
+  },
+  {
+    src: "/images/screen4.png",
+    alt: "血壓記錄App畫面 - 健康報告",
+  },
+  {
+    src: "/images/screen5.png",
+    alt: "血壓記錄App畫面 - 個人設定",
+  },
+  {
+    src: "/images/screen6.png",
+    alt: "血壓記錄App畫面 - 智能提醒",
+  },
+];
 
 export default function HeroSection() {
   const [email, setEmail] = useState("");
@@ -31,6 +59,42 @@ export default function HeroSection() {
   const springConfig = { damping: 50, stiffness: 300 };
   const mouseX = useSpring(0, springConfig);
   const mouseY = useSpring(0, springConfig);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [autoPlayHero, setAutoPlayHero] = useState(true);
+
+  // 自動輪播
+  useEffect(() => {
+    if (!autoPlayHero) return;
+
+    const interval = setInterval(() => {
+      setCurrentImageIndex(prev => (prev + 1) % heroImages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [autoPlayHero]);
+
+  // 暫停自動輪播（當用戶交互時）
+  const pauseAutoPlayHero = () => {
+    setAutoPlayHero(false);
+    // 4秒後恢復自動輪播
+    setTimeout(() => setAutoPlayHero(true), 4000);
+  };
+
+  const goToNextImage = () => {
+    pauseAutoPlayHero();
+    setCurrentImageIndex(prev => (prev + 1) % heroImages.length);
+  };
+
+  const goToPrevImage = () => {
+    pauseAutoPlayHero();
+    setCurrentImageIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
+  };
+
+  const goToImage = (index: number) => {
+    pauseAutoPlayHero();
+    setCurrentImageIndex(index);
+  };
 
   const handleQuickSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -412,7 +476,18 @@ export default function HeroSection() {
                   {" "}
                   {/* 使用主題變量 */}
                   <div className="aspect-[9/19] relative">
-                    <Image src="/images/screen1.png" alt="血壓記錄App畫面" fill className="object-contain" priority />
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentImageIndex}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="absolute inset-0"
+                      >
+                        <Image src={heroImages[currentImageIndex].src} alt={heroImages[currentImageIndex].alt} fill className="object-contain" priority />
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                   {/* 螢幕反光效果 */}
                   <motion.div
@@ -427,6 +502,36 @@ export default function HeroSection() {
                       repeatDelay: 5,
                     }}
                   />
+                  {/* 輪播控制按鈕 */}
+                  <button
+                    onClick={goToPrevImage}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 dark:bg-gray-800/70 flex items-center justify-center shadow-md z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
+                    aria-label="上一張"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                  </button>
+                  <button
+                    onClick={goToNextImage}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 dark:bg-gray-800/70 flex items-center justify-center shadow-md z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
+                    aria-label="下一張"
+                  >
+                    <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+                  </button>
+                  {/* 輪播指示器 */}
+                  <div className="absolute bottom-4 left-0 right-0 flex justify-center z-10">
+                    <div className="flex space-x-2">
+                      {heroImages.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => goToImage(index)}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            index === currentImageIndex ? "bg-primary-500 scale-125" : "bg-gray-300/70 dark:bg-gray-600/70"
+                          }`}
+                          aria-label={`前往第 ${index + 1} 張截圖`}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </Card>
               </motion.div>
 
