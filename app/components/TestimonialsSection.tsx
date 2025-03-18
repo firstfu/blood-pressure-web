@@ -1,38 +1,31 @@
+// @ Author: firstfu
+// @ Create Time: 2024-08-13 10:36:21
+// @ Description: 未來展望區塊 - 以未來願景替代尚未存在的用戶評價
+
 "use client";
 
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Sparkles, LineChart, Heart, Shield, Clock, Globe } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
-interface TestimonialProps {
-  name: string;
-  age: string;
-  comment: string;
-  rating: number;
+interface FutureVisionProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
   delay: number;
 }
 
-function Testimonial({ name, age, comment, rating, delay }: TestimonialProps) {
+function FutureVision({ title, description, icon, delay }: FutureVisionProps) {
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay }}>
       <Card className="h-full border-none shadow-medium dark:bg-card dark:shadow-lg dark:border-primary-900/20 overflow-hidden">
         <CardContent className="p-6">
-          <div className="flex items-center mb-4">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className={`h-4 w-4 ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-gray-600"}`} />
-            ))}
-          </div>
-          <p className="text-muted-foreground mb-4">{comment}</p>
-          <div className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary font-semibold">{name.charAt(0)}</div>
-            <div className="ml-3">
-              <p className="font-medium text-foreground">{name}</p>
-              <p className="text-sm text-muted-foreground">{age}</p>
-            </div>
-          </div>
+          <div className="flex items-center mb-4 text-primary-600 dark:text-primary-400">{icon}</div>
+          <h3 className="text-lg font-semibold mb-2 text-foreground">{title}</h3>
+          <p className="text-muted-foreground">{description}</p>
         </CardContent>
       </Card>
     </motion.div>
@@ -43,30 +36,26 @@ export default function TestimonialsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const testimonials = [
+  const futureVisions = [
     {
-      name: "王先生",
-      age: "65歲，高血壓患者",
-      comment: "使用這款應用後，我終於能夠清楚地追蹤我的血壓變化。醫生也很讚賞我能提供完整的血壓記錄，讓治療更有針對性。",
-      rating: 5,
+      title: "智能健康分析",
+      description: "未來版本將融合更多健康指標，提供個人化的健康趨勢分析與建議，幫助您從各方面守護心血管健康。",
+      icon: <LineChart className="h-6 w-6" />,
     },
     {
-      name: "李女士",
-      age: "58歲，心臟病康復者",
-      comment: "介面簡單易用，即使我這個不太懂科技的人也能輕鬆操作。提醒功能很貼心，讓我養成了定時測量血壓的好習慣。",
-      rating: 4,
+      title: "醫療資源整合",
+      description: "我們計劃與更多醫療機構合作，讓您能輕鬆與專業醫師交流，獲得及時的健康建議與照護。",
+      icon: <Heart className="h-6 w-6" />,
     },
     {
-      name: "張醫師",
-      age: "42歲，家庭醫生",
-      comment: "我向我的患者推薦這款應用，因為它提供的數據報告非常專業，讓我能更全面地了解患者的血壓狀況，提供更精準的治療建議。",
-      rating: 5,
+      title: "資料安全保障",
+      description: "我們承諾採用最高標準的加密技術，保護您的健康數據安全，讓您能安心使用而無需擔憂隱私問題。",
+      icon: <Shield className="h-6 w-6" />,
     },
     {
-      name: "陳小姐",
-      age: "35歲，健康管理愛好者",
-      comment: "雖然我沒有血壓問題，但我用這款應用來監測家人的健康狀況。介面美觀，功能齊全，是一款非常實用的健康管理工具。",
-      rating: 4,
+      title: "持續更新優化",
+      description: "團隊將根據用戶反饋持續改進產品體驗，預先註冊用戶將獲得第一手的功能更新與專屬優惠。",
+      icon: <Clock className="h-6 w-6" />,
     },
   ];
 
@@ -80,7 +69,7 @@ export default function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            用戶評價
+            未來展望
           </motion.h2>
           <motion.p
             className="text-lg text-muted-foreground max-w-3xl mx-auto"
@@ -88,13 +77,13 @@ export default function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            聽聽我們的用戶怎麼說，他們的真實體驗是我們最好的見證
+            我們正不斷創新，打造更完善的血壓健康管理體驗
           </motion.p>
         </div>
 
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <Testimonial key={index} name={testimonial.name} age={testimonial.age} comment={testimonial.comment} rating={testimonial.rating} delay={0.3 + index * 0.1} />
+          {futureVisions.map((vision, index) => (
+            <FutureVision key={index} title={vision.title} description={vision.description} icon={vision.icon} delay={0.3 + index * 0.1} />
           ))}
         </div>
       </div>
