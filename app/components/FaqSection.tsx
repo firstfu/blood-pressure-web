@@ -41,10 +41,6 @@ export default function FaqSection() {
       title: "使用問題",
       items: [
         {
-          question: "如何將我的血壓計與應用連接？",
-          answer: "我們的應用支援多種藍牙血壓計連接。只需在應用設置中選擇「連接設備」，然後按照指示將您的血壓計與手機配對即可。對於不支援藍牙的血壓計，您也可以手動輸入測量結果。",
-        },
-        {
           question: "應用是否提供血壓異常警報？",
           answer: "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
         },
@@ -52,11 +48,6 @@ export default function FaqSection() {
           question: "如何與我的醫生分享我的血壓數據？",
           answer:
             "我們提供多種方式分享您的健康數據。您可以生成專業的PDF報告，通過電子郵件發送給您的醫生；也可以在就診時直接展示應用中的趨勢圖表；還可以通過應用直接與已註冊的醫療專業人員分享您的數據。",
-        },
-        {
-          question: "應用支持哪些設備型號？",
-          answer:
-            "我們支持大多數主流品牌的藍牙血壓計，包括Omron、iHealth、Withings、Beurer等。您可以在應用的「支持設備」列表中查看完整的兼容設備清單。如果您的設備不在列表中，您仍然可以通過手動輸入使用我們的應用。",
         },
       ],
     },
@@ -73,11 +64,6 @@ export default function FaqSection() {
           question: "應用需要什麼系統要求？",
           answer:
             "我們的應用適用於iOS 12.0及以上版本和Android 8.0及以上版本。為了獲得最佳體驗，我們建議使用最新版本的操作系統。應用本身佔用空間較小，但隨著數據增長，可能需要更多存儲空間。",
-        },
-        {
-          question: "如果藍牙連接有問題怎麼辦？",
-          answer:
-            "藍牙連接問題通常可以通過以下步驟解決：1) 確保血壓計電量充足；2) 重啟藍牙設備和手機；3) 在手機藍牙設置中忘記該設備，然後重新配對；4) 確保血壓計和手機距離足夠近（10米以內）；5) 更新至最新版本的應用。",
         },
         {
           question: "我可以在多個設備上使用同一個帳戶嗎？",
@@ -113,41 +99,50 @@ export default function FaqSection() {
           <Tabs defaultValue="general" className="w-full" onValueChange={setActiveTab}>
             <div className="flex justify-center mb-10">
               <motion.div
-                className="bg-white/80 dark:bg-gray-800/60 backdrop-blur-md rounded-2xl shadow-lg relative overflow-hidden p-0.5 w-full max-w-xl"
+                className="bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-800/60 dark:via-gray-800/40 dark:to-gray-800/60 backdrop-blur-md rounded-2xl shadow-lg relative overflow-hidden p-0.5 w-full max-w-xl"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-100/20 via-transparent to-primary-100/20 dark:from-primary-900/10 dark:via-transparent dark:to-primary-900/10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-200/20 via-primary-100/10 to-blue-200/20 dark:from-primary-900/20 dark:via-transparent dark:to-primary-900/20 animate-gradient-x"></div>
 
-                <div className="relative rounded-xl overflow-hidden p-1 bg-white/95 dark:bg-gray-800/95">
-                  <TabsList className="relative z-10 bg-transparent dark:bg-transparent w-full flex items-center justify-between p-0 gap-1 h-11 border-0">
-                    {faqCategories.map((category, index) => (
+                <div className="relative rounded-xl overflow-hidden p-1 bg-gradient-to-br from-white/90 via-white/95 to-white/90 dark:from-gray-800/90 dark:via-gray-800/95 dark:to-gray-800/90">
+                  <div className="relative z-10 bg-transparent w-full flex items-center justify-between p-0 gap-1 h-11 border-0">
+                    <div className="absolute inset-0 z-0">
                       <motion.div
-                        key={category.id}
-                        className="flex-1"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
-                      >
+                        layoutId="activeTabBackground"
+                        className="absolute rounded-lg bg-gradient-to-r from-primary-500/95 via-primary-400/95 to-secondary-500/95 shadow-md"
+                        initial={false}
+                        animate={{
+                          x: `${faqCategories.findIndex(c => c.id === activeTab) * (100 / faqCategories.length)}%`,
+                          width: `${100 / faqCategories.length}%`,
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
+                      />
+                    </div>
+
+                    <TabsList className="relative w-full h-full flex justify-between gap-1 border-0 bg-transparent overflow-visible z-10">
+                      {faqCategories.map(category => (
                         <TabsTrigger
+                          key={category.id}
                           value={category.id}
-                          className="relative text-base font-medium w-full h-full py-2 rounded-lg data-[state=active]:text-white data-[state=active]:dark:text-white data-[state=inactive]:text-muted-foreground data-[state=inactive]:hover:text-foreground transition-all duration-300"
+                          className="relative flex-1 text-base font-medium h-full py-2 rounded-lg
+                            data-[state=active]:text-white data-[state=active]:shadow-sm
+                            data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-gray-900
+                            dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:text-gray-200
+                            data-[state=inactive]:hover:bg-blue-50/50 dark:data-[state=inactive]:hover:bg-gray-700/30
+                            data-[state=active]:scale-[0.98] data-[state=active]:transform
+                            transition-all duration-300 bg-transparent z-10"
                         >
-                          {activeTab === category.id && (
-                            <motion.div
-                              layoutId="activeTabBackground"
-                              className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg shadow-sm z-0"
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              transition={{ duration: 0.3 }}
-                            />
-                          )}
-                          <span className="relative z-10">{category.title}</span>
+                          <span className="relative z-10 mix-blend-normal">{category.title}</span>
                         </TabsTrigger>
-                      </motion.div>
-                    ))}
-                  </TabsList>
+                      ))}
+                    </TabsList>
+                  </div>
                 </div>
               </motion.div>
             </div>

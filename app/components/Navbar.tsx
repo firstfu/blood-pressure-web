@@ -72,8 +72,8 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-background/95 dark:bg-card/95 shadow-medium py-2" // 使用主題變量
-            : "bg-transparent py-3"
+            ? "bg-gradient-to-r from-primary-200 via-background to-accent-200 dark:from-primary-800 dark:via-card dark:to-accent-800 shadow-medium py-2"
+            : "bg-gradient-to-r from-primary-300 via-background to-accent-300 dark:from-primary-800 dark:via-card dark:to-accent-800 py-3"
         }`}
       >
         <div className="container mx-auto px-4">
@@ -109,7 +109,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <motion.div
-                className="flex items-center bg-background/90 dark:bg-card/90 rounded-full px-1 py-1 shadow-soft" // 適配暗黑模式
+                className="flex items-center bg-gradient-to-r from-primary-200 via-background to-accent-200 dark:from-primary-800 dark:via-card dark:to-accent-800 rounded-full px-1 py-1 shadow-soft"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -198,7 +198,7 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="relative bg-background/90 dark:bg-card/90 rounded-full p-2" // 適配暗黑模式
+                    className="relative bg-gradient-to-r from-primary-200 to-accent-200 dark:from-primary-800 dark:to-accent-800 rounded-full p-2"
                   >
                     <AnimatePresence mode="wait">
                       {isMobileMenuOpen ? (
