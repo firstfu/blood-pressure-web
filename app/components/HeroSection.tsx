@@ -246,7 +246,7 @@ export default function HeroSection() {
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="lg:w-1/2 relative lg:translate-x-5 mt-12 lg:mt-0"
+            className="lg:w-1/2 relative lg:translate-x-5 mt-12 lg:mt-0 lg:-translate-y-12"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
