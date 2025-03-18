@@ -82,26 +82,26 @@ export default function AppScreenshotCarousel() {
   return (
     <div className="relative w-full h-full flex flex-col">
       {/* 模擬手機框架 */}
-      <div className="absolute inset-0 rounded-[2.5rem] border-[10px] border-black/10 dark:border-white/10 shadow-xl z-0"></div>
+      <div className="absolute inset-0 rounded-[2.5rem] border-[8px] border-black/5 dark:border-white/5 shadow-xl z-0"></div>
 
       {/* 上方圓角缺口 */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-black/10 dark:bg-white/10 rounded-b-lg z-20"></div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-4 bg-black/5 dark:bg-white/5 rounded-b-lg z-20"></div>
 
       {/* 頂部狀態欄 */}
-      <div className="absolute top-6 left-0 right-0 h-7 bg-gradient-to-b from-white/5 to-transparent dark:from-black/10 dark:to-transparent backdrop-blur-sm z-10">
+      <div className="absolute top-4 left-0 right-0 h-6 bg-gradient-to-b from-white/5 to-transparent dark:from-black/5 dark:to-transparent backdrop-blur-sm z-10">
         <div className="flex justify-between items-center px-5 h-full">
-          <div className="text-[10px] font-medium text-black/70 dark:text-white/70">10:30</div>
-          <div className="flex space-x-1.5">
-            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
-            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
-            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
+          <div className="text-[8px] font-medium text-black/50 dark:text-white/50">10:30</div>
+          <div className="flex space-x-1">
+            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
+            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
+            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
           </div>
         </div>
       </div>
 
       {/* 標題和描述 */}
       <motion.div
-        className="absolute top-14 left-0 right-0 z-10 px-6 py-3"
+        className="absolute top-14 left-0 right-0 z-20 px-6 py-3"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
@@ -112,7 +112,7 @@ export default function AppScreenshotCarousel() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="text-base font-semibold text-gray-900 dark:text-gray-100 text-center"
+          className="text-lg font-bold text-gray-900 dark:text-gray-100 text-center"
         >
           {screenshots[currentIndex].title}
         </motion.h3>
@@ -121,14 +121,14 @@ export default function AppScreenshotCarousel() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="text-sm text-gray-600 dark:text-gray-300 text-center mt-1"
+          className="text-base text-gray-700 dark:text-gray-300 text-center mt-1"
         >
           {screenshots[currentIndex].description}
         </motion.p>
       </motion.div>
 
       {/* 截圖展示區 */}
-      <div className="relative w-full h-full overflow-hidden pt-32 pb-10 px-4">
+      <div className="relative w-full h-full overflow-hidden pt-24 pb-10 px-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -142,11 +142,19 @@ export default function AppScreenshotCarousel() {
             }}
             className="w-full h-full relative rounded-xl overflow-hidden shadow-inner"
           >
-            <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-contain" priority />
+            <Image
+              src={screenshots[currentIndex].image}
+              alt={screenshots[currentIndex].title}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={100}
+              priority
+            />
 
             {/* 螢幕反光效果 */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
               initial={{ left: "-100%" }}
               animate={{
                 left: ["100%", "-100%"],
@@ -165,33 +173,35 @@ export default function AppScreenshotCarousel() {
       {/* 左右箭頭 - 更大更明顯 */}
       <button
         onClick={goToPrev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/90 flex items-center justify-center shadow-lg z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 dark:bg-gray-800/60 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
         aria-label="上一張"
       >
-        <ChevronLeft className="w-6 h-6 text-gray-700 dark:text-gray-200" />
+        <ChevronLeft className="w-7 h-7 text-gray-700 dark:text-gray-200" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/90 flex items-center justify-center shadow-lg z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 dark:bg-gray-800/60 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
         aria-label="下一張"
       >
-        <ChevronRight className="w-6 h-6 text-gray-700 dark:text-gray-200" />
+        <ChevronRight className="w-7 h-7 text-gray-700 dark:text-gray-200" />
       </button>
 
       {/* 底部導航條 */}
-      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-4">
-        <div className="w-1/3 h-1 bg-black/10 dark:bg-white/10 rounded-full"></div>
+      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-3">
+        <div className="w-1/4 h-1 bg-black/5 dark:bg-white/5 rounded-full"></div>
       </div>
 
       {/* 指示器 */}
-      <div className="absolute -bottom-14 left-0 right-0 flex justify-center z-10">
-        <div className="flex space-x-3">
+      <div className="absolute -bottom-16 left-0 right-0 flex justify-center z-10">
+        <div className="flex space-x-4">
           {screenshots.map((_, index) => (
             <motion.button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-primary-500" : "bg-gray-300/50 dark:bg-gray-600/50"}`}
-              whileHover={{ scale: 1.2 }}
+              className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
+                index === currentIndex ? "bg-primary-500 shadow-md shadow-primary-500/30" : "bg-gray-300/40 dark:bg-gray-600/30"
+              }`}
+              whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
               animate={index === currentIndex ? { scale: [1, 1.2, 1] } : {}}
               transition={
