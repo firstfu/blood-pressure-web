@@ -1,5 +1,5 @@
 // @ Author: firstfu
-// @ Create Time: 2024-03-18 16:15:42
+// @ Create Time: 2024-08-05 12:08:31
 // @ Description: Hero Section - 首頁主視覺區塊，包含產品介紹和手機預覽效果
 
 "use client";
@@ -44,19 +44,19 @@ const heroImages = [
 // 特色功能列表
 const features = [
   {
-    icon: <Heart className="w-5 h-5" />,
+    icon: <Heart className="w-6 h-6" />,
     text: "簡單記錄",
     description: "一鍵記錄血壓數據",
     color: "bg-primary-100 text-primary-600 dark:bg-primary-900/40 dark:text-primary-300",
   },
   {
-    icon: <BarChart2 className="w-5 h-5" />,
+    icon: <BarChart2 className="w-6 h-6" />,
     text: "智能分析",
     description: "AI 趨勢預測",
     color: "bg-secondary-100 text-secondary-600 dark:bg-secondary-900/40 dark:text-secondary-300",
   },
   {
-    icon: <Share2 className="w-5 h-5" />,
+    icon: <Share2 className="w-6 h-6" />,
     text: "醫療連結",
     description: "與醫生即時分享",
     color: "bg-accent-100 text-accent-600 dark:bg-accent-900/40 dark:text-accent-300",
@@ -103,11 +103,11 @@ const FeatureCard = ({ feature, index }) => (
     transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
     whileHover={{ y: -2, boxShadow: "0 6px 15px -5px rgba(0, 0, 0, 0.1)" }}
   >
-    <Card className="flex flex-col items-center gap-1 px-3 py-2 bg-background hover:bg-background transition-all duration-300 border-none shadow-soft">
-      <div className={`${feature.color} p-2 rounded-full`}>{feature.icon}</div>
+    <Card className="flex flex-col items-center gap-2 px-4 py-3 bg-background hover:bg-background transition-all duration-300 border-none shadow-soft">
+      <div className={`${feature.color} p-3 rounded-full`}>{feature.icon}</div>
       <div className="flex flex-col items-center">
-        <span className="text-sm font-medium text-foreground">{feature.text}</span>
-        <span className="text-xs text-muted-foreground">{feature.description}</span>
+        <span className="text-base md:text-lg font-medium text-foreground">{feature.text}</span>
+        <span className="text-sm md:text-base text-muted-foreground">{feature.description}</span>
       </div>
     </Card>
   </motion.div>
@@ -205,16 +205,16 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-0 pb-10 overflow-hidden mt-0">
+    <section id="hero" ref={heroRef} className="relative pt-16 md:pt-24 pb-16 overflow-hidden mt-0">
       <BackgroundDecorations />
 
       <div className="container mx-auto px-3">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-5 pt-4">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-8 pt-4">
           {/* 左側內容 */}
-          <motion.div className="lg:w-2/3 space-y-3" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="lg:w-2/3 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-optimized font-sans text-base text-muted-foreground max-w-2xl" variants={animations.item}>
+            <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed" variants={animations.item}>
               透過直覺式介面輕鬆記錄血壓數據，查看趨勢圖表分析健康狀況，並與醫療團隊分享完整報告，讓血壓管理變得簡單有效。
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} />
@@ -222,7 +222,13 @@ export default function HeroSection() {
           </motion.div>
 
           {/* 右側 App 預覽 */}
-          <motion.div className="lg:w-5/12 relative lg:translate-x-5" style={{ y }} variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div
+            className="lg:w-5/12 relative lg:translate-x-5 mt-8 lg:mt-0"
+            style={{ y }}
+            variants={animations.container}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <PhonePreview y={y} />
             <BackgroundGlow />
           </motion.div>
@@ -292,27 +298,25 @@ const BackgroundDecorations = () => (
 // 徽章區塊元件
 const BadgeSection = () => (
   <motion.div
-    className="inline-block px-2 py-0.5 bg-primary-50 dark:bg-primary-900/20 rounded-full text-xs font-medium mb-2"
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4, delay: 0.1 }}
+    className="inline-flex items-center px-3 py-1 border border-accent-200 dark:border-accent-800 rounded-full bg-accent-50 dark:bg-accent-900/30 mb-3"
+    variants={animations.item}
   >
     <span className="flex items-center">
-      <Star className="w-3 h-3 mr-0.5 text-accent-500 dark:text-accent-400" />
-      <span className="text-gradient-primary-to-secondary">2025 年最佳健康管理應用</span>
+      <Star className="w-4 h-4 mr-1 text-accent-500 dark:text-accent-400" />
+      <span className="text-gradient-primary-to-secondary text-base md:text-lg">2025 年最佳健康管理應用</span>
     </span>
   </motion.div>
 );
 
 // 標題區塊元件
 const HeadingSection = () => (
-  <motion.div className="space-y-1" variants={animations.item}>
-    <h1 className="heading-serif text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight max-w-4xl">
+  <motion.div className="space-y-2" variants={animations.item}>
+    <h1 className="heading-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight max-w-4xl">
       <span className="text-foreground">健康守護：您的個人</span>
       <div className="relative inline-block mt-0.5">
         <span className="relative z-10 text-gradient-primary">血壓管理</span>
         <motion.span
-          className="absolute bottom-1 left-0 h-2 w-full bg-primary-200/50 dark:bg-primary-600/20 -z-0 rounded-full"
+          className="absolute bottom-1 left-0 h-3 w-full bg-primary-200/50 dark:bg-primary-600/20 -z-0 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -320,23 +324,23 @@ const HeadingSection = () => (
       </div>
       <span className="text-foreground block md:inline">助手</span>
     </h1>
-    <p className="font-rounded text-lg text-muted-foreground">簡單紀錄，智能分析，連結醫療專業</p>
+    <p className="font-rounded text-xl md:text-2xl text-muted-foreground">簡單紀錄，智能分析，連結醫療專業</p>
   </motion.div>
 );
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
-  <motion.div className="flex flex-col sm:flex-row gap-2" variants={animations.item}>
+  <motion.div className="flex flex-col sm:flex-row gap-3" variants={animations.item}>
     <Button
-      size="default"
+      size="lg"
       onClick={handlePreRegister}
       disabled={isSubmitting}
-      className="rounded-full gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 group py-5 text-sm"
+      className="rounded-full gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 group py-6 px-6 text-base font-medium"
     >
       <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
         {isSubmitting ? (
           <span className="flex items-center">
-            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path
                 className="opacity-75"
@@ -360,17 +364,17 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
                 repeatDelay: 1,
               }}
             >
-              <ArrowRight className="ml-1.5 h-3.5 w-3.5 inline-block" />
+              <ArrowRight className="ml-2 h-5 w-5 inline-block" />
             </motion.span>
           </>
         )}
       </motion.span>
     </Button>
     <Button
-      size="default"
+      size="lg"
       variant="outline"
       asChild
-      className="rounded-full border-primary-300 dark:border-primary-800/60 hover:bg-primary-50 dark:hover:bg-primary-900/20 group bg-background py-5 text-sm"
+      className="rounded-full border-primary-300 dark:border-primary-800/60 hover:bg-primary-50 dark:hover:bg-primary-900/20 group bg-background py-6 px-6 text-base font-medium"
     >
       <motion.a href="#features" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
         了解更多
@@ -382,9 +386,9 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
             repeatType: "loop",
             ease: "easeInOut",
           }}
-          className="ml-1 inline-block"
+          className="ml-2 inline-block"
         >
-          <ChevronDown className="h-3.5 w-3.5" />
+          <ChevronDown className="h-5 w-5" />
         </motion.span>
       </motion.a>
     </Button>
@@ -393,8 +397,8 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess }) => (
 
 // 特色功能區塊元件
 const FeaturesSection = () => (
-  <motion.div className="pt-3 border-t border-border" variants={animations.item}>
-    <div className="flex flex-wrap gap-2 items-center">
+  <motion.div className="pt-4 border-t border-border" variants={animations.item}>
+    <div className="flex flex-wrap gap-3 items-center">
       {features.map((feature, index) => (
         <FeatureCard key={index} feature={feature} index={index} />
       ))}
