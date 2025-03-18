@@ -348,7 +348,12 @@ export default function HeroSection() {
             </motion.div>
 
             {/* 信任徽章 */}
-            <motion.div className="flex flex-wrap items-center gap-4 pt-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.5 }}>
+            <motion.div
+              className="flex flex-wrap items-center gap-4 pt-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+            >
               <span className="text-base text-muted-foreground">受到信賴：</span> {/* 使用主題變量 */}
               <div className="flex flex-wrap gap-4">
                 <div className="h-10 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
@@ -371,7 +376,13 @@ export default function HeroSection() {
           </motion.div>
 
           {/* 右側 App 預覽 */}
-          <motion.div className="lg:w-1/2" style={{ y }} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>
+          <motion.div
+            className="lg:w-1/2"
+            style={{ y }}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
             <motion.div
               className="relative max-w-[360px] mx-auto" // 增加手機模型大小
               style={{
@@ -401,7 +412,7 @@ export default function HeroSection() {
                   {" "}
                   {/* 使用主題變量 */}
                   <div className="aspect-[9/19] relative">
-                    <Image src="/images/app-mockup.svg" alt="血壓記錄App畫面" fill className="object-contain" priority />
+                    <Image src="/images/screen1.png" alt="血壓記錄App畫面" fill className="object-contain" priority />
                   </div>
                   {/* 螢幕反光效果 */}
                   <motion.div
