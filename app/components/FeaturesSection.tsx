@@ -139,13 +139,24 @@ export default function FeaturesSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="relative w-full max-w-[300px] md:max-w-[320px] h-[550px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl dark:shadow-primary-900/30 border-[10px] border-gray-800 dark:border-gray-700">
-              {/* 手機頂部鏡頭模擬 */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-xl z-30 flex justify-center items-end pb-1">
-                <div className="w-4 h-4 rounded-full bg-gray-800 ring-2 ring-gray-700 relative">
-                  <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-blue-400/40"></div>
+            <div className="relative w-full max-w-[300px] md:max-w-[320px] h-[550px] md:h-[600px] rounded-[2.8rem] overflow-hidden shadow-2xl dark:shadow-primary-900/30 border-[6px] border-gray-900 dark:border-gray-800">
+              {/* iPhone 16 Pro 動態島 */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[38px] bg-black rounded-b-3xl z-30 flex justify-center items-center">
+                <div className="w-[90px] h-[26px] rounded-full bg-black flex items-center space-x-2 px-2">
+                  <div className="w-3 h-3 rounded-full bg-gray-800 ring-1 ring-gray-700 relative">
+                    <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-blue-400/40"></div>
+                  </div>
+                  <div className="w-2 h-2 rounded-full bg-gray-800/80"></div>
                 </div>
               </div>
+
+              {/* iPhone 16 Pro 側邊按鈕 */}
+              <div className="absolute top-24 -left-[6px] w-[6px] h-12 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
+              <div className="absolute top-40 -left-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
+              <div className="absolute top-60 -left-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-l-md z-30"></div>
+
+              {/* iPhone 16 Pro 右側按鈕 */}
+              <div className="absolute top-32 -right-[6px] w-[6px] h-16 bg-gray-800 dark:bg-gray-700 rounded-r-md z-30"></div>
 
               <div className="absolute inset-0 bg-gradient-radial from-primary-500/5 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20"></div>
 

@@ -81,23 +81,11 @@ export default function AppScreenshotCarousel() {
 
   return (
     <div className="relative w-full h-full flex flex-col">
-      {/* 上方狀態欄 */}
-      <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-black/10 to-transparent dark:from-white/5 dark:to-transparent backdrop-blur-sm z-10">
-        <div className="flex justify-between items-center px-4 h-full">
-          <div className="text-xs font-medium text-gray-600 dark:text-gray-300">8:45</div>
-          <div className="flex space-x-1.5">
-            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
-          </div>
-        </div>
-      </div>
-
       {/* 截圖展示區 */}
-      <div className="relative w-full h-full overflow-hidden pt-8 pb-8">
+      <div className="relative w-full h-full overflow-hidden">
         {/* 側邊提示陰影 */}
-        <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/10 to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-black/10 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/10 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/10 to-transparent z-20 pointer-events-none"></div>
 
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
@@ -109,7 +97,7 @@ export default function AppScreenshotCarousel() {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
-            className="w-full h-full relative rounded-xl overflow-hidden"
+            className="w-full h-full relative overflow-hidden"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -128,7 +116,7 @@ export default function AppScreenshotCarousel() {
               src={screenshots[currentIndex].image}
               alt={screenshots[currentIndex].title}
               fill
-              className="object-contain"
+              className="object-cover object-top"
               sizes="(max-width: 768px) 100vw, 50vw"
               quality={100}
               priority
@@ -155,25 +143,25 @@ export default function AppScreenshotCarousel() {
         </AnimatePresence>
       </div>
 
-      {/* 左右箭頭 - 調整大小和位置 */}
+      {/* 左右箭頭 */}
       <button
         onClick={goToPrev}
-        className="absolute left-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
+        className="absolute left-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-lg z-30 hover:bg-white/70 hover:scale-110 dark:hover:bg-gray-800/70 transition-all duration-300"
         aria-label="上一張"
       >
-        <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+        <ChevronLeft className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
+        className="absolute right-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-lg z-30 hover:bg-white/70 hover:scale-110 dark:hover:bg-gray-800/70 transition-all duration-300"
         aria-label="下一張"
       >
-        <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+        <ChevronRight className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
       </button>
 
       {/* 底部導航條 */}
-      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-3">
-        <div className="w-1/3 h-1 bg-black/10 dark:bg-white/10 rounded-full"></div>
+      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-2">
+        <div className="w-[90px] h-[4px] bg-black/15 dark:bg-white/15 rounded-full"></div>
       </div>
 
       {/* 指示器 */}
