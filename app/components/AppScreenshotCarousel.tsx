@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import AppScreenshotDashboard from "@/app/components/screenshots/AppScreenshotDashboard";
-import AppScreenshotHistory from "@/app/components/screenshots/AppScreenshotHistory";
-import AppScreenshotAnalytics from "@/app/components/screenshots/AppScreenshotAnalytics";
-import AppScreenshotSettings from "@/app/components/screenshots/AppScreenshotSettings";
+import Image from "next/image";
 
 const screenshots = [
   {
     id: 1,
-    component: <AppScreenshotDashboard />,
-    title: "主控台",
-    description: "一目了然的血壓數據概覽",
+    image: "/images/screen1.png",
+    title: "簡單記錄",
+    description: "直覺的介面設計，輕鬆記錄血壓數據",
   },
   {
     id: 2,
-    component: <AppScreenshotHistory />,
-    title: "歷史記錄",
-    description: "詳細的測量歷史和趨勢分析",
+    image: "/images/screen2.png",
+    title: "數據分析",
+    description: "智能分析血壓趨勢，掌握健康狀況",
   },
   {
     id: 3,
-    component: <AppScreenshotAnalytics />,
-    title: "數據分析",
-    description: "深入的血壓數據統計和報告",
+    image: "/images/screen3.png",
+    title: "歷史記錄",
+    description: "完整的測量歷史，隨時查看過往數據",
   },
   {
     id: 4,
-    component: <AppScreenshotSettings />,
-    title: "個人設置",
-    description: "個性化的應用設置和提醒",
+    image: "/images/screen4.png",
+    title: "健康報告",
+    description: "專業的健康報告，輕鬆與醫生分享",
+  },
+  {
+    id: 5,
+    image: "/images/screen5.png",
+    title: "個人設定",
+    description: "個性化的設定選項，符合使用習慣",
+  },
+  {
+    id: 6,
+    image: "/images/screen6.png",
+    title: "智能提醒",
+    description: "貼心的測量提醒，養成紀錄習慣",
   },
 ];
 
@@ -72,52 +81,128 @@ export default function AppScreenshotCarousel() {
 
   return (
     <div className="relative w-full h-full flex flex-col">
-      {/* 標題和描述 - 移至頂部 */}
-      <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-white/90 to-white/60 dark:from-gray-900/90 dark:to-gray-900/60 pt-2 pb-4 px-4 rounded-t-xl backdrop-blur-sm">
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100 text-center">{screenshots[currentIndex].title}</h3>
-        <p className="text-xs text-gray-600 dark:text-gray-300 text-center">{screenshots[currentIndex].description}</p>
+      {/* 模擬手機框架 */}
+      <div className="absolute inset-0 rounded-[2.5rem] border-[10px] border-black/10 dark:border-white/10 shadow-xl z-0"></div>
+
+      {/* 上方圓角缺口 */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-black/10 dark:bg-white/10 rounded-b-lg z-20"></div>
+
+      {/* 頂部狀態欄 */}
+      <div className="absolute top-6 left-0 right-0 h-7 bg-gradient-to-b from-white/5 to-transparent dark:from-black/10 dark:to-transparent backdrop-blur-sm z-10">
+        <div className="flex justify-between items-center px-5 h-full">
+          <div className="text-[10px] font-medium text-black/70 dark:text-white/70">10:30</div>
+          <div className="flex space-x-1.5">
+            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
+            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
+            <div className="w-3 h-3 rounded-full bg-black/40 dark:bg-white/40"></div>
+          </div>
+        </div>
       </div>
 
-      {/* 截圖展示區 - 增加上邊距 */}
-      <div className="relative w-full h-full overflow-hidden pt-14">
+      {/* 標題和描述 */}
+      <motion.div
+        className="absolute top-14 left-0 right-0 z-10 px-6 py-3"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.h3
+          key={`title-${currentIndex}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-base font-semibold text-gray-900 dark:text-gray-100 text-center"
+        >
+          {screenshots[currentIndex].title}
+        </motion.h3>
+        <motion.p
+          key={`desc-${currentIndex}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-sm text-gray-600 dark:text-gray-300 text-center mt-1"
+        >
+          {screenshots[currentIndex].description}
+        </motion.p>
+      </motion.div>
+
+      {/* 截圖展示區 */}
+      <div className="relative w-full h-full overflow-hidden pt-32 pb-10 px-4">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.5 }}
-            className="w-full h-full"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+            }}
+            className="w-full h-full relative rounded-xl overflow-hidden shadow-inner"
           >
-            {screenshots[currentIndex].component}
+            <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-contain" priority />
+
+            {/* 螢幕反光效果 */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent"
+              initial={{ left: "-100%" }}
+              animate={{
+                left: ["100%", "-100%"],
+              }}
+              transition={{
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 10,
+                ease: "linear",
+              }}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* 左右箭頭 */}
+      {/* 左右箭頭 - 更大更明顯 */}
       <button
         onClick={goToPrev}
-        className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-md z-10 hover:bg-white dark:hover:bg-gray-800 transition-colors"
+        className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/90 flex items-center justify-center shadow-lg z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
         aria-label="上一張"
       >
-        <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+        <ChevronLeft className="w-6 h-6 text-gray-700 dark:text-gray-200" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-md z-10 hover:bg-white dark:hover:bg-gray-800 transition-colors"
+        className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/90 flex items-center justify-center shadow-lg z-10 hover:bg-white dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110"
         aria-label="下一張"
       >
-        <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-200" />
+        <ChevronRight className="w-6 h-6 text-gray-700 dark:text-gray-200" />
       </button>
 
-      {/* 指示器 - 移至截圖外部 */}
-      <div className="absolute -bottom-10 left-0 right-0 flex justify-center z-10">
+      {/* 底部導航條 */}
+      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-4">
+        <div className="w-1/3 h-1 bg-black/10 dark:bg-white/10 rounded-full"></div>
+      </div>
+
+      {/* 指示器 */}
+      <div className="absolute -bottom-14 left-0 right-0 flex justify-center z-10">
         <div className="flex space-x-3">
           {screenshots.map((_, index) => (
-            <button
+            <motion.button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-primary-500 scale-125" : "bg-gray-300 dark:bg-gray-600"}`}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-primary-500" : "bg-gray-300/50 dark:bg-gray-600/50"}`}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              animate={index === currentIndex ? { scale: [1, 1.2, 1] } : {}}
+              transition={
+                index === currentIndex
+                  ? {
+                      duration: 1.5,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    }
+                  : {}
+              }
               aria-label={`前往第 ${index + 1} 張截圖`}
             />
           ))}
