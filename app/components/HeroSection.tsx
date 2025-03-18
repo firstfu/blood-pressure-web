@@ -1,3 +1,7 @@
+// @ Author: firstfu
+// @ Create Time: 2024-03-18 16:15:42
+// @ Description: Hero Section - 首頁主視覺區塊，包含產品介紹和手機預覽效果
+
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -7,6 +11,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
+import AppScreenshotCarousel from "./AppScreenshotCarousel";
 
 // 輪播圖片集
 const heroImages = [
@@ -205,11 +210,11 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-10 pb-28 overflow-hidden">
-      {/* 背景裝飾 */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 to-white dark:from-background dark:to-background/80 -z-10" />
+    <section id="hero" ref={heroRef} className="relative pt-0 pb-28 overflow-hidden mt-0">
+      {/* 背景裝飾 - 延伸到頂部 */}
+      <div className="absolute inset-0 top-0 bg-gradient-to-br from-primary-50 to-white dark:from-background dark:to-background/80 -z-10" />
 
-      {/* 動態背景圖形 */}
+      {/* 動態背景圖形 - 確保覆蓋頂部 */}
       <motion.div
         className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-br from-primary-200/30 to-secondary-200/30 dark:from-primary-600/10 dark:to-secondary-600/10 blur-3xl -z-10"
         animate={{
@@ -262,9 +267,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(176,238,250,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(176,238,250,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(56,199,237,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(56,199,237,0.01)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] -z-10"></div>
 
       <div className="container mx-auto px-4">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-12">
+        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-12 pt-10">
           {/* 左側內容 */}
-          <motion.div className="lg:w-1/2 space-y-8" variants={containerVariants} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="lg:w-2/3 space-y-8" variants={containerVariants} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <motion.div
               className="inline-block px-4 py-1.5 bg-primary-50 dark:bg-primary-900/20 rounded-full text-base font-medium mb-4" // 適配暗黑模式
               initial={{ opacity: 0, y: 20 }}
@@ -277,8 +282,8 @@ export default function HeroSection() {
               </span>
             </motion.div>
 
-            <motion.div className="space-y-4" variants={itemVariants}>
-              <h1 className="heading-serif text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+            <motion.div className="space-y-4  " variants={itemVariants}>
+              <h1 className="heading-serif text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight max-w-4xl">
                 {" "}
                 {/* 增加標題字體大小 */}
                 <span className="text-foreground">健康守護：您的個人</span>
@@ -297,7 +302,7 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.p
-              className="text-optimized font-sans text-xl text-muted-foreground max-w-lg" // 使用主題變量
+              className="text-optimized font-sans text-xl text-muted-foreground max-w-2xl" // 增加最大寬度
               variants={itemVariants}
             >
               透過直覺式介面輕鬆記錄血壓數據，查看趨勢圖表分析健康狀況，並與醫療團隊分享完整報告，讓血壓管理變得簡單有效。
@@ -354,7 +359,7 @@ export default function HeroSection() {
             </motion.div>
 
             {/* 快速註冊表單 */}
-            <motion.form onSubmit={handleQuickSignup} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-md" variants={itemVariants}>
+            <motion.form onSubmit={handleQuickSignup} className="mt-8 flex flex-col sm:flex-row gap-3 max-w-xl" variants={itemVariants}>
               <div className="flex-1 relative">
                 <Input
                   type="email"
@@ -434,22 +439,56 @@ export default function HeroSection() {
           </motion.div>
 
           {/* 右側 App 預覽 */}
-          <motion.div className="lg:w-1/2" style={{ y }} initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.5 }}>
+          <motion.div className="lg:w-5/12 relative lg:translate-x-8" style={{ y }} variants={containerVariants} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+            {/* 手機外框 */}
             <motion.div
-              className="relative max-w-[320px] mx-auto" // 減少手機模型寬度
+              className="relative mx-auto w-[280px] h-[580px] rounded-[3rem] border-[14px] border-gray-900 dark:border-gray-800 overflow-hidden shadow-2xl bg-gray-800"
               style={{
-                x: useMotionTemplate`${mouseX.get() * 0.1}deg`,
-                y: useMotionTemplate`${mouseY.get() * 0.1}deg`,
-                rotateX: useMotionTemplate`${mouseY.get() * 0.05}deg`,
-                rotateY: useMotionTemplate`${mouseX.get() * -0.05}deg`,
+                perspective: "1000px",
+                transformStyle: "preserve-3d",
               }}
             >
-              {/* 裝飾元素 */}
+              {/* 手機螢幕 */}
+              <div className="absolute inset-0 overflow-hidden">
+                {/* 狀態欄 */}
+                <div className="h-6 w-full bg-[#2A7FD5] dark:bg-[#2A7FD5] flex items-center justify-between px-4">
+                  <div className="text-xs text-white">8:45</div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-3 h-3">
+                      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
+                        <path d="M12 20.9l-1.4-1.4c-4.4-4.4-7.3-7.3-7.3-10.8C3.3 5.9 5.9 3.3 9 3.3c1.7 0 3.3.8 4.4 2.1 1-1.3 2.7-2.1 4.4-2.1 3.1 0 5.7 2.6 5.7 5.7 0 3.5-2.9 6.4-7.3 10.8L12 20.9z" />
+                      </svg>
+                    </div>
+                    <div className="w-3 h-3">
+                      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
+                        <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
+                      </svg>
+                    </div>
+                    <div className="w-3 h-3">
+                      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
+                        <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                {/* App 內容 */}
+                <div className="relative h-full w-full">
+                  <AppScreenshotCarousel />
+                </div>
+              </div>
+
+              {/* 手機按鈕 */}
+              <div className="absolute -right-[14px] top-[120px] h-6 w-1 bg-gray-900 dark:bg-gray-800 rounded-l"></div>
+              <div className="absolute -left-[14px] top-[100px] h-12 w-1 bg-gray-900 dark:bg-gray-800 rounded-r"></div>
+              <div className="absolute -left-[14px] top-[150px] h-12 w-1 bg-gray-900 dark:bg-gray-800 rounded-r"></div>
+
+              {/* 反光效果 */}
               <motion.div
-                className="absolute -inset-4 bg-gradient-primary-to-secondary rounded-2xl opacity-30 blur-2xl"
+                className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"
                 animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.5, 0.3],
+                  opacity: [0.5, 0.8, 0.5],
+                  backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
                 }}
                 transition={{
                   duration: 5,
@@ -457,247 +496,21 @@ export default function HeroSection() {
                   repeatType: "reverse",
                 }}
               />
-
-              {/* App 預覽 */}
-              <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 100, damping: 10 }} className="relative z-10">
-                <Card className="relative overflow-hidden border-[6px] border-gray-900 dark:border-gray-800 shadow-hard rounded-[2.8rem] bg-background">
-                  <div className="aspect-[9/16] relative">
-                    {/* 側邊提示陰影 - 增強側滑視覺引導 */}
-                    <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/5 to-transparent z-20 pointer-events-none"></div>
-                    <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/5 to-transparent z-20 pointer-events-none"></div>
-
-                    <AnimatePresence initial={false} mode="popLayout">
-                      <motion.div
-                        key={currentImageIndex}
-                        initial={{ x: 100, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -100, opacity: 0 }}
-                        transition={{
-                          x: { type: "spring", stiffness: 300, damping: 30 },
-                          opacity: { duration: 0.2 },
-                        }}
-                        className="absolute inset-0"
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={0.3}
-                        onDragEnd={(e, { offset, velocity }) => {
-                          const swipe = Math.abs(offset.x) > 100 || Math.abs(velocity.x) > 300;
-                          if (swipe) {
-                            if (offset.x > 0) {
-                              goToPrevImage();
-                            } else {
-                              goToNextImage();
-                            }
-                          }
-                        }}
-                      >
-                        <Image src={heroImages[currentImageIndex].src} alt={heroImages[currentImageIndex].alt} fill className="object-cover object-top" priority />
-
-                        {/* 側滑提示動畫 - 初次顯示時提示用戶可以滑動 */}
-                        {currentImageIndex === 0 && (
-                          <motion.div
-                            className="absolute inset-0 pointer-events-none"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: [0, 1, 0] }}
-                            transition={{ delay: 2, duration: 2, times: [0, 0.5, 1] }}
-                          >
-                            <motion.div
-                              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 dark:bg-gray-800/20 rounded-full flex items-center justify-center backdrop-blur-sm"
-                              animate={{ x: [-20, 0] }}
-                              transition={{ duration: 1.5, repeat: 1, repeatType: "reverse" }}
-                            >
-                              <ChevronLeft className="w-5 h-5 text-white/70 dark:text-gray-300/70" />
-                            </motion.div>
-                          </motion.div>
-                        )}
-                      </motion.div>
-                    </AnimatePresence>
-
-                    {/* iPhone 16 Pro 動態島 - 放在這個位置，顯示在圖片上方 */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[38px] bg-black rounded-b-3xl z-50 flex justify-center items-center">
-                      <div className="w-[90px] h-[26px] rounded-full bg-black flex items-center space-x-2 px-2">
-                        <div className="w-3 h-3 rounded-full bg-gray-800 ring-1 ring-gray-700 relative">
-                          <div className="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-blue-400/40"></div>
-                        </div>
-                        <div className="w-2 h-2 rounded-full bg-gray-800/80"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* iPhone 16 Pro 側邊按鈕 */}
-                  <div className="absolute top-20 -left-[6px] w-[6px] h-10 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
-                  <div className="absolute top-32 -left-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
-                  <div className="absolute top-48 -left-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-l-md z-50"></div>
-
-                  {/* iPhone 16 Pro 右側按鈕 */}
-                  <div className="absolute top-28 -right-[6px] w-[6px] h-14 bg-gray-800 dark:bg-gray-700 rounded-r-md z-50"></div>
-
-                  {/* 螢幕反光效果 */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 dark:via-white/15 to-transparent opacity-0" // 適配暗黑模式
-                    animate={{
-                      opacity: [0, 0.5, 0],
-                      left: ["-100%", "100%", "100%"],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatDelay: 5,
-                    }}
-                  />
-                  {/* 輪播控制按鈕 */}
-                  <button
-                    onClick={goToPrevImage}
-                    className="absolute left-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/40 dark:bg-gray-800/40 flex items-center justify-center shadow-md z-40 hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-300 hover:scale-110"
-                    aria-label="上一張"
-                  >
-                    <ChevronLeft className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
-                  </button>
-                  <button
-                    onClick={goToNextImage}
-                    className="absolute right-1 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/40 dark:bg-gray-800/40 flex items-center justify-center shadow-md z-40 hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-300 hover:scale-110"
-                    aria-label="下一張"
-                  >
-                    <ChevronRight className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
-                  </button>
-
-                  {/* 底部導航條 - iPhone 16 Pro 風格 */}
-                  <div className="absolute bottom-1 left-0 right-0 flex justify-center z-40 h-2">
-                    <div className="w-[80px] h-[4px] bg-black/15 dark:bg-white/15 rounded-full"></div>
-                  </div>
-                </Card>
-              </motion.div>
-
-              {/* 浮動元素 */}
-              <motion.div
-                className="absolute -top-6 -right-6 w-24 h-24 bg-secondary-300/30 dark:bg-secondary-500/10 rounded-full blur-xl" // 適配暗黑模式
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-              <motion.div
-                className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary-300/30 dark:bg-primary-500/10 rounded-full blur-xl" // 適配暗黑模式
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.2, 0.5, 0.2],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
-              />
-
-              {/* 數據指標浮動卡片 */}
-              <motion.div
-                className="absolute -right-10 top-1/4 bg-background rounded-xl shadow-medium p-4 z-10" // 使用主題變量
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                whileHover={{ y: -5, boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)" }}
-              >
-                <div className="flex items-center gap-3">
-                  {" "}
-                  {/* 增加間距 */}
-                  <div className="w-10 h-10 bg-secondary-100 dark:bg-secondary-900/30 rounded-full flex items-center justify-center">
-                    {" "}
-                    {/* 適配暗黑模式 */}
-                    <Activity className="w-5 h-5 text-secondary-600 dark:text-secondary-400" /> {/* 適配暗黑模式 */}
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">血壓趨勢</p> {/* 使用主題變量 */}
-                    <p className="text-base font-semibold text-foreground">穩定下降</p> {/* 使用主題變量 */}
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="absolute -left-12 bottom-1/4 bg-background rounded-xl shadow-medium p-4 z-10" // 使用主題變量
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                whileHover={{ y: -5, boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)" }}
-              >
-                <div className="flex items-center gap-3">
-                  {" "}
-                  {/* 增加間距 */}
-                  <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
-                    {" "}
-                    {/* 適配暗黑模式 */}
-                    <Heart className="w-5 h-5 text-primary-600 dark:text-primary-400" /> {/* 適配暗黑模式 */}
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">今日血壓</p> {/* 使用主題變量 */}
-                    <p className="text-base font-semibold text-foreground">120/80</p> {/* 使用主題變量 */}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* 新增的功能卡片 */}
-              <motion.div
-                className="absolute -right-16 bottom-10 bg-background rounded-xl shadow-medium p-4 z-10" // 使用主題變量
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.8, duration: 0.8 }}
-                whileHover={{ y: -5, boxShadow: "0 15px 30px rgba(0, 0, 0, 0.1)" }}
-              >
-                <div className="flex items-center gap-3">
-                  {" "}
-                  {/* 增加間距 */}
-                  <div className="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-full flex items-center justify-center">
-                    {" "}
-                    {/* 適配暗黑模式 */}
-                    <Shield className="w-5 h-5 text-accent-600 dark:text-accent-400" /> {/* 適配暗黑模式 */}
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">健康評估</p> {/* 使用主題變量 */}
-                    <p className="text-base font-semibold text-foreground">良好</p> {/* 使用主題變量 */}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* 3D 效果裝飾 - 減少陰影強度 */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -bottom-10 w-full h-10 bg-gradient-to-t from-neutral-200/30 dark:from-card/50 to-transparent blur-sm"></div>
-                <div className="absolute -right-10 h-full w-10 bg-gradient-to-l from-neutral-200/30 dark:from-card/50 to-transparent blur-sm"></div>
-              </div>
             </motion.div>
 
-            {/* 功能標籤 */}
+            {/* 裝飾元素 */}
             <motion.div
-              className="mt-12 flex justify-center gap-4 flex-wrap"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2, duration: 0.8 }}
-            >
-              <motion.div
-                className="bg-background px-4 py-2 rounded-full text-base flex items-center gap-2 shadow-soft" // 使用主題變量
-                whileHover={{ y: -3, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-              >
-                <Smartphone className="w-5 h-5 text-primary-500 dark:text-primary-400" /> {/* 適配暗黑模式 */}
-                <span className="text-foreground">iOS 與 Android 支援</span> {/* 使用主題變量 */}
-              </motion.div>
-              <motion.div
-                className="bg-background px-4 py-2 rounded-full text-base flex items-center gap-2 shadow-soft" // 使用主題變量
-                whileHover={{ y: -3, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-              >
-                <Shield className="w-5 h-5 text-secondary-500 dark:text-secondary-400" /> {/* 適配暗黑模式 */}
-                <span className="text-foreground">資料加密保護</span> {/* 使用主題變量 */}
-              </motion.div>
-              <motion.div
-                className="bg-background px-4 py-2 rounded-full text-base flex items-center gap-2 shadow-soft" // 使用主題變量
-                whileHover={{ y: -3, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-              >
-                <Droplets className="w-5 h-5 text-accent-500 dark:text-accent-400" /> {/* 適配暗黑模式 */}
-                <span className="text-foreground">健康分析報告</span> {/* 使用主題變量 */}
-              </motion.div>
-            </motion.div>
+              className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-primary-500/30 via-secondary-500/30 to-accent-500/30 dark:from-primary-500/10 dark:via-secondary-500/10 dark:to-accent-500/10 blur-2xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
           </motion.div>
         </motion.div>
       </div>
