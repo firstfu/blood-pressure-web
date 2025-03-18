@@ -13,9 +13,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">健康守護</span>
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">血壓管家</span>
             </Link>
-            <p className="mt-4 text-muted-foreground">專業的血壓管理應用，幫助您輕鬆追蹤、分析和管理血壓數據，守護您的心臟健康。</p>
+            <p className="mt-4 text-muted-foreground">專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。</p>
             <div className="flex space-x-4 mt-6">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
@@ -112,7 +112,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border dark:border-primary-900/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm mb-4 md:mb-0">&copy; {currentYear} 健康守護. 保留所有權利.</p>
+          <p className="text-muted-foreground text-sm mb-4 md:mb-0">&copy; {currentYear} 血壓管家. 保留所有權利.</p>
           <div className="flex items-center space-x-4">
             <span className="text-muted-foreground text-sm flex items-center">
               以 <Heart className="h-4 w-4 text-red-500 mx-1" /> 製作

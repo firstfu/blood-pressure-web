@@ -100,8 +100,8 @@ export default function Navbar() {
                     >
                       <Droplets className="h-8 w-8 mr-1" />
                     </motion.span>
-                    健康
-                    <span className="text-gradient-secondary">守護</span>
+                    血壓
+                    <span className="text-gradient-secondary">管家</span>
                   </span>
                 </motion.div>
               </Link>

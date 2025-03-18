@@ -196,7 +196,7 @@ export default function HeroSection() {
             <HeadingSection />
             <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed tracking-wide" variants={animations.item}>
               <strong className="text-foreground">每4個成年人就有1人</strong>
-              面臨高血壓風險。我們的智能血壓管理平台為您提供簡便的記錄工具、專業的分析功能，並能與醫療團隊協作，幫助您更有效地監測和管理血壓健康。
+              面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
           </motion.div>
@@ -310,7 +310,7 @@ const BadgeSection = () => (
   >
     <span className="flex items-center">
       <Star className="w-4 h-4 mr-1 text-accent-500 dark:text-accent-400" />
-      <span className="text-gradient-primary-to-secondary text-base md:text-lg font-medium">2025 年健康管理應用 | 產品即將上線，開放預先註冊</span>
+      <span className="text-gradient-primary-to-secondary text-base md:text-lg font-medium">2025 年血壓記錄應用 | 產品即將上線，開放預先註冊</span>
     </span>
   </motion.div>
 );
@@ -319,9 +319,9 @@ const BadgeSection = () => (
 const HeadingSection = () => (
   <motion.div className="space-y-4" variants={animations.item}>
     <h1 className="heading-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight max-w-4xl leading-[1.1]">
-      <span className="text-foreground">輕鬆管理</span>
+      <span className="text-foreground">輕鬆監測</span>
       <div className="relative inline-block mt-2 md:mt-4">
-        <span className="relative z-10 text-gradient-primary">您的血壓健康</span>
+        <span className="relative z-10 text-gradient-primary">您的血壓數值</span>
         <motion.span
           className="absolute bottom-1 left-0 h-3 w-full bg-primary-200/50 dark:bg-primary-600/20 -z-0 rounded-full"
           initial={{ width: 0 }}
@@ -331,7 +331,7 @@ const HeadingSection = () => (
       </div>
       <span className="text-foreground block md:inline">，簡單又實用</span>
     </h1>
-    <p className="font-rounded text-xl md:text-2xl text-muted-foreground mt-2 tracking-wide">記錄、分析、管理血壓，助您掌握心血管健康</p>
+    <p className="font-rounded text-xl md:text-2xl text-muted-foreground mt-2 tracking-wide">記錄、分析、管理血壓，追蹤測試結果</p>
   </motion.div>
 );
 

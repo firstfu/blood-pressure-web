@@ -40,8 +40,8 @@ const ibmPlexSansJP = IBM_Plex_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "健康守護 - 您的血壓管理助手",
-  description: "健康守護是您的血壓管理助手，提供簡單紀錄、智能分析、以及醫療專業連結功能。",
+  title: "血壓管家 - 簡單記錄血壓數值",
+  description: "血壓管家幫您記錄和分析血壓數值，提供簡便的記錄工具，專注於血壓監測與數據分析。",
 };
 
 export default function RootLayout({

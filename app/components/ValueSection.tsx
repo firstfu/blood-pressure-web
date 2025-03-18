@@ -29,23 +29,23 @@ export default function ValueSection() {
   const values = [
     {
       icon: <Heart className="h-6 w-6 text-primary" />,
-      title: "健康至上",
-      description: "我們的首要任務是幫助您維護心血管健康，提供專業的血壓管理工具",
+      title: "精確測試",
+      description: "我們的首要任務是提供精確的血壓測試記錄工具，幫助您掌握血壓狀況",
     },
     {
       icon: <Shield className="h-6 w-6 text-primary" />,
       title: "資料安全",
-      description: "您的健康數據受到嚴格保護，符合醫療級別的隱私和安全標準",
+      description: "您的血壓數據受到嚴格保護，確保個人測試記錄的隱私和安全",
     },
     {
       icon: <Clock className="h-6 w-6 text-primary" />,
-      title: "便捷管理",
-      description: "簡化血壓記錄和分析流程，節省您的寶貴時間，讓健康管理更輕鬆",
+      title: "便捷記錄",
+      description: "簡化血壓測試記錄流程，讓您輕鬆追蹤每次測量結果",
     },
     {
       icon: <Zap className="h-6 w-6 text-primary" />,
-      title: "智能分析",
-      description: "運用先進技術分析您的血壓數據，提供個性化的健康洞察和建議",
+      title: "數據分析",
+      description: "分析您的血壓測試數據，提供清晰的數值變化趨勢報告",
     },
   ];
 
@@ -59,7 +59,7 @@ export default function ValueSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            為什麼選擇<span className="text-gradient-primary">健康守護</span>？
+            為什麼選擇<span className="text-gradient-primary">血壓管家</span>？
           </motion.h2>
           <motion.p
             className="text-optimized font-rounded text-lg text-muted-foreground max-w-3xl mx-auto"
@@ -67,7 +67,7 @@ export default function ValueSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            健康守護不僅僅是一個記錄血壓的應用，而是您全方位的健康管理助手，將數據、分析和醫療專業完美結合。
+            血壓管家專注於提供便捷的血壓記錄功能，幫助您清晰記錄和分析血壓數值，智能管理您的健康數據。
           </motion.p>
         </div>
 
