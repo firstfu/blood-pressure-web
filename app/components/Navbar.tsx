@@ -11,8 +11,7 @@ import { ThemeToggle } from "./theme-toggle";
 const navItems = [
   { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
   { href: "#preview", label: "產品預覽", icon: <BarChart2 className="w-5 h-5" /> },
-  { href: "/legal/faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
-  { href: "/legal/guide", label: "使用指南", icon: <ChevronRight className="w-5 h-5" /> },
+  { href: "#faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
 ];
 
 export default function Navbar() {
@@ -230,12 +229,7 @@ export default function Navbar() {
                   {" "}
                   {/* 適配暗黑模式 */} {/* 使用主題變量 */}
                   <nav className="flex flex-col gap-6 mt-12">
-                    <motion.div
-                      className="flex items-center justify-center mb-8"
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
+                    <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                       <span className="text-4xl font-bold">
                         {" "}
                         {/* 增加字體大小 */}

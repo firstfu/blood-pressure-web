@@ -81,38 +81,33 @@ export default function AppScreenshotCarousel() {
 
   return (
     <div className="relative w-full h-full flex flex-col">
-      {/* 模擬手機框架 */}
-      <div className="absolute inset-0 rounded-[2.5rem] border-[8px] border-black/5 dark:border-white/5 shadow-xl z-0"></div>
-
-      {/* 上方圓角缺口 */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-4 bg-black/5 dark:bg-white/5 rounded-b-lg z-20"></div>
-
-      {/* 頂部狀態欄 - 移除文字 */}
-      <div className="absolute top-4 left-0 right-0 h-6 bg-gradient-to-b from-white/5 to-transparent dark:from-black/5 dark:to-transparent backdrop-blur-sm z-10">
-        <div className="flex justify-end items-center px-5 h-full">
-          <div className="flex space-x-1">
-            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
-            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
-            <div className="w-2 h-2 rounded-full bg-black/20 dark:bg-white/20"></div>
+      {/* 上方狀態欄 */}
+      <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-black/10 to-transparent dark:from-white/5 dark:to-transparent backdrop-blur-sm z-10">
+        <div className="flex justify-between items-center px-4 h-full">
+          <div className="text-xs font-medium text-gray-600 dark:text-gray-300">8:45</div>
+          <div className="flex space-x-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-gray-600/70 dark:bg-gray-300/70"></div>
           </div>
         </div>
       </div>
 
-      {/* 標題和描述 - 移出截圖區域 */}
+      {/* 標題和描述 */}
       <motion.div
-        className="absolute -bottom-14 left-0 right-0 z-40 px-6 py-3"
+        className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-40 w-11/12"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-3 rounded-xl shadow-lg">
+        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md p-3 rounded-xl shadow-lg border border-white/20 dark:border-gray-700/30">
           <motion.h3
             key={`title-${currentIndex}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-lg font-bold text-gray-900 dark:text-gray-100 text-center"
+            className="text-base font-bold text-gray-900 dark:text-gray-100 text-center"
           >
             {screenshots[currentIndex].title}
           </motion.h3>
@@ -121,18 +116,18 @@ export default function AppScreenshotCarousel() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-base text-gray-700 dark:text-gray-300 text-center mt-1"
+            className="text-sm text-gray-700 dark:text-gray-300 text-center mt-1"
           >
             {screenshots[currentIndex].description}
           </motion.p>
         </div>
       </motion.div>
 
-      {/* 截圖展示區 - 調整內邊距 */}
-      <div className="relative w-full h-full overflow-hidden pt-12 pb-8 px-1">
-        {/* 側邊提示陰影 - 增強側滑視覺引導 */}
-        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/5 to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black/5 to-transparent z-20 pointer-events-none"></div>
+      {/* 截圖展示區 */}
+      <div className="relative w-full h-full overflow-hidden pt-8 pb-8">
+        {/* 側邊提示陰影 */}
+        <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/10 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-black/10 to-transparent z-20 pointer-events-none"></div>
 
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
@@ -144,7 +139,7 @@ export default function AppScreenshotCarousel() {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
-            className="w-full h-full relative rounded-xl overflow-hidden shadow-inner"
+            className="w-full h-full relative rounded-xl overflow-hidden"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -169,9 +164,9 @@ export default function AppScreenshotCarousel() {
               priority
             />
 
-            {/* 螢幕反光效果 */}
+            {/* 螢幕反光效果 - 增強光澤 */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent"
               initial={{ left: "-100%" }}
               animate={{
                 left: ["100%", "-100%"],
@@ -179,66 +174,51 @@ export default function AppScreenshotCarousel() {
               transition={{
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: 10,
+                duration: 8,
                 ease: "linear",
               }}
             />
 
-            {/* 側滑提示動畫 - 初次顯示時提示用戶可以滑動 */}
-            {currentIndex === 0 && (
-              <motion.div
-                className="absolute inset-0 pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ delay: 1, duration: 2, times: [0, 0.5, 1] }}
-              >
-                <motion.div
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 dark:bg-gray-800/20 rounded-full flex items-center justify-center backdrop-blur-sm"
-                  animate={{ x: [-20, 0] }}
-                  transition={{ duration: 1.5, repeat: 1, repeatType: "reverse" }}
-                >
-                  <ChevronLeft className="w-6 h-6 text-white/70 dark:text-gray-300/70" />
-                </motion.div>
-              </motion.div>
-            )}
+            {/* 增加更柔和的發光效果 */}
+            <div className="absolute inset-0 bg-gradient-radial from-primary-500/5 to-transparent"></div>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* 左右箭頭 - 更大更明顯 */}
+      {/* 左右箭頭 - 調整大小和位置 */}
       <button
         onClick={goToPrev}
-        className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 dark:bg-gray-800/60 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
+        className="absolute left-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
         aria-label="上一張"
       >
-        <ChevronLeft className="w-7 h-7 text-gray-700 dark:text-gray-200" />
+        <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-200" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/80 dark:bg-gray-800/60 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
+        className="absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/80 dark:bg-gray-800/80 flex items-center justify-center shadow-lg z-30 hover:bg-white hover:scale-110 dark:hover:bg-gray-800 transition-all duration-300"
         aria-label="下一張"
       >
-        <ChevronRight className="w-7 h-7 text-gray-700 dark:text-gray-200" />
+        <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-200" />
       </button>
 
       {/* 底部導航條 */}
       <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-3">
-        <div className="w-1/4 h-1 bg-black/5 dark:bg-white/5 rounded-full"></div>
+        <div className="w-1/3 h-1 bg-black/10 dark:bg-white/10 rounded-full"></div>
       </div>
 
       {/* 指示器 */}
-      <div className="absolute -bottom-32 left-0 right-0 flex justify-center z-10">
-        <div className="flex space-x-4">
+      <div className="absolute -bottom-16 left-0 right-0 flex justify-center z-10">
+        <div className="flex space-x-3">
           {screenshots.map((_, index) => (
             <motion.button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3.5 h-3.5 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-primary-500 shadow-md shadow-primary-500/30" : "bg-gray-300/40 dark:bg-gray-600/30"
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                index === currentIndex ? "bg-primary-500 shadow-sm shadow-primary-500/30 scale-125" : "bg-gray-300/40 dark:bg-gray-600/30"
               }`}
               whileHover={{ scale: 1.3 }}
               whileTap={{ scale: 0.9 }}
-              animate={index === currentIndex ? { scale: [1, 1.2, 1] } : {}}
+              animate={index === currentIndex ? { scale: [1.2, 1.4, 1.2] } : {}}
               transition={
                 index === currentIndex
                   ? {
@@ -248,7 +228,6 @@ export default function AppScreenshotCarousel() {
                     }
                   : {}
               }
-              aria-label={`前往第 ${index + 1} 張截圖`}
             />
           ))}
         </div>

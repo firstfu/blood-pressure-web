@@ -17,14 +17,32 @@ interface FeatureProps {
 function Feature({ icon, title, description, delay }: FeatureProps) {
   return (
     <motion.div
-      className="flex flex-col items-center text-center p-6"
+      className="flex flex-col bg-white/80 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden group"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
     >
-      <div className="mb-4 p-3 rounded-full bg-primary-100 dark:bg-primary-900/30">{icon}</div>
-      <h3 className="text-xl font-semibold mb-2 text-foreground">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      <div className="p-6 flex flex-col items-center text-center">
+        <div className="mb-4 p-4 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary shadow-md dark:shadow-primary-900/30 relative overflow-hidden group-hover:ring-2 group-hover:ring-primary-300 dark:group-hover:ring-primary-700 transition-all">
+          {/* 圓形背景動畫 */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-tr from-primary-300/50 to-primary-600/50 dark:from-primary-600/30 dark:to-primary-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          />
+          <div className="relative z-10">{icon}</div>
+        </div>
+        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">{title}</h3>
+        <p className="text-muted-foreground leading-relaxed">{description}</p>
+      </div>
+      <div className="h-1 w-full bg-gradient-to-r from-primary-300 via-primary-500 to-secondary-500 group-hover:h-1.5 transition-all duration-300"></div>
     </motion.div>
   );
 }
@@ -67,24 +85,35 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="py-20 relative overflow-hidden">
+    <section id="features" className="py-24 relative overflow-hidden">
       {/* 背景裝飾 */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary-100/30 to-secondary-100/30 dark:from-primary-900/10 dark:to-secondary-900/10 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-r from-primary-100/30 to-secondary-100/30 dark:from-primary-900/10 dark:to-secondary-900/10 blur-3xl"></div>
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+          <motion.span
+            className="inline-block text-primary text-sm md:text-base font-semibold tracking-wide uppercase mb-3 px-3 py-1 bg-primary-50 dark:bg-primary-900/20 rounded-full"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
+          >
+            完整功能
+          </motion.span>
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight relative inline-block"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
             功能特點
+            <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
           </motion.h2>
           <motion.p
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -93,15 +122,31 @@ export default function FeaturesSection() {
           </motion.p>
         </div>
 
-        <div ref={ref} className="relative">
-          {/* 應用截圖 */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative" ref={ref}>
+          {/* 左側功能列表 */}
+          <div className="lg:col-span-4 order-2 lg:order-1">
+            <div className="grid grid-cols-1 gap-8">
+              {features.slice(0, 3).map((feature, index) => (
+                <Feature key={index} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + index * 0.1} />
+              ))}
+            </div>
+          </div>
+
+          {/* 中間應用截圖 */}
           <motion.div
-            className="mb-40 flex justify-center"
+            className="lg:col-span-4 flex justify-center order-1 lg:order-2"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="relative w-full max-w-[400px] md:max-w-[450px] h-[700px] md:h-[780px] rounded-[2.5rem] overflow-hidden shadow-2xl dark:shadow-primary-900/20">
+            <div className="relative w-full max-w-[300px] md:max-w-[320px] h-[550px] md:h-[600px] rounded-[2.5rem] overflow-hidden shadow-2xl dark:shadow-primary-900/30 border-[10px] border-gray-800 dark:border-gray-700">
+              {/* 手機頂部鏡頭模擬 */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-black rounded-b-xl z-30 flex justify-center items-end pb-1">
+                <div className="w-4 h-4 rounded-full bg-gray-800 ring-2 ring-gray-700 relative">
+                  <div className="absolute top-1 right-1 w-1 h-1 rounded-full bg-blue-400/40"></div>
+                </div>
+              </div>
+
               <div className="absolute inset-0 bg-gradient-radial from-primary-500/5 to-secondary-500/10 dark:from-primary-900/20 dark:to-secondary-900/20"></div>
 
               {/* 發光效果 */}
@@ -121,15 +166,25 @@ export default function FeaturesSection() {
               <div className="absolute inset-0">
                 <AppScreenshotCarousel />
               </div>
+
+              {/* 裝飾元素 - 簡約圓點 */}
+              <div className="absolute -top-8 -right-8 w-16 h-16 rounded-full bg-secondary-400/20 dark:bg-secondary-600/10 blur-xl"></div>
+              <div className="absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-primary-400/20 dark:bg-primary-600/10 blur-xl"></div>
             </div>
           </motion.div>
 
-          {/* 功能列表 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Feature key={index} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + index * 0.1} />
-            ))}
+          {/* 右側功能列表 */}
+          <div className="lg:col-span-4 order-3">
+            <div className="grid grid-cols-1 gap-8">
+              {features.slice(3, 6).map((feature, index) => (
+                <Feature key={index + 3} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + (index + 3) * 0.1} />
+              ))}
+            </div>
           </div>
+
+          {/* 底部裝飾元素 */}
+          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent"></div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-primary-500/20 via-secondary-500/60 to-accent-500/20 rounded-full"></div>
         </div>
       </div>
     </section>
