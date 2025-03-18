@@ -130,18 +130,34 @@ export default function AppScreenshotCarousel() {
 
       {/* 截圖展示區 - 調整內邊距 */}
       <div className="relative w-full h-full overflow-hidden pt-12 pb-8 px-1">
-        <AnimatePresence mode="wait">
+        {/* 側邊提示陰影 - 增強側滑視覺引導 */}
+        <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/5 to-transparent z-20 pointer-events-none"></div>
+        <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-black/5 to-transparent z-20 pointer-events-none"></div>
+
+        <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
+            initial={{ x: currentIndex === 0 ? 0 : 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -100, opacity: 0 }}
             transition={{
-              type: "spring",
-              stiffness: 300,
-              damping: 30,
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
             }}
             className="w-full h-full relative rounded-xl overflow-hidden shadow-inner"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.3}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = Math.abs(offset.x) > 100 || Math.abs(velocity.x) > 300;
+              if (swipe) {
+                if (offset.x > 0) {
+                  goToPrev();
+                } else {
+                  goToNext();
+                }
+              }
+            }}
           >
             <Image
               src={screenshots[currentIndex].image}
@@ -167,6 +183,24 @@ export default function AppScreenshotCarousel() {
                 ease: "linear",
               }}
             />
+
+            {/* 側滑提示動畫 - 初次顯示時提示用戶可以滑動 */}
+            {currentIndex === 0 && (
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ delay: 1, duration: 2, times: [0, 0.5, 1] }}
+              >
+                <motion.div
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/20 dark:bg-gray-800/20 rounded-full flex items-center justify-center backdrop-blur-sm"
+                  animate={{ x: [-20, 0] }}
+                  transition={{ duration: 1.5, repeat: 1, repeatType: "reverse" }}
+                >
+                  <ChevronLeft className="w-6 h-6 text-white/70 dark:text-gray-300/70" />
+                </motion.div>
+              </motion.div>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

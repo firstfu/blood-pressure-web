@@ -412,31 +412,25 @@ export default function HeroSection() {
             </motion.div>
 
             {/* 信任徽章 */}
-            <motion.div
+            {/* <motion.div
               className="flex flex-wrap items-center gap-4 pt-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1.5 }}
             >
-              <span className="text-base text-muted-foreground">受到信賴：</span> {/* 使用主題變量 */}
+              <span className="text-base text-muted-foreground">受到信賴：</span>
               <div className="flex flex-wrap gap-4">
                 <div className="h-10 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                  {" "}
-                  {/* 增加徽章大小 */}
-                  <Image src="/images/trust-badge-1.svg" alt="信任徽章" width={100} height={40} /> {/* 增加圖片大小 */}
+                  <Image src="/images/trust-badge-1.svg" alt="信任徽章" width={100} height={40} />
                 </div>
                 <div className="h-10 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                  {" "}
-                  {/* 增加徽章大小 */}
-                  <Image src="/images/trust-badge-2.svg" alt="信任徽章" width={100} height={40} /> {/* 增加圖片大小 */}
+                  <Image src="/images/trust-badge-2.svg" alt="信任徽章" width={100} height={40} />
                 </div>
                 <div className="h-10 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-                  {" "}
-                  {/* 增加徽章大小 */}
-                  <Image src="/images/trust-badge-3.svg" alt="信任徽章" width={100} height={40} /> {/* 增加圖片大小 */}
+                  <Image src="/images/trust-badge-3.svg" alt="信任徽章" width={100} height={40} />
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* 右側 App 預覽 */}
@@ -476,16 +470,54 @@ export default function HeroSection() {
                   {" "}
                   {/* 使用主題變量 */}
                   <div className="aspect-[9/19] relative">
-                    <AnimatePresence mode="wait">
+                    {/* 側邊提示陰影 - 增強側滑視覺引導 */}
+                    <div className="absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/5 to-transparent z-20 pointer-events-none"></div>
+                    <div className="absolute inset-y-0 right-0 w-6 bg-gradient-to-l from-black/5 to-transparent z-20 pointer-events-none"></div>
+
+                    <AnimatePresence initial={false} mode="popLayout">
                       <motion.div
                         key={currentImageIndex}
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        initial={{ x: 100, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -100, opacity: 0 }}
+                        transition={{
+                          x: { type: "spring", stiffness: 300, damping: 30 },
+                          opacity: { duration: 0.2 },
+                        }}
                         className="absolute inset-0"
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.3}
+                        onDragEnd={(e, { offset, velocity }) => {
+                          const swipe = Math.abs(offset.x) > 100 || Math.abs(velocity.x) > 300;
+                          if (swipe) {
+                            if (offset.x > 0) {
+                              goToPrevImage();
+                            } else {
+                              goToNextImage();
+                            }
+                          }
+                        }}
                       >
                         <Image src={heroImages[currentImageIndex].src} alt={heroImages[currentImageIndex].alt} fill className="object-contain" priority />
+
+                        {/* 側滑提示動畫 - 初次顯示時提示用戶可以滑動 */}
+                        {currentImageIndex === 0 && (
+                          <motion.div
+                            className="absolute inset-0 pointer-events-none"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: [0, 1, 0] }}
+                            transition={{ delay: 2, duration: 2, times: [0, 0.5, 1] }}
+                          >
+                            <motion.div
+                              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/20 dark:bg-gray-800/20 rounded-full flex items-center justify-center backdrop-blur-sm"
+                              animate={{ x: [-20, 0] }}
+                              transition={{ duration: 1.5, repeat: 1, repeatType: "reverse" }}
+                            >
+                              <ChevronLeft className="w-5 h-5 text-white/70 dark:text-gray-300/70" />
+                            </motion.div>
+                          </motion.div>
+                        )}
                       </motion.div>
                     </AnimatePresence>
                   </div>
