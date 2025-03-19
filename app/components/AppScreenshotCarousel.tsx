@@ -1,3 +1,9 @@
+/**
+ * @Author: firstfu
+ * @Create Time: 2024-06-28 10:15:23
+ * @Description: 螢幕截圖輪播元件，支援左右滿版顯示在 iPhone 模型中
+ */
+
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -80,12 +86,10 @@ export default function AppScreenshotCarousel() {
   };
 
   return (
-    <div className="relative w-full h-full flex flex-col">
+    <div className="flex flex-col h-full w-full relative">
       {/* 截圖展示區 */}
-      <div className="relative w-full h-full overflow-hidden">
-        {/* 側邊提示陰影 */}
-        <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-black/10 to-transparent z-20 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-black/10 to-transparent z-20 pointer-events-none"></div>
+      <div className="h-full w-full overflow-hidden relative">
+        {/* 側邊提示陰影 - 移除避免影響全滿版顯示 */}
 
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
@@ -97,7 +101,7 @@ export default function AppScreenshotCarousel() {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
-            className="w-full h-full relative overflow-hidden flex items-center justify-center"
+            className="h-full w-full absolute inset-0 overflow-hidden"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.3}
@@ -112,21 +116,13 @@ export default function AppScreenshotCarousel() {
               }
             }}
           >
-            <div className="relative w-full h-full flex items-center justify-center">
-              <Image
-                src={screenshots[currentIndex].image}
-                alt={screenshots[currentIndex].title}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                quality={100}
-                priority
-              />
+            <div className="h-full w-full absolute inset-0">
+              <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="h-full w-full object-cover" sizes="100vw" quality={100} priority />
             </div>
 
             {/* 螢幕反光效果 - 增強光澤 */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-transparent"
+              className="bg-gradient-to-tr absolute from-transparent inset-0 to-transparent via-white/15"
               initial={{ left: "-100%" }}
               animate={{
                 left: ["100%", "-100%"],
@@ -140,7 +136,7 @@ export default function AppScreenshotCarousel() {
             />
 
             {/* 增加更柔和的發光效果 */}
-            <div className="absolute inset-0 bg-gradient-radial from-primary-500/5 to-transparent"></div>
+            <div className="bg-gradient-radial absolute from-primary-500/5 inset-0 to-transparent"></div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -148,26 +144,26 @@ export default function AppScreenshotCarousel() {
       {/* 左右箭頭 */}
       <button
         onClick={goToPrev}
-        className="absolute left-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-lg z-30 hover:bg-white/70 hover:scale-110 dark:hover:bg-gray-800/70 transition-all duration-300"
+        className="flex bg-white/50 h-6 justify-center rounded-full shadow-lg w-6 -translate-y-1/2 absolute dark:bg-gray-800/50 dark:hover:bg-gray-800/70 duration-300 hover:bg-white/70 hover:scale-110 items-center left-1 top-1/2 transition-all z-30"
         aria-label="上一張"
       >
-        <ChevronLeft className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
+        <ChevronLeft className="h-3.5 text-gray-700 w-3.5 dark:text-gray-200" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-0.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/50 dark:bg-gray-800/50 flex items-center justify-center shadow-lg z-30 hover:bg-white/70 hover:scale-110 dark:hover:bg-gray-800/70 transition-all duration-300"
+        className="flex bg-white/50 h-6 justify-center rounded-full shadow-lg w-6 -translate-y-1/2 absolute dark:bg-gray-800/50 dark:hover:bg-gray-800/70 duration-300 hover:bg-white/70 hover:scale-110 items-center right-1 top-1/2 transition-all z-30"
         aria-label="下一張"
       >
-        <ChevronRight className="w-3.5 h-3.5 text-gray-700 dark:text-gray-200" />
+        <ChevronRight className="h-3.5 text-gray-700 w-3.5 dark:text-gray-200" />
       </button>
 
       {/* 底部導航條 */}
-      <div className="absolute bottom-1 left-0 right-0 flex justify-center z-10 h-2">
-        <div className="w-[90px] h-[4px] bg-black/15 dark:bg-white/15 rounded-full"></div>
+      <div className="flex h-2 justify-center absolute bottom-1 left-0 right-0 z-10">
+        <div className="bg-black/15 h-[4px] rounded-full w-[90px] dark:bg-white/15"></div>
       </div>
 
       {/* 指示器 */}
-      <div className="absolute -bottom-16 left-0 right-0 flex justify-center z-10">
+      <div className="flex justify-center -bottom-16 absolute left-0 right-0 z-10">
         <div className="flex space-x-3">
           {screenshots.map((_, index) => (
             <motion.button
