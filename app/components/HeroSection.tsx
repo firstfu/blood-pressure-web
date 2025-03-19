@@ -44,17 +44,17 @@ const heroImages = [
 // 社會證明數據
 const socialProofs = [
   {
-    icon: <Shield className="w-5 h-5" />,
+    icon: <Shield className="h-5 w-5" />,
     count: "100%",
     text: "隱私保障技術",
   },
   {
-    icon: <Heart className="w-5 h-5" />,
+    icon: <Heart className="h-5 w-5" />,
     count: "專業",
     text: "醫療顧問團隊監製",
   },
   {
-    icon: <Clock className="w-5 h-5" />,
+    icon: <Clock className="h-5 w-5" />,
     count: "提前",
     text: "獲得搶先使用資格",
   },
@@ -94,15 +94,9 @@ const animations = {
 
 // 手機預覽元件
 const PhonePreview = ({ y }) => (
-  <motion.div className="relative mx-auto w-[300px] h-[620px] rounded-[3rem] border-[14px] border-gray-900 dark:border-gray-800 overflow-hidden shadow-2xl bg-gray-800">
+  <motion.div className="bg-gray-800 border-[14px] border-gray-900 h-[620px] rounded-[3rem] shadow-2xl w-[300px] dark:border-gray-800 mx-auto overflow-hidden relative">
     <div className="absolute inset-0 overflow-hidden">
-      <div className="h-6 w-full bg-[#2A7FD5] flex items-center justify-between px-3">
-        <div className="text-xs text-white">8:45</div>
-        <div className="flex items-center space-x-1">
-          <StatusBarIcons />
-        </div>
-      </div>
-      <div className="relative h-full w-full">
+      <div className="h-full w-full relative">
         <AppScreenshotCarousel />
       </div>
     </div>
@@ -111,40 +105,19 @@ const PhonePreview = ({ y }) => (
   </motion.div>
 );
 
-// 狀態欄圖標元件
-const StatusBarIcons = () => (
-  <>
-    <div className="w-3 h-3">
-      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
-        <path d="M12 20.9l-1.4-1.4c-4.4-4.4-7.3-7.3-7.3-10.8C3.3 5.9 5.9 3.3 9 3.3c1.7 0 3.3.8 4.4 2.1 1-1.3 2.7-2.1 4.4-2.1 3.1 0 5.7 2.6 5.7 5.7 0 3.5-2.9 6.4-7.3 10.8L12 20.9z" />
-      </svg>
-    </div>
-    <div className="w-3 h-3">
-      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
-        <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z" />
-      </svg>
-    </div>
-    <div className="w-3 h-3">
-      <svg viewBox="0 0 24 24" className="w-full h-full fill-current text-white">
-        <path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4zM11 20v-5.5H9L13 7v5.5h2L11 20z" />
-      </svg>
-    </div>
-  </>
-);
-
 // 手機按鈕元件
 const PhoneButtons = () => (
   <>
-    <div className="absolute -right-[14px] top-[140px] h-8 w-1 bg-gray-900 dark:bg-gray-800 rounded-l"></div>
-    <div className="absolute -left-[14px] top-[120px] h-12 w-1 bg-gray-900 dark:bg-gray-800 rounded-r"></div>
-    <div className="absolute -left-[14px] top-[170px] h-12 w-1 bg-gray-900 dark:bg-gray-800 rounded-r"></div>
+    <div className="bg-gray-900 h-8 rounded-l w-1 -right-[14px] absolute dark:bg-gray-800 top-[140px]"></div>
+    <div className="bg-gray-900 h-12 rounded-r w-1 -left-[14px] absolute dark:bg-gray-800 top-[120px]"></div>
+    <div className="bg-gray-900 h-12 rounded-r w-1 -left-[14px] absolute dark:bg-gray-800 top-[170px]"></div>
   </>
 );
 
 // 反光效果元件
 const ReflectionEffect = () => (
   <motion.div
-    className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none"
+    className="bg-gradient-to-tr absolute from-transparent inset-0 pointer-events-none to-transparent via-white/10"
     animate={{
       opacity: [0.5, 0.8, 0.5],
       backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
@@ -185,16 +158,16 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="relative pt-12 md:pt-20 pb-20 overflow-hidden mt-0">
+    <section id="hero" ref={heroRef} className="md:pt-20 mt-0 overflow-hidden pb-20 pt-12 relative">
       <BackgroundDecorations />
 
-      <div className="container mx-auto px-5 md:px-8">
-        <motion.div style={{ opacity }} className="flex flex-col lg:flex-row items-center gap-16 pt-0">
+      <div className="container md:px-8 mx-auto px-5">
+        <motion.div style={{ opacity }} className="flex flex-col gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
-          <motion.div className="lg:w-1/2 space-y-6 md:space-y-8 -mt-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-6" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-optimized font-sans text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed tracking-wide" variants={animations.item}>
+            <motion.p className="text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl md:text-xl tracking-wide" variants={animations.item}>
               <strong className="text-foreground">每4個成年人就有1人</strong>
               面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。
             </motion.p>
@@ -203,7 +176,7 @@ export default function HeroSection() {
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="lg:w-1/2 relative lg:translate-x-5 mt-4 lg:mt-0 lg:-translate-y-10 flex items-center justify-center"
+            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-5 lg:w-1/2 mt-4 relative"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -222,10 +195,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 px-4 py-3 rounded-lg shadow-lg z-50 text-center"
+            className="bg-white rounded-lg shadow-lg text-center -translate-x-1/2 bottom-5 dark:bg-gray-800 fixed left-1/2 px-4 py-3 transform z-50"
           >
-            <div className="flex items-center gap-2">
-              <div className="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 p-1.5 rounded-full">
+            <div className="flex gap-2 items-center">
+              <div className="bg-green-100 p-1.5 rounded-full text-green-600 dark:bg-green-900/30 dark:text-green-400">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
@@ -243,22 +216,22 @@ export default function HeroSection() {
       </AnimatePresence>
 
       {/* 頁尾權益展示 */}
-      <div className="absolute bottom-0 left-0 right-0 bg-transparent">
+      <div className="bg-transparent absolute bottom-0 left-0 right-0">
         <div className="container mx-auto">
-          <motion.div className="flex justify-center items-center py-4 px-4" initial={{ opacity: 0 }} animate={{ opacity: 0.9 }} transition={{ duration: 0.8, delay: 1.2 }}>
-            <div className="flex flex-wrap justify-center items-center gap-6 md:gap-12">
+          <motion.div className="flex justify-center items-center px-4 py-4" initial={{ opacity: 0 }} animate={{ opacity: 0.9 }} transition={{ duration: 0.8, delay: 1.2 }}>
+            <div className="flex flex-wrap justify-center gap-6 items-center md:gap-12">
               {socialProofs.map((proof, index) => (
                 <motion.div
                   key={index}
-                  className="flex items-center gap-2"
+                  className="flex gap-2 items-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
                 >
                   <div className="text-primary-400/80">{proof.icon}</div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-medium text-foreground/80">{proof.count}</span>
-                    <span className="text-xs text-muted-foreground/70">{proof.text}</span>
+                    <span className="text-foreground/80 text-sm font-medium">{proof.count}</span>
+                    <span className="text-muted-foreground/70 text-xs">{proof.text}</span>
                   </div>
                 </motion.div>
               ))}
@@ -273,9 +246,9 @@ export default function HeroSection() {
 // 背景裝飾元件
 const BackgroundDecorations = () => (
   <>
-    <div className="absolute inset-0 top-0 bg-gradient-to-br from-primary-50 to-white dark:from-background dark:to-background/80 -z-10" />
+    <div className="bg-gradient-to-br -z-10 absolute dark:from-background dark:to-background/80 from-primary-50 inset-0 to-white top-0" />
     <motion.div
-      className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-br from-primary-200/30 to-secondary-200/30 dark:from-primary-600/10 dark:to-secondary-600/10 blur-3xl -z-10"
+      className="bg-gradient-to-br h-1/3 w-1/3 -z-10 absolute blur-3xl dark:from-primary-600/10 dark:to-secondary-600/10 from-primary-200/30 right-0 to-secondary-200/30 top-0"
       animate={{
         scale: [1, 1.2, 1],
         opacity: [0.5, 0.7, 0.5],
@@ -287,7 +260,7 @@ const BackgroundDecorations = () => (
       }}
     />
     <motion.div
-      className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-primary-200/30 to-accent-200/30 dark:from-primary-600/10 dark:to-accent-600/10 blur-3xl -z-10"
+      className="bg-gradient-to-tr h-1/3 w-1/3 -z-10 absolute blur-3xl bottom-0 dark:from-primary-600/10 dark:to-accent-600/10 from-primary-200/30 left-0 to-accent-200/30"
       animate={{
         scale: [1, 1.3, 1],
         opacity: [0.5, 0.8, 0.5],
@@ -298,19 +271,19 @@ const BackgroundDecorations = () => (
         repeatType: "reverse",
       }}
     />
-    <div className="absolute inset-0 bg-[linear-gradient(rgba(176,238,250,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(176,238,250,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(56,199,237,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(56,199,237,0.01)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] -z-10" />
+    <div className="bg-[linear-gradient(rgba(176,238,250,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(176,238,250,0.03)_1px,transparent_1px)] bg-[size:40px_40px] -z-10 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] absolute dark:bg-[linear-gradient(rgba(56,199,237,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(56,199,237,0.01)_1px,transparent_1px)] inset-0" />
   </>
 );
 
 // 徽章區塊元件
 const BadgeSection = () => (
   <motion.div
-    className="inline-flex items-center px-3 py-1.5 border border-accent-200 dark:border-accent-800 rounded-full bg-accent-50 dark:bg-accent-900/30 mb-3"
+    className="bg-accent-50 border border-accent-200 rounded-full dark:bg-accent-900/30 dark:border-accent-800 inline-flex items-center mb-3 px-3 py-1.5"
     variants={animations.item}
   >
     <span className="flex items-center">
-      <Star className="w-4 h-4 mr-1 text-accent-500 dark:text-accent-400" />
-      <span className="text-gradient-primary-to-secondary text-base md:text-lg font-medium">2025 年血壓記錄應用 | 產品即將上線，開放預先註冊</span>
+      <Star className="h-4 text-accent-500 w-4 dark:text-accent-400 mr-1" />
+      <span className="text-base text-gradient-primary-to-secondary font-medium md:text-lg">2025 年血壓記錄應用 | 產品即將上線，開放預先註冊</span>
     </span>
   </motion.div>
 );
@@ -318,12 +291,12 @@ const BadgeSection = () => (
 // 標題區塊元件
 const HeadingSection = () => (
   <motion.div className="space-y-4" variants={animations.item}>
-    <h1 className="heading-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight max-w-4xl leading-[1.1]">
+    <h1 className="text-4xl font-bold heading-serif leading-[1.1] lg:text-6xl max-w-4xl md:text-5xl tracking-tight xl:text-7xl">
       <span className="text-foreground">輕鬆監測</span>
-      <div className="relative inline-block mt-2 md:mt-4">
-        <span className="relative z-10 text-gradient-primary">您的血壓數值</span>
+      <div className="inline-block md:mt-4 mt-2 relative">
+        <span className="text-gradient-primary relative z-10">您的血壓數值</span>
         <motion.span
-          className="absolute bottom-1 left-0 h-3 w-full bg-primary-200/50 dark:bg-primary-600/20 -z-0 rounded-full"
+          className="bg-primary-200/50 h-3 rounded-full w-full -z-0 absolute bottom-1 dark:bg-primary-600/20 left-0"
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -331,19 +304,19 @@ const HeadingSection = () => (
       </div>
       <span className="text-foreground block md:inline">，簡單又實用</span>
     </h1>
-    <p className="font-rounded text-xl md:text-2xl text-muted-foreground mt-2 tracking-wide">記錄、分析、管理血壓，追蹤測試結果</p>
+    <p className="text-muted-foreground text-xl font-rounded md:text-2xl mt-2 tracking-wide">記錄、分析、管理血壓，追蹤測試結果</p>
   </motion.div>
 );
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail }) => (
   <motion.div className="space-y-4" variants={animations.item}>
-    <div className="flex flex-col sm:flex-row gap-2">
-      <div className="relative flex-1">
+    <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex-1 relative">
         <Input
           type="email"
           placeholder="您的電子郵件"
-          className="rounded-full py-6 px-5 bg-background border-primary-200 dark:border-primary-800 text-base"
+          className="bg-background border-primary-200 rounded-full text-base dark:border-primary-800 px-5 py-6"
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
@@ -352,12 +325,12 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
         size="lg"
         onClick={handlePreRegister}
         disabled={isSubmitting}
-        className="rounded-full gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 group py-6 px-8 text-base font-medium"
+        className="rounded-full shadow-medium text-base duration-300 font-medium gradient-primary-to-accent group hover:shadow-lg px-8 py-6 transition-all"
       >
         <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
           {isSubmitting ? (
             <span className="flex items-center">
-              <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="h-5 text-white w-5 -ml-1 animate-spin mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path
                   className="opacity-75"
@@ -381,7 +354,7 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
                   repeatDelay: 1,
                 }}
               >
-                <ArrowRight className="ml-2 h-5 w-5 inline-block" />
+                <ArrowRight className="h-5 w-5 inline-block ml-2" />
               </motion.span>
             </>
           )}
@@ -389,13 +362,13 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
       </Button>
     </div>
 
-    <p className="text-sm text-muted-foreground mx-auto text-center md:text-left">✓ 優先獲得上線通知 | ✓ 首發優惠資格 | ✓ 免費產品更新</p>
+    <p className="text-center text-muted-foreground text-sm md:text-left mx-auto">✓ 優先獲得上線通知 | ✓ 首發優惠資格 | ✓ 免費產品更新</p>
 
     <Button
       size="lg"
       variant="outline"
       asChild
-      className="rounded-full border-primary-300 dark:border-primary-800/60 hover:bg-primary-50 dark:hover:bg-primary-900/20 group bg-background py-6 px-6 text-base font-medium w-full sm:w-auto mt-2"
+      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 mt-2 px-6 py-6 sm:w-auto"
     >
       <motion.a href="#features" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
         了解產品特色
@@ -407,7 +380,7 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
             repeatType: "loop",
             ease: "easeInOut",
           }}
-          className="ml-2 inline-block"
+          className="inline-block ml-2"
         >
           <ChevronDown className="h-5 w-5" />
         </motion.span>
@@ -419,7 +392,7 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
 // 背景光暈效果元件
 const BackgroundGlow = () => (
   <motion.div
-    className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-gradient-to-tr from-primary-500/30 via-secondary-500/30 to-accent-500/30 dark:from-primary-500/10 dark:via-secondary-500/10 dark:to-accent-500/10 blur-2xl"
+    className="bg-gradient-to-tr h-[300px] rounded-full w-[300px] -translate-x-1/2 -translate-y-1/2 -z-10 absolute blur-2xl dark:from-primary-500/10 dark:to-accent-500/10 dark:via-secondary-500/10 from-primary-500/30 left-1/2 to-accent-500/30 top-1/2 via-secondary-500/30"
     animate={{
       scale: [1, 1.1, 1],
       rotate: [0, 180, 360],
