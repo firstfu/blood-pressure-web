@@ -116,8 +116,10 @@ export default function AppScreenshotCarousel() {
               }
             }}
           >
-            <div className="h-full w-full absolute inset-0">
-              <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="h-full w-full object-cover" sizes="100vw" quality={100} priority />
+            <div className="flex flex-col h-full justify-center w-full absolute inset-0 items-center">
+              <div className="w-full max-h-full relative" style={{ aspectRatio: "9/19.5" }}>
+                <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-fill" sizes="100vw" quality={100} priority />
+              </div>
             </div>
 
             {/* 螢幕反光效果 - 增強光澤 */}
