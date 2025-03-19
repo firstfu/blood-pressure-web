@@ -23,11 +23,13 @@ export default function FaqSection() {
         },
         {
           question: "應用是否需要付費？有哪些訂閱計劃？",
-          answer: "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
+          answer:
+            "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
         },
         {
           question: "我是否需要創建帳戶才能使用應用？",
-          answer: "您可以在不創建帳戶的情況下使用應用的基本功能。但是，我們建議創建帳戶，以便您的數據能夠安全備份，並在更換設備時保持同步。創建帳戶還可以解鎖更多高級功能。",
+          answer:
+            "您可以在不創建帳戶的情況下使用應用的基本功能。但是，我們建議創建帳戶，以便您的數據能夠安全備份，並在更換設備時保持同步。創建帳戶還可以解鎖更多高級功能。",
         },
         {
           question: "我的健康數據安全嗎？",
@@ -42,7 +44,8 @@ export default function FaqSection() {
       items: [
         {
           question: "應用是否提供血壓異常警報？",
-          answer: "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
+          answer:
+            "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
         },
         {
           question: "如何與我的醫生分享我的血壓數據？",
@@ -67,7 +70,8 @@ export default function FaqSection() {
         },
         {
           question: "我可以在多個設備上使用同一個帳戶嗎？",
-          answer: "是的，您可以在多個設備上使用同一帳戶。所有數據將自動同步，確保您在任何設備上都能看到最新的健康記錄。這對於家庭成員共同管理或醫患溝通特別有用。",
+          answer:
+            "是的，您可以在多個設備上使用同一帳戶。所有數據將自動同步，確保您在任何設備上都能看到最新的健康記錄。這對於家庭成員共同管理或醫患溝通特別有用。",
         },
       ],
     },
@@ -111,7 +115,7 @@ export default function FaqSection() {
                     <div className="absolute inset-0 z-0">
                       <motion.div
                         layoutId="activeTabBackground"
-                        className="absolute rounded-lg bg-gradient-to-r from-primary-500/95 via-primary-400/95 to-secondary-500/95 shadow-md"
+                        className="absolute rounded-lg bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 shadow-md"
                         initial={false}
                         animate={{
                           x: `${faqCategories.findIndex(c => c.id === activeTab) * (100 / faqCategories.length)}%`,
@@ -131,14 +135,14 @@ export default function FaqSection() {
                           key={category.id}
                           value={category.id}
                           className="relative flex-1 text-base font-medium h-full py-2 rounded-lg
-                            data-[state=active]:text-white data-[state=active]:shadow-sm
+                            data-[state=active]:text-white data-[state=active]:shadow-sm data-[state=active]:font-bold
                             data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-gray-900
                             dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:text-gray-200
                             data-[state=inactive]:hover:bg-blue-50/50 dark:data-[state=inactive]:hover:bg-gray-700/30
                             data-[state=active]:scale-[0.98] data-[state=active]:transform
                             transition-all duration-300 bg-transparent z-10"
                         >
-                          <span className="relative z-10 mix-blend-normal">{category.title}</span>
+                          <span className="relative z-10 text-shadow-sm">{category.title}</span>
                         </TabsTrigger>
                       ))}
                     </TabsList>
