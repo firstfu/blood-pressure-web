@@ -1,5 +1,9 @@
 "use client";
 
+// @ Author: firstfu
+// @ Create Time: 2023-10-19 15:30:00
+// @ Description: 調整切換 theme 時太陽和月亮圖示的位置。
+
 import { useTheme } from "@/app/providers/theme-provider";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
@@ -20,7 +24,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="lg"
-      className="rounded-full bg-background/90 dark:bg-card/90 hover:bg-muted dark:hover:bg-muted/50 shadow-soft p-3 h-auto w-auto"
+      className="bg-background/90 h-auto p-3 rounded-full shadow-soft w-auto dark:bg-card/90 dark:hover:bg-muted/50 hover:bg-muted"
       onClick={toggleTheme}
     >
       <AnimatePresence mode="wait">
@@ -31,9 +35,9 @@ export function ThemeToggle() {
             animate={{ opacity: 1, rotate: 0 }}
             exit={{ opacity: 0, rotate: 90 }}
             transition={{ duration: 0.3 }}
-            className="relative w-7 h-7"
+            className="flex h-7 justify-center w-7 items-center"
           >
-            <Moon className="absolute inset-0 text-neutral-700 w-full h-full" size={28} />
+            <Moon className="text-neutral-700" size={28} />
           </motion.div>
         ) : (
           <motion.div
@@ -42,9 +46,9 @@ export function ThemeToggle() {
             animate={{ opacity: 1, rotate: 0 }}
             exit={{ opacity: 0, rotate: -90 }}
             transition={{ duration: 0.3 }}
-            className="relative w-7 h-7"
+            className="flex h-7 justify-center w-7 items-center"
           >
-            <Sun className="absolute inset-0 text-amber-300 w-full h-full" size={28} />
+            <Sun className="text-amber-300" size={28} />
           </motion.div>
         )}
       </AnimatePresence>
