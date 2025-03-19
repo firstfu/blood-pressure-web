@@ -115,7 +115,7 @@ export default function FaqSection() {
                     <div className="absolute inset-0 z-0">
                       <motion.div
                         layoutId="activeTabBackground"
-                        className="absolute rounded-lg bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 shadow-md"
+                        className="absolute rounded-lg bg-gradient-to-r from-primary-600/90 via-primary-500/90 to-secondary-600/90 shadow-md"
                         initial={false}
                         animate={{
                           x: `${faqCategories.findIndex(c => c.id === activeTab) * (100 / faqCategories.length)}%`,
@@ -135,14 +135,14 @@ export default function FaqSection() {
                           key={category.id}
                           value={category.id}
                           className="relative flex-1 text-base font-medium h-full py-2 rounded-lg
-                            data-[state=active]:text-white data-[state=active]:shadow-sm data-[state=active]:font-bold
+                            data-[state=active]:text-white data-[state=active]:shadow-sm data-[state=active]:font-semibold
                             data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-gray-900
                             dark:data-[state=inactive]:text-gray-400 dark:data-[state=inactive]:hover:text-gray-200
                             data-[state=inactive]:hover:bg-blue-50/50 dark:data-[state=inactive]:hover:bg-gray-700/30
                             data-[state=active]:scale-[0.98] data-[state=active]:transform
                             transition-all duration-300 bg-transparent z-10"
                         >
-                          <span className="relative z-10 text-shadow-sm">{category.title}</span>
+                          <span className="relative z-10 backdrop-blur-none drop-shadow-sm">{category.title}</span>
                         </TabsTrigger>
                       ))}
                     </TabsList>
