@@ -92,7 +92,7 @@ export default function FaqSection() {
   ];
 
   return (
-    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-32 relative to-neutral-100/90">
+    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-10 relative to-neutral-100/90">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] h-full w-full absolute from-primary-400/5 left-0 opacity-60 to-transparent top-0 via-transparent"></div>
         <div className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] h-full w-full absolute bottom-0 from-secondary-400/5 opacity-60 right-0 to-transparent via-transparent"></div>
@@ -109,7 +109,7 @@ export default function FaqSection() {
             幫助中心
           </motion.span>
           <motion.h2
-            className="bg-clip-text bg-gradient-to-r text-4xl text-foreground text-transparent font-bold from-foreground mb-6 md:text-5xl to-foreground/80 via-foreground/90"
+            className="bg-clip-text bg-gradient-to-r text-4xl text-foreground font-bold from-foreground mb-6 md:text-5xl to-foreground/80 via-foreground/90"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}

@@ -51,7 +51,7 @@ export default function SubscriptionForm() {
   };
 
   return (
-    <section id="subscribe" className="py-28 relative overflow-hidden">
+    <section id="subscribe" className="py-10 relative overflow-hidden">
       {/* 背景裝飾 */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary-100/30 to-secondary-100/30 dark:from-primary-900/10 dark:to-secondary-900/10 blur-3xl"></div>
@@ -59,16 +59,9 @@ export default function SubscriptionForm() {
 
       <div className="container mx-auto px-4">
         <div ref={ref} className="max-w-4xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
+          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">完整預先註冊</h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議
-            </p>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議</p>
           </motion.div>
 
           <motion.div
@@ -83,9 +76,7 @@ export default function SubscriptionForm() {
                   <Mail className="h-10 w-10 text-green-600 dark:text-green-400" />
                 </div>
                 <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground">註冊成功！</h3>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">
-                  感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。
-                </p>
+                <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。</p>
                 <Button className="mt-8 text-lg h-12 px-6" onClick={() => setIsSuccess(false)}>
                   返回
                 </Button>
@@ -97,14 +88,7 @@ export default function SubscriptionForm() {
                     電子郵件
                   </Label>
                   <div className="flex gap-2">
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="請輸入您的電子郵件"
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      className="flex-1 text-lg h-14 px-4"
-                    />
+                    <Input id="email" type="email" placeholder="請輸入您的電子郵件" value={email} onChange={e => setEmail(e.target.value)} className="flex-1 text-lg h-14 px-4" />
                     <Button type="submit" disabled={isSubmitting} className="gap-2 text-lg h-14 px-6">
                       預先註冊
                       <ArrowRight className="h-5 w-5" />

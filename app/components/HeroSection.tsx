@@ -167,7 +167,7 @@ export default function HeroSection() {
           <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl md:text-xl tracking-wide" variants={animations.item}>
+            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide" variants={animations.item}>
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
               <span className="md:hidden">每4人就有1人有高血壓風險。</span>
               <span className="hidden md:inline">面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。</span>

@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section id="testimonials" className="py-20 bg-neutral-50/50 dark:bg-card/30">
+    <section id="testimonials" className="py-10 bg-neutral-50/50 dark:bg-card/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2

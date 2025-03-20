@@ -15,7 +15,7 @@ export default function ProblemSolutionSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section id="solution" className="py-20">
+    <section id="solution" className="py-8">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2
