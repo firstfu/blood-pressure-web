@@ -44,17 +44,17 @@ const heroImages = [
 // 社會證明數據
 const socialProofs = [
   {
-    icon: <Shield className="h-5 w-5" />,
+    icon: <Shield className="h-7 w-7 md:h-5 md:w-5" />,
     count: "100%",
     text: "隱私保障技術",
   },
   {
-    icon: <Heart className="h-5 w-5" />,
+    icon: <Heart className="h-7 w-7 md:h-5 md:w-5" />,
     count: "專業",
     text: "醫療顧問團隊監製",
   },
   {
-    icon: <Clock className="h-5 w-5" />,
+    icon: <Clock className="h-7 w-7 md:h-5 md:w-5" />,
     count: "提前",
     text: "獲得搶先使用資格",
   },
@@ -162,21 +162,23 @@ export default function HeroSection() {
       <BackgroundDecorations />
 
       <div className="container md:px-8 mx-auto px-5">
-        <motion.div style={{ opacity }} className="flex flex-col gap-16 items-center lg:flex-row pt-0">
+        <motion.div style={{ opacity }} className="flex flex-col gap-8 md:gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
-          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-6" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl md:text-xl tracking-wide" variants={animations.item}>
-              <strong className="text-foreground">每4個成年人就有1人</strong>
-              面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。
+            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl md:text-xl tracking-wide" variants={animations.item}>
+              <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
+              <span className="md:hidden">每4人就有1人有高血壓風險。</span>
+              <span className="hidden md:inline">面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。</span>
+              <span className="md:hidden">智能血壓管家助您輕鬆記錄、分析血壓，守護健康。</span>
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
           </motion.div>
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-5 lg:w-1/2 mt-4 relative"
+            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-5 lg:w-1/2 mt-8 relative"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -219,19 +221,19 @@ export default function HeroSection() {
       <div className="bg-transparent absolute bottom-0 left-0 right-0">
         <div className="container mx-auto">
           <motion.div className="flex justify-center items-center px-4 py-4" initial={{ opacity: 0 }} animate={{ opacity: 0.9 }} transition={{ duration: 0.8, delay: 1.2 }}>
-            <div className="flex flex-wrap justify-center gap-6 items-center md:gap-12">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 items-center lg:gap-12">
               {socialProofs.map((proof, index) => (
                 <motion.div
                   key={index}
-                  className="flex gap-2 items-center"
+                  className="flex gap-3 md:gap-2 items-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
                 >
                   <div className="text-primary-400/80">{proof.icon}</div>
                   <div className="flex flex-col">
-                    <span className="text-foreground/80 text-sm font-medium">{proof.count}</span>
-                    <span className="text-muted-foreground/70 text-xs">{proof.text}</span>
+                    <span className="text-foreground/80 text-base md:text-sm font-medium">{proof.count}</span>
+                    <span className="text-muted-foreground/70 text-sm md:text-xs">{proof.text}</span>
                   </div>
                 </motion.div>
               ))}
@@ -310,68 +312,54 @@ const HeadingSection = () => (
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail }) => (
-  <motion.div className="space-y-4" variants={animations.item}>
-    <div className="flex flex-col gap-2 sm:flex-row">
-      <div className="flex-1 relative">
-        <Input
-          type="email"
-          placeholder="您的電子郵件"
-          className="bg-background border-primary-200 rounded-full text-base dark:border-primary-800 px-5 py-6"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
-      <Button
-        size="lg"
-        onClick={handlePreRegister}
-        disabled={isSubmitting}
-        className="rounded-full shadow-medium text-base duration-300 font-medium gradient-primary-to-accent group hover:shadow-lg px-8 py-6 transition-all"
-      >
-        <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-          {isSubmitting ? (
-            <span className="flex items-center">
-              <svg className="h-5 text-white w-5 -ml-1 animate-spin mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              處理中...
-            </span>
-          ) : (
-            <>
-              預先註冊
-              <motion.span
-                initial={{ x: 0 }}
-                animate={{ x: [0, 4, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  repeatDelay: 1,
-                }}
-              >
-                <ArrowRight className="h-5 w-5 inline-block ml-2" />
-              </motion.span>
-            </>
-          )}
-        </motion.span>
-      </Button>
+  <motion.div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto" variants={animations.item}>
+    <div className="flex-1 sm:flex-initial">
+      <Input
+        type="email"
+        placeholder="輸入您的電子郵件"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        className="bg-background border-primary-300 rounded-full text-base dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 px-6 py-6"
+      />
     </div>
-
-    <p className="text-center text-muted-foreground text-sm md:text-left mx-auto">✓ 優先獲得上線通知 | ✓ 首發優惠資格 | ✓ 免費產品更新</p>
+    <Button
+      size="lg"
+      onClick={handlePreRegister}
+      disabled={isSubmitting}
+      className="bg-gradient-to-r rounded-full text-base w-full dark:from-primary-600 dark:to-secondary-600 dark:hover:from-primary-500 dark:hover:to-secondary-500 font-medium from-primary-500 group hover:from-primary-400 hover:to-secondary-400 sm:w-auto to-secondary-500"
+    >
+      {isSubmitting ? (
+        <motion.div
+          className="h-5 w-5 border-2 border-white rounded-full border-t-transparent"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+        />
+      ) : (
+        <>
+          預先註冊
+          <motion.div
+            className="bg-white h-2 rounded-full w-2 opacity-0 group-hover:opacity-100"
+            animate={{
+              x: [0, 10, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          />
+        </>
+      )}
+    </Button>
 
     <Button
       size="lg"
       variant="outline"
       asChild
-      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 mt-2 px-6 py-6 sm:w-auto"
+      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 sm:w-auto"
     >
       <motion.a href="#features" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        了解產品特色
+        了解更多
         <motion.span
           animate={{ y: [0, 2, 0] }}
           transition={{

@@ -15,9 +15,11 @@ interface ValueProps {
 function Value({ icon, title, description, delay }: ValueProps) {
   return (
     <motion.div className="flex flex-col p-6 text-center items-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay }}>
-      <div className="bg-primary-100 p-3 rounded-full dark:bg-primary-900/30 mb-4">{icon}</div>
-      <h3 className="text-foreground text-xl font-semibold heading-modern mb-2">{title}</h3>
-      <p className="text-muted-foreground text-optimized font-sans">{description}</p>
+      <div className="bg-primary-100 p-4 md:p-3 rounded-full dark:bg-primary-900/30 mb-4">
+        <div className="text-primary-600 dark:text-primary-400 w-8 h-8 md:w-6 md:h-6">{icon}</div>
+      </div>
+      <h3 className="text-2xl md:text-xl text-foreground font-semibold heading-modern mb-3 md:mb-2">{title}</h3>
+      <p className="text-lg md:text-base text-muted-foreground text-optimized font-sans">{description}</p>
     </motion.div>
   );
 }
