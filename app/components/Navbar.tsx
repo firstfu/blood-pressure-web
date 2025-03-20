@@ -71,7 +71,7 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-rose-50 dark:bg-rose-950 shadow-medium py-2" : "bg-rose-50 dark:bg-rose-950 py-3"}`}
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-slate-50 dark:bg-slate-950 shadow-medium py-2" : "bg-slate-50 dark:bg-slate-950 py-3"}`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
@@ -94,10 +94,10 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      <Droplets className="h-8 w-8 mr-1 text-rose-600 dark:text-rose-400" />
+                      <Droplets className="h-8 w-8 mr-1 text-teal-600 dark:text-teal-400" />
                     </motion.span>
                     <span className="text-slate-800 dark:text-white">血壓</span>
-                    <span className="text-rose-600 dark:text-rose-400">管家</span>
+                    <span className="text-teal-600 dark:text-teal-400">管家</span>
                   </span>
                 </motion.div>
               </Link>
@@ -106,7 +106,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <motion.div
-                className="flex items-center bg-white/90 dark:bg-rose-900/60 rounded-full px-1 py-1 shadow-soft backdrop-blur-sm"
+                className="flex items-center bg-white/90 dark:bg-slate-900/60 rounded-full px-1 py-1 shadow-soft backdrop-blur-sm"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -116,8 +116,8 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       className={`text-optimized relative px-4 py-2 text-base font-medium rounded-full flex items-center transition-all duration-300 ${
-                        activeItem === item.href ? "text-rose-700 dark:text-rose-300" : "text-slate-700 hover:text-rose-600 dark:text-slate-300 dark:hover:text-rose-300"
-                      } hover:bg-rose-50/60 dark:hover:bg-rose-900/30`}
+                        activeItem === item.href ? "text-teal-700 dark:text-teal-300" : "text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-300"
+                      } hover:bg-slate-50/60 dark:hover:bg-slate-900/30`}
                       onClick={() => setActiveItem(item.href)}
                     >
                       <span className="mr-1">{item.icon}</span>
@@ -125,7 +125,7 @@ export default function Navbar() {
                       {activeItem === item.href && (
                         <motion.span
                           layoutId="activeNavIndicator"
-                          className="absolute bottom-0 left-0 right-0 h-full bg-rose-100/80 dark:bg-rose-800/40 rounded-full -z-10"
+                          className="absolute bottom-0 left-0 right-0 h-full bg-teal-100/80 dark:bg-teal-800/40 rounded-full -z-10"
                           transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         />
                       )}
@@ -187,7 +187,7 @@ export default function Navbar() {
 
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="relative bg-white/90 dark:bg-rose-900/60 rounded-full p-2 backdrop-blur-sm">
+                  <Button variant="ghost" size="icon" className="relative bg-white/90 dark:bg-slate-900/60 rounded-full p-2 backdrop-blur-sm">
                     <AnimatePresence mode="wait">
                       {isMobileMenuOpen ? (
                         <motion.div
@@ -213,12 +213,12 @@ export default function Navbar() {
                     </AnimatePresence>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-rose-50 dark:bg-rose-950 border-none">
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-slate-50 dark:bg-slate-950 border-none">
                   <nav className="flex flex-col gap-6 mt-12">
                     <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                       <span className="text-4xl font-bold">
-                        <span className="text-rose-600 dark:text-rose-400">健康</span>
-                        <span className="text-red-600 dark:text-red-400">守護</span>
+                        <span className="text-teal-600 dark:text-teal-400">健康</span>
+                        <span className="text-emerald-600 dark:text-emerald-400">守護</span>
                       </span>
                     </motion.div>
 
@@ -228,15 +228,15 @@ export default function Navbar() {
                           href={item.href}
                           className={`flex items-center space-x-3 px-5 py-4 rounded-xl text-xl transition-all duration-300 ${
                             activeItem === item.href
-                              ? "bg-gradient-to-r from-rose-600 to-red-500 text-white font-medium shadow-medium"
-                              : "text-slate-800 hover:text-rose-700 dark:text-slate-300 dark:hover:text-rose-300 hover:bg-white/70 dark:hover:bg-rose-900/50"
+                              ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white font-medium shadow-medium"
+                              : "text-slate-800 hover:text-teal-700 dark:text-slate-300 dark:hover:text-teal-300 hover:bg-white/70 dark:hover:bg-slate-900/50"
                           }`}
                           onClick={() => {
                             setActiveItem(item.href);
                             setIsMobileMenuOpen(false);
                           }}
                         >
-                          <span className={activeItem === item.href ? "text-white" : "text-rose-600 dark:text-rose-400"}>{item.icon}</span>
+                          <span className={activeItem === item.href ? "text-white" : "text-teal-600 dark:text-teal-400"}>{item.icon}</span>
                           <span>{item.label}</span>
                         </Link>
                       </motion.div>
@@ -269,7 +269,7 @@ export default function Navbar() {
         </div>
 
         {/* 滾動進度指示器 */}
-        <motion.div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-600 to-emerald-500" style={{ width: scrollIndicatorWidth }} />
+        <motion.div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-400 to-emerald-400" style={{ width: scrollIndicatorWidth }} />
       </motion.nav>
 
       {/* 頂部間隔，防止內容被固定導航欄遮擋 */}
