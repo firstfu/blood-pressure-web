@@ -92,16 +92,16 @@ export default function FaqSection() {
   ];
 
   return (
-    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-32 relative to-neutral-100/90">
+    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-32 relative to-neutral-100/90">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] h-full w-full absolute from-primary-400/5 left-0 opacity-60 to-transparent top-0 via-transparent"></div>
         <div className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] h-full w-full absolute bottom-0 from-secondary-400/5 opacity-60 right-0 to-transparent via-transparent"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-12 md:mb-20">
           <motion.span
-            className="bg-primary-50/50 rounded-full text-primary-500 text-sm dark:bg-primary-900/30 dark:text-primary-400 font-semibold inline-block mb-4 px-3 py-1 tracking-wider uppercase"
+            className="bg-primary-50/50 rounded-full text-primary-500 text-base md:text-sm dark:bg-primary-900/30 dark:text-primary-400 font-semibold inline-block mb-6 md:mb-4 px-4 md:px-3 py-1.5 md:py-1 tracking-wider uppercase"
             initial={{ opacity: 0, y: -10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
@@ -117,7 +117,7 @@ export default function FaqSection() {
             常見問題解答
           </motion.h2>
           <motion.p
-            className="text-muted-foreground text-xl max-w-3xl md:text-2xl mx-auto"
+            className="text-xl text-muted-foreground max-w-3xl md:text-2xl mx-auto px-4 md:px-0"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -156,25 +156,10 @@ export default function FaqSection() {
           />
 
           <Tabs defaultValue="general" className="w-full" onValueChange={setActiveTab}>
-            <div className="flex justify-center mb-12">
-              <motion.div
-                className="bg-gradient-to-br p-[2px] rounded-2xl shadow-xl w-full backdrop-blur-md
-                  dark:from-gray-800/80 dark:to-gray-800/80 dark:via-gray-800/60
-                  from-white/95 to-white/90 via-blue-50/80
-                  max-w-xl overflow-hidden relative
-                  ring-1 ring-gray-200/50 dark:ring-gray-700/50"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div
-                  className="bg-[conic-gradient(from_90deg_at_50%_50%,var(--tw-gradient-stops))] absolute opacity-10 inset-0
-                  dark:from-primary-500/10 dark:via-blue-500/10 dark:to-secondary-500/10
-                  from-primary-200/20 via-blue-200/20 to-secondary-200/20"
-                ></div>
-
+            <div className="flex justify-center mb-8 md:mb-12">
+              <motion.div className="bg-gradient-to-br p-[2px] rounded-2xl shadow-xl w-full backdrop-blur-md dark:from-gray-800/80 dark:to-gray-800/80 dark:via-gray-800/60 from-white/95 to-white/90 via-blue-50/80 max-w-xl overflow-hidden relative ring-1 ring-gray-200/50 dark:ring-gray-700/50">
                 <div className="bg-white/70 p-1 rounded-2xl backdrop-blur-md dark:bg-gray-900/70 overflow-hidden relative">
-                  <div className="flex bg-transparent border-0 h-14 justify-between p-0 w-full gap-1 items-center relative z-10">
+                  <div className="flex bg-transparent border-0 h-16 md:h-14 justify-between p-0 w-full gap-1 items-center relative z-10">
                     <div className="absolute inset-0 z-0">
                       <motion.div
                         layoutId="activeTabBackground"
@@ -199,7 +184,7 @@ export default function FaqSection() {
                         <TabsTrigger
                           key={category.id}
                           value={category.id}
-                          className="relative flex-1 text-base font-medium h-full py-2 rounded-xl
+                          className="relative flex-1 text-lg md:text-base font-medium h-full py-3 md:py-2 rounded-xl
                             data-[state=active]:shadow-md data-[state=active]:font-bold
                             data-[state=active]:text-primary-700 dark:data-[state=active]:text-primary-900
                             data-[state=inactive]:text-gray-700 data-[state=inactive]:hover:text-gray-900
@@ -209,7 +194,7 @@ export default function FaqSection() {
                             transition-all duration-300 bg-transparent z-10 overflow-hidden"
                         >
                           <div className="flex justify-center items-center pointer-events-none relative space-x-2">
-                            <span className="flex-shrink-0 text-lg">{category.icon}</span>
+                            <span className="flex-shrink-0 text-2xl md:text-lg">{category.icon}</span>
                             <span className="font-medium relative whitespace-nowrap z-10" style={activeTab === category.id ? customStyles : {}}>
                               {category.title}
                             </span>
@@ -226,7 +211,7 @@ export default function FaqSection() {
               <AnimatePresence mode="wait">
                 {faqCategories.map(category => (
                   <TabsContent key={category.id} value={category.id} className="focus-visible:outline-none focus-visible:ring-0 relative space-y-4">
-                    <Accordion type="single" collapsible className="w-full space-y-4">
+                    <Accordion type="single" collapsible className="w-full space-y-6 md:space-y-4">
                       {category.items.map((faq, index) => (
                         <motion.div
                           key={index}
@@ -244,15 +229,15 @@ export default function FaqSection() {
                               mb-5 overflow-hidden transition-all duration-300"
                           >
                             <AccordionTrigger
-                              className="text-foreground text-left text-lg duration-300
+                              className="text-foreground text-left text-xl md:text-lg duration-300
                               font-medium hover:text-primary-600 dark:hover:text-primary-400
-                              px-6 py-5 transition-all group-hover:bg-gray-50/80 dark:group-hover:bg-gray-900/50"
+                              px-6 py-6 md:py-5 transition-all group-hover:bg-gray-50/80 dark:group-hover:bg-gray-900/50"
                             >
                               <span className="pr-8">{faq.question}</span>
                             </AccordionTrigger>
                             <AccordionContent
                               className="border-gray-200/50 dark:border-gray-700/30 border-t
-                              text-base text-muted-foreground leading-relaxed pb-6 pt-4 px-6
+                              text-lg md:text-base text-muted-foreground leading-relaxed pb-8 md:pb-6 pt-6 md:pt-4 px-6
                               bg-gradient-to-b from-white/50 to-white dark:from-gray-800/30 dark:to-gray-800/80"
                             >
                               <div className="dark:prose-invert max-w-none prose prose-gray">{faq.answer}</div>
@@ -267,11 +252,11 @@ export default function FaqSection() {
             </div>
           </Tabs>
 
-          <motion.div className="text-center mt-12 opacity-0" animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay: 0.8 }}>
+          <motion.div className="text-center mt-16 md:mt-12 opacity-0" animate={isInView ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay: 0.8 }}>
             <a
               href="#contact"
-              className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-primary-600 dark:text-primary-400
-              hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 space-x-1.5 group"
+              className="inline-flex items-center px-6 py-3 md:px-5 md:py-2.5 text-base md:text-sm font-medium text-primary-600 dark:text-primary-400
+              hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200 space-x-2 md:space-x-1.5 group"
             >
               <span>還有其他問題？</span>
               <span className="duration-200 group-hover:translate-x-1 transition-transform">聯絡我們 →</span>
