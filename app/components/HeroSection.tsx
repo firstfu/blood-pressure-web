@@ -312,54 +312,68 @@ const HeadingSection = () => (
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail }) => (
-  <motion.div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto" variants={animations.item}>
-    <div className="flex-1 sm:flex-initial">
-      <Input
-        type="email"
-        placeholder="輸入您的電子郵件"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        className="bg-background border-primary-300 rounded-full text-base dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 px-6 py-6"
-      />
-    </div>
-    <Button
-      size="lg"
-      onClick={handlePreRegister}
-      disabled={isSubmitting}
-      className="bg-gradient-to-r rounded-full text-base w-full dark:from-primary-600 dark:to-secondary-600 dark:hover:from-primary-500 dark:hover:to-secondary-500 font-medium from-primary-500 group hover:from-primary-400 hover:to-secondary-400 sm:w-auto to-secondary-500"
-    >
-      {isSubmitting ? (
-        <motion.div
-          className="h-5 w-5 border-2 border-white rounded-full border-t-transparent"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+  <motion.div className="space-y-4" variants={animations.item}>
+    <div className="flex flex-col gap-2 sm:flex-row">
+      <div className="flex-1 relative">
+        <Input
+          type="email"
+          placeholder="您的電子郵件"
+          className="bg-background border-primary-200 rounded-full text-base dark:border-primary-800 px-5 py-6"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
-      ) : (
-        <>
-          預先註冊
-          <motion.div
-            className="bg-white h-2 rounded-full w-2 opacity-0 group-hover:opacity-100"
-            animate={{
-              x: [0, 10, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              repeatType: "loop",
-            }}
-          />
-        </>
-      )}
-    </Button>
+      </div>
+      <Button
+        size="lg"
+        onClick={handlePreRegister}
+        disabled={isSubmitting}
+        className="rounded-full shadow-medium text-base duration-300 font-medium gradient-primary-to-accent group hover:shadow-lg px-8 py-6 transition-all"
+      >
+        <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+          {isSubmitting ? (
+            <span className="flex items-center">
+              <svg className="h-5 text-white w-5 -ml-1 animate-spin mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              處理中...
+            </span>
+          ) : (
+            <>
+              預先註冊
+              <motion.span
+                initial={{ x: 0 }}
+                animate={{ x: [0, 4, 0] }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: "easeInOut",
+                  repeatDelay: 1,
+                }}
+              >
+                <ArrowRight className="h-5 w-5 inline-block ml-2" />
+              </motion.span>
+            </>
+          )}
+        </motion.span>
+      </Button>
+    </div>
+
+    <p className="text-center text-muted-foreground text-sm md:text-left mx-auto">✓ 優先獲得上線通知 | ✓ 首發優惠資格 </p>
 
     <Button
       size="lg"
       variant="outline"
       asChild
-      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 sm:w-auto"
+      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 mt-2 px-6 py-6 sm:w-auto"
     >
       <motion.a href="#features" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        了解更多
+        了解產品特色
         <motion.span
           animate={{ y: [0, 2, 0] }}
           transition={{
