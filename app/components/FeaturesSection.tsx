@@ -96,7 +96,7 @@ export default function FeaturesSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.span
-            className="bg-primary-50 rounded-full text-primary text-sm dark:bg-primary-900/20 font-semibold inline-block mb-3 md:text-base px-3 py-1 tracking-wide uppercase"
+            className="bg-primary-100 rounded-full text-primary-700 text-sm dark:bg-primary-950 dark:text-primary-300 font-semibold inline-block mb-6 md:text-base px-3 py-1 tracking-wide uppercase mr-2"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
@@ -104,13 +104,13 @@ export default function FeaturesSection() {
             完整功能
           </motion.span>
           <motion.h2
-            className="text-4xl text-foreground font-bold inline-block mb-4 md:text-5xl relative tracking-tight"
+            className="text-4xl text-foreground font-bold inline-block mb-6 md:text-5xl relative tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             功能特點
-            <div className="bg-gradient-to-r h-1 -bottom-2 absolute from-primary-500 left-0 right-0 to-secondary-500"></div>
+            <div className="bg-gradient-to-r h-1 -bottom-3 absolute from-primary-500/80 left-0 right-0 to-secondary-500/80 dark:from-primary-400 dark:to-secondary-400"></div>
           </motion.h2>
           <motion.p
             className="text-lg text-muted-foreground max-w-3xl md:text-xl mt-4 mx-auto"
