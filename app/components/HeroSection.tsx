@@ -284,7 +284,7 @@ const BadgeSection = () => (
     variants={animations.item}
   >
     <span className="flex items-center">
-      <Star className="h-4 text-accent-500 w-4 dark:text-accent-400 mr-1" />
+      <Star className="h-4 text-yellow-500 w-4 dark:text-yellow-400 mr-1 fill-current" />
       <span className="text-base text-gradient-primary-to-secondary font-medium md:text-lg">2025 年血壓記錄應用 | 產品即將上線，開放預先註冊</span>
     </span>
   </motion.div>
