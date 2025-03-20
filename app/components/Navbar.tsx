@@ -71,11 +71,7 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-gradient-to-r from-primary-200 via-background to-accent-200 dark:from-primary-800 dark:via-card dark:to-accent-800 shadow-medium py-2"
-            : "bg-gradient-to-r from-primary-300 via-background to-accent-300 dark:from-primary-800 dark:via-card dark:to-accent-800 py-3"
-        }`}
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-teal-50 dark:bg-slate-900 shadow-medium py-2" : "bg-teal-50 dark:bg-slate-900 py-3"}`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
@@ -98,10 +94,10 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      <Droplets className="h-8 w-8 mr-1" />
+                      <Droplets className="h-8 w-8 mr-1 text-teal-600 dark:text-teal-400" />
                     </motion.span>
-                    血壓
-                    <span className="text-gradient-secondary">管家</span>
+                    <span className="text-slate-800 dark:text-white">血壓</span>
+                    <span className="text-teal-600 dark:text-teal-400">管家</span>
                   </span>
                 </motion.div>
               </Link>
@@ -110,7 +106,7 @@ export default function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6">
               <motion.div
-                className="flex items-center bg-gradient-to-r from-primary-200 via-background to-accent-200 dark:from-primary-800 dark:via-card dark:to-accent-800 rounded-full px-1 py-1 shadow-soft"
+                className="flex items-center bg-white/90 dark:bg-slate-800/90 rounded-full px-1 py-1 shadow-soft backdrop-blur-sm"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -120,10 +116,8 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       className={`text-optimized relative px-4 py-2 text-base font-medium rounded-full flex items-center transition-all duration-300 ${
-                        activeItem === item.href
-                          ? "text-primary-600 dark:text-primary-400"
-                          : "text-foreground hover:text-foreground dark:text-foreground dark:hover:text-foreground"
-                      } hover:bg-background-hover dark:hover:bg-background-hover`}
+                        activeItem === item.href ? "text-teal-700 dark:text-teal-400" : "text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-300"
+                      } hover:bg-teal-50/60 dark:hover:bg-teal-900/20`}
                       onClick={() => setActiveItem(item.href)}
                     >
                       <span className="mr-1">{item.icon}</span>
@@ -131,7 +125,7 @@ export default function Navbar() {
                       {activeItem === item.href && (
                         <motion.span
                           layoutId="activeNavIndicator"
-                          className="absolute bottom-0 left-0 right-0 h-full bg-primary-100 dark:bg-primary-900 rounded-full -z-10"
+                          className="absolute bottom-0 left-0 right-0 h-full bg-teal-100/80 dark:bg-teal-900/40 rounded-full -z-10"
                           transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         />
                       )}
@@ -154,7 +148,7 @@ export default function Navbar() {
               >
                 <Button
                   asChild
-                  className="rounded-full px-6 py-6 shadow-medium gradient-primary-to-accent hover:shadow-lg transition-all duration-300 text-base" // 增加按鈕大小和文字大小
+                  className="rounded-full px-6 py-6 shadow-medium bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white hover:shadow-lg transition-all duration-300 text-base"
                 >
                   <Link href="#subscribe">
                     <motion.span
@@ -181,7 +175,7 @@ export default function Navbar() {
                           repeatDelay: 1,
                         }}
                       >
-                        <ChevronRight className="h-5 w-5 ml-1" /> {/* 增加圖標大小 */}
+                        <ChevronRight className="h-5 w-5 ml-1" />
                       </motion.span>
                     </motion.span>
                   </Link>
@@ -196,11 +190,7 @@ export default function Navbar() {
 
               <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="relative bg-gradient-to-r from-primary-200 to-accent-200 dark:from-primary-800 dark:to-accent-800 rounded-full p-2"
-                  >
+                  <Button variant="ghost" size="icon" className="relative bg-white/90 dark:bg-slate-800/90 rounded-full p-2 backdrop-blur-sm">
                     <AnimatePresence mode="wait">
                       {isMobileMenuOpen ? (
                         <motion.div
@@ -210,7 +200,7 @@ export default function Navbar() {
                           exit={{ rotate: 90, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <X className="h-6 w-6 text-foreground" />
+                          <X className="h-6 w-6 text-slate-700 dark:text-slate-300" />
                         </motion.div>
                       ) : (
                         <motion.div
@@ -220,18 +210,18 @@ export default function Navbar() {
                           exit={{ rotate: -90, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <Menu className="h-6 w-6 text-foreground" />
+                          <Menu className="h-6 w-6 text-slate-700 dark:text-slate-300" />
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-background dark:bg-card border-none">
+                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-teal-50 dark:bg-slate-900 border-none">
                   <nav className="flex flex-col gap-6 mt-12">
                     <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                       <span className="text-4xl font-bold">
-                        <span className="text-gradient-primary">健康</span>
-                        <span className="text-gradient-secondary">守護</span>
+                        <span className="text-teal-600 dark:text-teal-400">健康</span>
+                        <span className="text-emerald-600 dark:text-emerald-400">守護</span>
                       </span>
                     </motion.div>
 
@@ -241,22 +231,22 @@ export default function Navbar() {
                           href={item.href}
                           className={`flex items-center space-x-3 px-5 py-4 rounded-xl text-xl transition-all duration-300 ${
                             activeItem === item.href
-                              ? "gradient-primary-to-secondary text-white font-medium shadow-medium"
-                              : "text-foreground hover:text-primary hover:bg-muted dark:hover:bg-muted"
+                              ? "bg-gradient-to-r from-teal-600 to-emerald-500 text-white font-medium shadow-medium"
+                              : "text-slate-800 hover:text-teal-700 dark:text-slate-300 dark:hover:text-teal-300 hover:bg-white/70 dark:hover:bg-slate-800/70"
                           }`}
                           onClick={() => {
                             setActiveItem(item.href);
                             setIsMobileMenuOpen(false);
                           }}
                         >
-                          <span className={activeItem === item.href ? "text-white" : "text-primary dark:text-primary"}>{item.icon}</span>
+                          <span className={activeItem === item.href ? "text-white" : "text-teal-600 dark:text-teal-400"}>{item.icon}</span>
                           <span>{item.label}</span>
                         </Link>
                       </motion.div>
                     ))}
                     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-8">
                       <Button
-                        className="w-full rounded-xl gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg" // 增加按鈕大小和文字大小
+                        className="w-full rounded-xl bg-gradient-to-r from-teal-600 to-emerald-500 hover:from-teal-700 hover:to-emerald-600 text-white shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg"
                         asChild
                       >
                         <Link href="#subscribe" onClick={() => setIsMobileMenuOpen(false)}>
@@ -271,7 +261,7 @@ export default function Navbar() {
                                 ease: "easeInOut",
                               }}
                             >
-                              <ChevronRight className="h-5 w-5" /> {/* 增加圖標大小 */}
+                              <ChevronRight className="h-5 w-5" />
                             </motion.span>
                           </span>
                         </Link>
@@ -285,7 +275,7 @@ export default function Navbar() {
         </div>
 
         {/* 滾動進度指示器 */}
-        <motion.div className="absolute bottom-0 left-0 h-1 bg-gradient-primary-to-secondary" style={{ width: scrollIndicatorWidth }} />
+        <motion.div className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-teal-600 to-emerald-500" style={{ width: scrollIndicatorWidth }} />
       </motion.nav>
 
       {/* 頂部間隔，防止內容被固定導航欄遮擋 */}
