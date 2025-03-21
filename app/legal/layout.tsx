@@ -1,8 +1,13 @@
+// @ Author: firstfu
+// @ Create Time: 2024-03-13 16:16:42
+// @ Description: 法律文件頁面佈局
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import LegalContextProvider from "./LegalContextProvider";
 
 export const metadata: Metadata = {
   title: "法律文件 | 血壓管理系統",
@@ -22,7 +27,7 @@ export default function LegalLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <LegalContextProvider>
       <Navbar />
 
       <div className="container mx-auto px-4 py-8">
@@ -58,6 +63,6 @@ export default function LegalLayout({
       </div>
 
       <Footer />
-    </>
+    </LegalContextProvider>
   );
 }
