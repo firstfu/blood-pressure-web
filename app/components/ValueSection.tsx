@@ -69,7 +69,7 @@ export default function ValueSection() {
             transition={{ duration: 0.6 }}
           >
             {dictionary?.價值主張?.標題 || "為什麼選擇"}
-            <span className="text-gradient-primary">血壓管家</span>？
+            <span className="text-gradient-primary">血壓管家</span>?
           </motion.h2>
           <motion.p
             className="text-xl md:text-lg text-muted-foreground text-optimized font-rounded max-w-3xl mx-auto px-4 md:px-0"
