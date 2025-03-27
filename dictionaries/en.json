@@ -108,7 +108,9 @@
             "問題3_3": "Can I use the same account on multiple devices?",
             "回答3_1": "As long as you've created an account and remain logged in, your data is automatically synced to the cloud. If you change devices, simply log into your account, and all data will automatically download to the new device. You can also manually export backup files via 'Settings' > 'Data Management.'",
             "回答3_2": "Our app is compatible with iOS 12.0 and above and Android 8.0 and above. For the best experience, we recommend using the latest version of your operating system. The app itself takes up minimal space, but more storage may be needed as data grows.",
-            "回答3_3": "Yes, you can use the same account on multiple devices. All data will automatically sync, ensuring you can see the latest health records on any device. This is especially useful for family management or doctor-patient communication."
+            "回答3_3": "Yes, you can use the same account on multiple devices. All data will automatically sync, ensuring you can see the latest health records on any device. This is especially useful for family management or doctor-patient communication.",
+            "更多問題": "Have more questions?",
+            "聯絡我們": "Contact Us"
         }
     },
     "頁腳": {
@@ -144,6 +146,22 @@
     "錯誤": {
         "必填欄位": "This field is required",
         "無效輸入": "Invalid input value",
-        "伺服器錯誤": "Server error occurred. Please try again later."
+        "伺服器錯誤": "Server error occurred. Please try again later.",
+        "請輸入您的電子郵件": "Please enter your email address",
+        "請輸入有效的電子郵件地址": "Please enter a valid email address",
+        "訂閱失敗，請稍後再試": "Subscription failed, please try again later"
+    },
+    "訂閱表單": {
+        "標題": "Complete Pre-Registration",
+        "副標題": "Fill in more information to get product launch priority experience qualification, exclusive discount codes and personalized blood pressure management recommendations",
+        "電子郵件": "Email",
+        "輸入框文字": "Please enter your email",
+        "預先註冊按鈕": "Pre-Register",
+        "返回按鈕": "Back",
+        "接收通知說明": "I agree to receive product launch notifications, exclusive offers and health management recommendations",
+        "隱私說明": "We value your privacy, you can unsubscribe at any time. Check our",
+        "隱私政策連結": "Privacy Policy",
+        "註冊成功標題": "Registration Successful!",
+        "註冊成功訊息": "Thank you for pre-registering. We will notify you as soon as the product is released and provide exclusive offers."
     }
 }

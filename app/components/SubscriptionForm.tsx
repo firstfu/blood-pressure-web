@@ -9,8 +9,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, ArrowRight } from "lucide-react";
+import { useLocale } from "../i18n/context";
 
 export default function SubscriptionForm() {
+  const { dictionary } = useLocale();
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,14 +26,14 @@ export default function SubscriptionForm() {
     setError("");
 
     if (!email) {
-      setError("請輸入您的電子郵件");
+      setError(dictionary?.錯誤?.請輸入您的電子郵件 || "請輸入您的電子郵件");
       return;
     }
 
     // 簡單的電子郵件格式驗證
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError("請輸入有效的電子郵件地址");
+      setError(dictionary?.錯誤?.請輸入有效的電子郵件地址 || "請輸入有效的電子郵件地址");
       return;
     }
 
@@ -44,7 +46,7 @@ export default function SubscriptionForm() {
       setIsSuccess(true);
       setEmail("");
     } catch (err) {
-      setError("訂閱失敗，請稍後再試");
+      setError(dictionary?.錯誤?.["訂閱失敗，請稍後再試"] || "訂閱失敗，請稍後再試");
     } finally {
       setIsSubmitting(false);
     }
@@ -59,9 +61,16 @@ export default function SubscriptionForm() {
 
       <div className="container mx-auto px-4">
         <div ref={ref} className="max-w-4xl mx-auto">
-          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">完整預先註冊</h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議</p>
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">{dictionary?.訂閱表單?.標題 || "完整預先註冊"}</h2>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+              {dictionary?.訂閱表單?.副標題 || "填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議"}
+            </p>
           </motion.div>
 
           <motion.div
@@ -75,22 +84,31 @@ export default function SubscriptionForm() {
                 <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Mail className="h-10 w-10 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground">註冊成功！</h3>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。</p>
+                <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground">{dictionary?.訂閱表單?.註冊成功標題 || "註冊成功！"}</h3>
+                <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">
+                  {dictionary?.訂閱表單?.註冊成功訊息 || "感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。"}
+                </p>
                 <Button className="mt-8 text-lg h-12 px-6" onClick={() => setIsSuccess(false)}>
-                  返回
+                  {dictionary?.訂閱表單?.返回按鈕 || "返回"}
                 </Button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-3">
                   <Label htmlFor="email" className="text-lg font-medium text-foreground">
-                    電子郵件
+                    {dictionary?.訂閱表單?.電子郵件 || "電子郵件"}
                   </Label>
                   <div className="flex gap-2">
-                    <Input id="email" type="email" placeholder="請輸入您的電子郵件" value={email} onChange={e => setEmail(e.target.value)} className="flex-1 text-lg h-14 px-4" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder={dictionary?.訂閱表單?.輸入框文字 || "請輸入您的電子郵件"}
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      className="flex-1 text-lg h-14 px-4"
+                    />
                     <Button type="submit" disabled={isSubmitting} className="gap-2 text-lg h-14 px-6">
-                      預先註冊
+                      {dictionary?.訂閱表單?.預先註冊按鈕 || "預先註冊"}
                       <ArrowRight className="h-5 w-5" />
                     </Button>
                   </div>
@@ -101,16 +119,16 @@ export default function SubscriptionForm() {
                   <Checkbox id="terms" className="mt-1" />
                   <div className="grid gap-1.5 leading-normal">
                     <Label htmlFor="terms" className="text-base font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-muted-foreground">
-                      我同意接收產品發布通知、獨家優惠及健康管理建議
+                      {dictionary?.訂閱表單?.接收通知說明 || "我同意接收產品發布通知、獨家優惠及健康管理建議"}
                     </Label>
                   </div>
                 </div>
 
                 <div className="text-base text-muted-foreground mt-6">
                   <p>
-                    我們重視您的隱私，您可以隨時取消訂閱。查看我們的{" "}
+                    {dictionary?.訂閱表單?.隱私說明 || "我們重視您的隱私，您可以隨時取消訂閱。查看我們的"}{" "}
                     <a href="#" className="text-primary hover:underline">
-                      隱私政策
+                      {dictionary?.訂閱表單?.隱私政策連結 || "隱私政策"}
                     </a>
                     。
                   </p>
