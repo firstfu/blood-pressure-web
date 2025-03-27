@@ -5,14 +5,26 @@ import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
 import { XCircle, CheckCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-const problems = ["紙本記錄容易遺失或忘記攜帶", "數據難以追蹤趨勢變化", "無法及時發現異常數值", "與醫生溝通缺乏完整資料"];
-
-const solutions = ["數據雲端同步，隨時隨地查看", "智能圖表分析，清晰掌握趨勢", "異常提醒功能，及時關注健康", "一鍵生成報告，醫療溝通無障礙"];
+import { useLocale } from "../i18n/context";
 
 export default function ProblemSolutionSection() {
+  const { dictionary } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  const problems = [
+    dictionary?.首頁?.問題解決?.痛點1 || "紙本記錄容易遺失或忘記攜帶",
+    dictionary?.首頁?.問題解決?.痛點2 || "數據難以追蹤趨勢變化",
+    dictionary?.首頁?.問題解決?.痛點3 || "無法及時發現異常數值",
+    dictionary?.首頁?.問題解決?.痛點4 || "與醫生溝通缺乏完整資料",
+  ];
+
+  const solutions = [
+    dictionary?.首頁?.問題解決?.解決方案1 || "數據雲端同步，隨時隨地查看",
+    dictionary?.首頁?.問題解決?.解決方案2 || "智能圖表分析，清晰掌握趨勢",
+    dictionary?.首頁?.問題解決?.解決方案3 || "異常提醒功能，及時關注健康",
+    dictionary?.首頁?.問題解決?.解決方案4 || "一鍵生成報告，醫療溝通無障礙",
+  ];
 
   return (
     <section id="solution" className="py-8">
@@ -24,7 +36,7 @@ export default function ProblemSolutionSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            血壓管理的痛點與解決方案
+            {dictionary?.首頁?.問題解決?.標題 || "血壓管理的痛點與解決方案"}
           </motion.h2>
           <motion.p
             className="text-lg text-muted-foreground max-w-3xl mx-auto"
@@ -32,7 +44,7 @@ export default function ProblemSolutionSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            我們了解血壓管理中常見的挑戰，並精心設計解決方案來幫您更有效地管理健康
+            {dictionary?.首頁?.問題解決?.副標題 || "我們了解血壓管理中常見的挑戰，並精心設計解決方案來幫您更有效地管理健康"}
           </motion.p>
         </div>
 
@@ -43,7 +55,7 @@ export default function ProblemSolutionSection() {
               <CardContent className="p-0">
                 <div className="bg-red-500/10 dark:bg-red-900/20 p-4 flex items-center gap-3">
                   <XCircle className="h-6 w-6 text-red-500 dark:text-red-400" />
-                  <h3 className="text-xl font-semibold text-foreground">常見痛點</h3>
+                  <h3 className="text-xl font-semibold text-foreground">{dictionary?.首頁?.問題解決?.常見痛點 || "常見痛點"}</h3>
                 </div>
                 <div className="p-6">
                   <ul className="space-y-4">
@@ -71,7 +83,7 @@ export default function ProblemSolutionSection() {
               <CardContent className="p-0">
                 <div className="bg-green-500/10 dark:bg-green-900/20 p-4 flex items-center gap-3">
                   <CheckCircle className="h-6 w-6 text-green-500 dark:text-green-400" />
-                  <h3 className="text-xl font-semibold text-foreground">我們的解決方案</h3>
+                  <h3 className="text-xl font-semibold text-foreground">{dictionary?.首頁?.問題解決?.解決方案 || "我們的解決方案"}</h3>
                 </div>
                 <div className="p-6">
                   <ul className="space-y-4">

@@ -17,6 +17,7 @@ export type Dictionary = {
     登出: string;
     搜尋: string;
     設定: string;
+    製作者: string;
   };
   導航: {
     產品預覽: string;
@@ -31,10 +32,24 @@ export type Dictionary = {
     號召行動: string;
     功能特色: {
       標題: string;
+      副標題: string;
+      徽章文字: string;
       特色1: string;
       特色2: string;
       特色3: string;
       特色4: string;
+      特色標題1: string;
+      特色標題2: string;
+      特色標題3: string;
+      特色標題4: string;
+      特色標題5: string;
+      特色標題6: string;
+      特色描述1: string;
+      特色描述2: string;
+      特色描述3: string;
+      特色描述4: string;
+      特色描述5: string;
+      特色描述6: string;
     };
     英雄區塊: {
       徽章文字: string;
@@ -52,6 +67,65 @@ export type Dictionary = {
       醫療顧問: string;
       搶先使用: string;
     };
+    問題解決: {
+      標題: string;
+      副標題: string;
+      常見痛點: string;
+      解決方案: string;
+      痛點1: string;
+      痛點2: string;
+      痛點3: string;
+      痛點4: string;
+      解決方案1: string;
+      解決方案2: string;
+      解決方案3: string;
+      解決方案4: string;
+    };
+    常見問題: {
+      標題: string;
+      副標題: string;
+      徽章文字: string;
+      分類1: string;
+      分類2: string;
+      分類3: string;
+      問題1_1: string;
+      問題1_2: string;
+      問題1_3: string;
+      問題1_4: string;
+      回答1_1: string;
+      回答1_2: string;
+      回答1_3: string;
+      回答1_4: string;
+      問題2_1: string;
+      問題2_2: string;
+      回答2_1: string;
+      回答2_2: string;
+      問題3_1: string;
+      問題3_2: string;
+      問題3_3: string;
+      回答3_1: string;
+      回答3_2: string;
+      回答3_3: string;
+    };
+  };
+  頁腳: {
+    描述: string;
+    版權: string;
+    產品: string;
+    功能特點: string;
+    價格方案: string;
+    下載應用: string;
+    更新日誌: string;
+    支援: string;
+    常見問題: string;
+    使用指南: string;
+    聯絡我們: string;
+    意見反饋: string;
+    法律: string;
+    隱私政策: string;
+    使用條款: string;
+    Cookie政策: string;
+    資料安全: string;
   };
   血壓: {
     收縮壓: string;

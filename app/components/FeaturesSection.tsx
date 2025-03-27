@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-react";
 import Image from "next/image";
 import AppScreenshotCarousel from "./AppScreenshotCarousel";
+import { useLocale } from "../i18n/context";
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -48,39 +49,40 @@ function Feature({ icon, title, description, delay }: FeatureProps) {
 }
 
 export default function FeaturesSection() {
+  const { dictionary } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const features = [
     {
       icon: <LineChart className="h-6 text-primary w-6" />,
-      title: "趨勢分析",
-      description: "透過直觀的圖表，輕鬆掌握血壓變化趨勢，及早發現潛在問題",
+      title: dictionary?.首頁?.功能特色?.特色標題1 || "趨勢分析",
+      description: dictionary?.首頁?.功能特色?.特色描述1 || "透過直觀的圖表，輕鬆掌握血壓變化趨勢，及早發現潛在問題",
     },
     {
       icon: <Bell className="h-6 text-primary w-6" />,
-      title: "智能提醒",
-      description: "自定義測量提醒，確保按時記錄，養成良好的健康管理習慣",
+      title: dictionary?.首頁?.功能特色?.特色標題2 || "智能提醒",
+      description: dictionary?.首頁?.功能特色?.特色描述2 || "自定義測量提醒，確保按時記錄，養成良好的健康管理習慣",
     },
     {
       icon: <Share2 className="h-6 text-primary w-6" />,
-      title: "醫療分享",
-      description: "一鍵生成專業報告，輕鬆與醫生分享，提升診療效率與準確性",
+      title: dictionary?.首頁?.功能特色?.特色標題3 || "醫療分享",
+      description: dictionary?.首頁?.功能特色?.特色描述3 || "一鍵生成專業報告，輕鬆與醫生分享，提升診療效率與準確性",
     },
     {
       icon: <Calendar className="h-6 text-primary w-6" />,
-      title: "歷史記錄",
-      description: "完整保存所有測量數據，隨時查閱，全面了解健康狀況變化",
+      title: dictionary?.首頁?.功能特色?.特色標題4 || "歷史記錄",
+      description: dictionary?.首頁?.功能特色?.特色描述4 || "完整保存所有測量數據，隨時查閱，全面了解健康狀況變化",
     },
     {
       icon: <Cloud className="h-6 text-primary w-6" />,
-      title: "雲端同步",
-      description: "數據自動同步至雲端，多設備訪問，不怕資料遺失或設備更換",
+      title: dictionary?.首頁?.功能特色?.特色標題5 || "雲端同步",
+      description: dictionary?.首頁?.功能特色?.特色描述5 || "數據自動同步至雲端，多設備訪問，不怕資料遺失或設備更換",
     },
     {
       icon: <Smartphone className="h-6 text-primary w-6" />,
-      title: "跨平台支援",
-      description: "支援手機、平板與電腦，隨時隨地管理您的健康數據",
+      title: dictionary?.首頁?.功能特色?.特色標題6 || "跨平台支援",
+      description: dictionary?.首頁?.功能特色?.特色描述6 || "支援手機、平板與電腦，隨時隨地管理您的健康數據",
     },
   ];
 
@@ -101,7 +103,7 @@ export default function FeaturesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
           >
-            完整功能
+            {dictionary?.首頁?.功能特色?.徽章文字 || "完整功能"}
           </motion.span>
           <motion.h2
             className="text-4xl text-foreground font-bold inline-block mb-6 md:text-5xl relative tracking-tight"
@@ -109,7 +111,7 @@ export default function FeaturesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            功能特點
+            {dictionary?.首頁?.功能特色?.標題 || "功能特點"}
             <div className="bg-gradient-to-r h-1 -bottom-3 absolute from-primary-500/80 left-0 right-0 to-secondary-500/80 dark:from-primary-400 dark:to-secondary-400"></div>
           </motion.h2>
           <motion.p
@@ -118,7 +120,7 @@ export default function FeaturesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            我們的血壓管理應用提供全方位的功能，幫助您輕鬆追蹤、分析和管理血壓數據
+            {dictionary?.首頁?.功能特色?.副標題 || "我們的血壓管理應用提供全方位的功能，幫助您輕鬆追蹤、分析和管理血壓數據"}
           </motion.p>
         </div>
 

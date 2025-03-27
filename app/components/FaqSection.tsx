@@ -9,6 +9,7 @@ import { useInView } from "framer-motion";
 import { motion, AnimatePresence } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLocale } from "../i18n/context";
 
 // 自定義 CSS 類
 const customStyles = {
@@ -16,6 +17,7 @@ const customStyles = {
 };
 
 export default function FaqSection() {
+  const { dictionary } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const [activeTab, setActiveTab] = useState("general");
@@ -29,7 +31,7 @@ export default function FaqSection() {
   const faqCategories = [
     {
       id: "general",
-      title: "一般問題",
+      title: dictionary?.首頁?.常見問題?.分類1 || "一般問題",
       icon: "✨",
       items: [
         {
@@ -39,11 +41,13 @@ export default function FaqSection() {
         },
         {
           question: "應用是否需要付費？有哪些訂閱計劃？",
-          answer: "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
+          answer:
+            "我們提供免費版和專業版兩種選擇。免費版包含基本的血壓記錄和簡單圖表功能。專業版提供高級分析、無限數據存儲、多設備同步等功能，按月或按年訂閱，並提供7天免費試用。",
         },
         {
           question: "我是否需要創建帳戶才能使用應用？",
-          answer: "您可以在不創建帳戶的情況下使用應用的基本功能。但是，我們建議創建帳戶，以便您的數據能夠安全備份，並在更換設備時保持同步。創建帳戶還可以解鎖更多高級功能。",
+          answer:
+            "您可以在不創建帳戶的情況下使用應用的基本功能。但是，我們建議創建帳戶，以便您的數據能夠安全備份，並在更換設備時保持同步。創建帳戶還可以解鎖更多高級功能。",
         },
         {
           question: "我的健康數據安全嗎？",
@@ -54,12 +58,13 @@ export default function FaqSection() {
     },
     {
       id: "usage",
-      title: "使用問題",
+      title: dictionary?.首頁?.常見問題?.分類2 || "使用問題",
       icon: "📱",
       items: [
         {
           question: "應用是否提供血壓異常警報？",
-          answer: "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
+          answer:
+            "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
         },
         {
           question: "如何與我的醫生分享我的血壓數據？",
@@ -70,7 +75,7 @@ export default function FaqSection() {
     },
     {
       id: "technical",
-      title: "技術問題",
+      title: dictionary?.首頁?.常見問題?.分類3 || "技術問題",
       icon: "🔧",
       items: [
         {
@@ -85,14 +90,18 @@ export default function FaqSection() {
         },
         {
           question: "我可以在多個設備上使用同一個帳戶嗎？",
-          answer: "是的，您可以在多個設備上使用同一帳戶。所有數據將自動同步，確保您在任何設備上都能看到最新的健康記錄。這對於家庭成員共同管理或醫患溝通特別有用。",
+          answer:
+            "是的，您可以在多個設備上使用同一帳戶。所有數據將自動同步，確保您在任何設備上都能看到最新的健康記錄。這對於家庭成員共同管理或醫患溝通特別有用。",
         },
       ],
     },
   ];
 
   return (
-    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-10 relative to-neutral-100/90">
+    <section
+      id="faq"
+      className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-10 relative to-neutral-100/90"
+    >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] h-full w-full absolute from-primary-400/5 left-0 opacity-60 to-transparent top-0 via-transparent"></div>
         <div className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] h-full w-full absolute bottom-0 from-secondary-400/5 opacity-60 right-0 to-transparent via-transparent"></div>
@@ -106,7 +115,7 @@ export default function FaqSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
-            幫助中心
+            {dictionary?.首頁?.常見問題?.徽章文字 || "幫助中心"}
           </motion.span>
           <motion.h2
             className="bg-clip-text bg-gradient-to-r text-4xl text-foreground font-bold from-foreground mb-6 md:text-5xl to-foreground/80 via-foreground/90"
@@ -114,7 +123,7 @@ export default function FaqSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            常見問題解答
+            {dictionary?.首頁?.常見問題?.標題 || "常見問題解答"}
           </motion.h2>
           <motion.p
             className="text-xl text-muted-foreground max-w-3xl md:text-2xl mx-auto px-4 md:px-0"
@@ -122,7 +131,7 @@ export default function FaqSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            我們整理了用戶最常詢問的問題，希望能幫助您更好地了解我們的服務
+            {dictionary?.首頁?.常見問題?.副標題 || "我們整理了用戶最常詢問的問題，希望能幫助您更好地了解我們的服務"}
           </motion.p>
         </div>
 
