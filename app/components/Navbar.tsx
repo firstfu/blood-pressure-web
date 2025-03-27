@@ -114,8 +114,17 @@ export default function Navbar() {
                     >
                       <Droplets className="h-8 w-8 mr-1 text-teal-600 dark:text-teal-400" />
                     </motion.span>
-                    <span className="text-slate-800 dark:text-white">{dictionary?.共用?.應用名稱?.substring(0, 2) || "血壓"}</span>
-                    <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱?.substring(2) || "管家"}</span>
+                    {dictionary?.共用?.應用名稱?.includes("Blood") ? (
+                      <>
+                        <span className="text-slate-800 dark:text-white">Blood </span>
+                        <span className="text-teal-600 dark:text-teal-400">Pressure Manager</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-slate-800 dark:text-white">{dictionary?.共用?.應用名稱?.substring(0, 2) || "血壓"}</span>
+                        <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱?.substring(2) || "管家"}</span>
+                      </>
+                    )}
                   </span>
                 </motion.div>
               </Link>
@@ -226,8 +235,17 @@ export default function Navbar() {
                       transition={{ duration: 0.5 }}
                     >
                       <span className="text-4xl font-bold">
-                        <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱?.substring(0, 2) || "血壓"}</span>
-                        <span className="text-emerald-600 dark:text-emerald-400">{dictionary?.共用?.應用名稱?.substring(2) || "管家"}</span>
+                        {dictionary?.共用?.應用名稱?.includes("Blood") ? (
+                          <>
+                            <span className="text-teal-600 dark:text-teal-400">Blood </span>
+                            <span className="text-emerald-600 dark:text-emerald-400">Pressure Manager</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱?.substring(0, 2) || "血壓"}</span>
+                            <span className="text-emerald-600 dark:text-emerald-400">{dictionary?.共用?.應用名稱?.substring(2) || "管家"}</span>
+                          </>
+                        )}
                       </span>
                     </motion.div>
 
