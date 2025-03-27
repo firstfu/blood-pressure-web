@@ -5,6 +5,9 @@ import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import { ThemeProvider } from "./providers/theme-provider";
+import { getDictionary } from "./i18n/dictionaries";
+import { LocaleProvider } from "./i18n/context";
+import { i18n } from "./i18n/settings";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,23 +47,38 @@ export const metadata: Metadata = {
   description: "血壓管家幫您記錄和分析血壓數值，提供簡便的記錄工具，專注於血壓監測與數據分析。",
 };
 
-export default function RootLayout({
+async function getInitialDictionary() {
+  // 獲取默認語言字典作為初始值
+  return getDictionary(i18n.defaultLocale);
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 預加載默認語言字典
+  const initialDictionary = await getInitialDictionary();
+
   return (
     <html lang="zh-TW" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${notoSansTC.variable} ${notoSerifTC.variable} ${inter.variable} ${ibmPlexSansJP.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansTC.variable} ${notoSerifTC.variable} ${inter.variable} ${ibmPlexSansJP.variable} antialiased`}
+      >
         <ThemeProvider defaultTheme="system" storageKey="blood-pressure-theme">
-          {children}
-          <Toaster position="top-center" />
-          <Analytics />
+          <LocaleProvider initialLocale={i18n.defaultLocale} initialDictionary={initialDictionary}>
+            {children}
+            <Toaster position="top-center" />
+            <Analytics />
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

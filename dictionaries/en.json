@@ -1,0 +1,63 @@
+{
+    "共用": {
+        "首頁": "Home",
+        "關於我們": "About",
+        "聯絡我們": "Contact",
+        "登入": "Login",
+        "註冊": "Sign Up",
+        "登出": "Logout",
+        "搜尋": "Search",
+        "設定": "Settings"
+    },
+    "導航": {
+        "產品預覽": "Product Preview",
+        "功能特色": "Features",
+        "未來展望": "Future Outlook",
+        "常見問題": "FAQ",
+        "預先註冊": "Pre-Register"
+    },
+    "首頁": {
+        "標題": "Blood Pressure Monitor",
+        "副標題": "Track your health easily and efficiently",
+        "號召行動": "Get Started",
+        "功能特色": {
+            "標題": "Features",
+            "特色1": "Record blood pressure readings",
+            "特色2": "Track trends over time",
+            "特色3": "Generate health reports",
+            "特色4": "Set reminders for measurements"
+        },
+        "英雄區塊": {
+            "徽章文字": "Professional Health Monitoring",
+            "主標題": "Smart Blood Pressure Management",
+            "副標題": "1 in 4 adults is at risk of hypertension. Our smart blood pressure assistant provides easy recording tools and professional analysis to help you monitor and manage your blood pressure effectively.",
+            "手機版副標題": "1 in 4 people is at risk of hypertension. Our smart assistant helps you record and analyze blood pressure, safeguarding your health.",
+            "輸入框文字": "Your email address",
+            "註冊按鈕": "Pre-Register",
+            "已註冊": "Pre-registered",
+            "即將發布": "Coming Soon",
+            "註冊成功訊息": "Pre-registration successful! You will receive product launch notifications and enjoy exclusive early access and special offers."
+        },
+        "社會證明": {
+            "隱私保障": "Privacy Protection",
+            "醫療顧問": "Medical Advisory Team",
+            "搶先使用": "Early Access"
+        }
+    },
+    "血壓": {
+        "收縮壓": "Systolic",
+        "舒張壓": "Diastolic",
+        "脈搏": "Pulse",
+        "日期": "Date",
+        "時間": "Time",
+        "新增記錄": "Add Reading",
+        "編輯記錄": "Edit Reading",
+        "刪除記錄": "Delete Reading",
+        "歷史記錄": "Reading History"
+    },
+    "錯誤": {
+        "必填欄位": "This field is required",
+        "無效輸入": "Invalid input value",
+        "伺服器錯誤": "Server error occurred. Please try again later."
+    }
+}

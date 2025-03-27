@@ -28,6 +28,7 @@ import {
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import AppScreenshotCarousel from "./AppScreenshotCarousel";
+import { useLocale } from "../i18n/context";
 
 // 輪播圖片集
 const heroImages = [
@@ -55,25 +56,6 @@ const heroImages = [
   //     src: "/images/screen6.png",
   //     alt: "血壓記錄App畫面 - 智能提醒",
   //   },
-];
-
-// 社會證明數據
-const socialProofs = [
-  {
-    icon: <Shield className="h-7 w-7 md:h-5 md:w-5" />,
-    count: "100%",
-    text: "隱私保障技術",
-  },
-  {
-    icon: <Heart className="h-7 w-7 md:h-5 md:w-5" />,
-    count: "專業",
-    text: "醫療顧問團隊監製",
-  },
-  {
-    icon: <Clock className="h-7 w-7 md:h-5 md:w-5" />,
-    count: "提前",
-    text: "獲得搶先使用資格",
-  },
 ];
 
 // 動畫配置
@@ -147,6 +129,7 @@ const ReflectionEffect = () => (
 );
 
 export default function HeroSection() {
+  const { dictionary } = useLocale();
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
@@ -156,6 +139,25 @@ export default function HeroSection() {
     target: heroRef,
     offset: ["start start", "end start"],
   });
+
+  // 社會證明數據 - 使用字典中的翻譯
+  const socialProofs = [
+    {
+      icon: <Shield className="h-7 w-7 md:h-5 md:w-5" />,
+      count: "100%",
+      text: dictionary?.首頁?.社會證明?.隱私保障 || "隱私保障技術",
+    },
+    {
+      icon: <Heart className="h-7 w-7 md:h-5 md:w-5" />,
+      count: "專業",
+      text: dictionary?.首頁?.社會證明?.醫療顧問 || "醫療顧問團隊監製",
+    },
+    {
+      icon: <Clock className="h-7 w-7 md:h-5 md:w-5" />,
+      count: "提前",
+      text: dictionary?.首頁?.社會證明?.搶先使用 || "獲得搶先使用資格",
+    },
+  ];
 
   const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
@@ -186,20 +188,29 @@ export default function HeroSection() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <BadgeSection />
-            <HeadingSection />
+            <BadgeSection dictionary={dictionary} />
+            <HeadingSection dictionary={dictionary} />
             <motion.p
               className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide"
               variants={animations.item}
             >
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
-              <span className="md:hidden">每4人就有1人有高血壓風險。</span>
-              <span className="hidden md:inline">
-                面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。
+              <span className="md:hidden">
+                {dictionary?.首頁?.英雄區塊?.手機版副標題 || "每4人就有1人有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}
               </span>
-              <span className="md:hidden">智能血壓管家助您輕鬆記錄、分析血壓，守護健康。</span>
+              <span className="hidden md:inline">
+                {dictionary?.首頁?.英雄區塊?.副標題 ||
+                  "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
+              </span>
             </motion.p>
-            <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
+            <ActionButtons
+              handlePreRegister={handlePreRegister}
+              isSubmitting={isSubmitting}
+              isSuccess={isSuccess}
+              email={email}
+              setEmail={setEmail}
+              dictionary={dictionary}
+            />
           </motion.div>
 
           {/* 右側 App 預覽 */}
@@ -236,7 +247,7 @@ export default function HeroSection() {
                 </svg>
               </div>
               <span className="text-base">
-                預先註冊成功！您將獲得產品發布通知，並享有<strong>首批測試資格與專屬優惠</strong>。
+                {dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}
               </span>
             </div>
           </motion.div>
@@ -248,26 +259,35 @@ export default function HeroSection() {
         <div className="container mx-auto">
           <motion.div
             className="flex justify-center items-center px-4 py-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.9 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6 items-center lg:gap-12">
-              {socialProofs.map((proof, index) => (
-                <motion.div
-                  key={index}
-                  className="flex gap-3 md:gap-2 items-center"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 1.4 + index * 0.1 }}
-                >
-                  <div className="text-primary-400/80">{proof.icon}</div>
-                  <div className="flex flex-col">
-                    <span className="text-foreground/80 text-base md:text-sm font-medium">{proof.count}</span>
-                    <span className="text-muted-foreground/70 text-sm md:text-xs">{proof.text}</span>
+            <div className="w-full max-w-5xl border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center py-4 space-y-4 md:space-y-0">
+              <div className="flex space-x-8 items-center">
+                {socialProofs.map((item, idx) => (
+                  <div key={idx} className="flex items-center space-x-1">
+                    <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
+                    <div className="flex flex-col md:flex-row md:items-baseline md:space-x-1">
+                      <span className="font-semibold text-teal-700 dark:text-teal-300 mr-1 md:mr-0 whitespace-nowrap">{item.count}</span>
+                      <span className="text-xs md:text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">{item.text}</span>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
+                ))}
+              </div>
+              <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                {/* 啟用後顯示 */}
+                <motion.span
+                  animate={{ opacity: [0.7, 1, 0.7] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                  className="flex items-center"
+                >
+                  <span className="mr-2 bg-emerald-100 text-emerald-800 py-0.5 px-2 rounded-full dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">
+                    BETA
+                  </span>
+                  <span>{dictionary?.首頁?.英雄區塊?.即將發布 || "即將推出"}</span>
+                </motion.span>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -309,116 +329,75 @@ const BackgroundDecorations = () => (
 );
 
 // 徽章區塊元件
-const BadgeSection = () => (
-  <motion.div
-    className="bg-accent-50 border border-accent-200 rounded-full dark:bg-accent-900/30 dark:border-accent-800 inline-flex items-center mb-3 px-3 py-1.5"
-    variants={animations.item}
-  >
-    <span className="flex items-center">
-      <Star className="h-4 text-yellow-500 w-4 dark:text-yellow-400 mr-1 fill-current" />
-      <span className="text-base text-gradient-primary-to-secondary font-medium md:text-lg">2025 年血壓記錄應用 | 產品即將上線，開放預先註冊</span>
-    </span>
+const BadgeSection = ({ dictionary }) => (
+  <motion.div className="inline-flex" variants={animations.item}>
+    <div className="bg-white dark:bg-gray-800 relative border-gradient-badge font-medium py-1 px-3 rounded-full text-xs uppercase tracking-wider">
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-400">
+        {dictionary?.首頁?.英雄區塊?.徽章文字 || "專業健康監測"}
+      </span>
+      <div className="absolute inset-px rounded-full border-gradient-glow animate-pulse"></div>
+    </div>
   </motion.div>
 );
 
 // 標題區塊元件
-const HeadingSection = () => (
-  <motion.div className="space-y-4" variants={animations.item}>
-    <h1 className="text-4xl font-bold heading-serif leading-[1.1] lg:text-6xl max-w-4xl md:text-5xl tracking-tight xl:text-7xl">
-      <span className="text-foreground">輕鬆監測</span>
-      <div className="inline-block md:mt-4 mt-2 relative">
-        <span className="text-gradient-primary relative z-10">您的血壓數值</span>
-        <motion.span
-          className="bg-primary-200/50 h-3 rounded-full w-full -z-0 absolute bottom-1 dark:bg-primary-600/20 left-0"
-          initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        />
-      </div>
-      <span className="text-foreground block md:inline">，簡單又實用</span>
-    </h1>
-    <p className="text-muted-foreground text-xl font-rounded md:text-2xl mt-2 tracking-wide">記錄、分析、管理血壓，追蹤測試結果</p>
-  </motion.div>
+const HeadingSection = ({ dictionary }) => (
+  <motion.h1 className="font-bold heading-title lg:text-5xl md:text-4xl text-3xl !leading-tight tracking-tight font-display" variants={animations.item}>
+    <span className="block">
+      <motion.span
+        className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-500"
+        animate={{
+          backgroundPosition: ["0% 0%", "100% 100%"],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+        style={{
+          backgroundSize: "200% 200%",
+        }}
+      >
+        {dictionary?.首頁?.英雄區塊?.主標題 || "智能血壓管理助手"}
+      </motion.span>
+    </span>
+  </motion.h1>
 );
 
 // 動作按鈕元件
-const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail }) => (
-  <motion.div className="space-y-4" variants={animations.item}>
-    <div className="flex flex-col gap-2 sm:flex-row">
-      <div className="flex-1 relative">
-        <Input
-          type="email"
-          placeholder="您的電子郵件"
-          className="bg-background border-primary-200 rounded-full text-base dark:border-primary-800 px-5 py-6"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
-      <Button
-        size="lg"
-        onClick={handlePreRegister}
-        disabled={isSubmitting}
-        className="rounded-full shadow-medium text-base duration-300 font-medium gradient-primary-to-accent group hover:shadow-lg px-8 py-6 transition-all"
-      >
-        <motion.span whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail, dictionary }) => (
+  <motion.div className="flex flex-col sm:flex-row gap-3 sm:items-center mt-2 sm:mt-0" variants={animations.item}>
+    <div className="relative flex-grow">
+      <Input
+        type="email"
+        placeholder={dictionary?.首頁?.英雄區塊?.輸入框文字 || "您的電子郵件"}
+        className="shadow-sm border-slate-200 dark:border-slate-800 h-12 px-4 pr-24 rounded-full transition-all hover:border-teal-300 focus:border-teal-500 dark:focus:border-teal-400"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+      />
+      <div className="absolute right-[3px] top-[3px]">
+        <Button
+          onClick={() => email && handlePreRegister()}
+          disabled={isSubmitting || isSuccess}
+          className={`rounded-full !px-3 md:px-5 py-5 transition-all !h-10 ${
+            isSuccess ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600"
+          }`}
+        >
           {isSubmitting ? (
+            <div className="h-5 w-5 rounded-full border-2 animate-spin border-r-transparent border-white"></div>
+          ) : isSuccess ? (
             <span className="flex items-center">
-              <svg className="h-5 text-white w-5 -ml-1 animate-spin mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
+              <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
               </svg>
-              處理中...
+              {dictionary?.首頁?.英雄區塊?.已註冊 || "已預先註冊"}
             </span>
           ) : (
-            <>
-              預先註冊
-              <motion.span
-                initial={{ x: 0 }}
-                animate={{ x: [0, 4, 0] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                  repeatDelay: 1,
-                }}
-              >
-                <ArrowRight className="h-5 w-5 inline-block ml-2" />
-              </motion.span>
-            </>
+            <span>{dictionary?.首頁?.英雄區塊?.註冊按鈕 || "預先註冊"}</span>
           )}
-        </motion.span>
-      </Button>
+        </Button>
+      </div>
     </div>
-
-    <p className="text-center text-muted-foreground text-sm md:text-left mx-auto">✓ 優先獲得上線通知 | ✓ 首發優惠資格 </p>
-
-    <Button
-      size="lg"
-      variant="outline"
-      asChild
-      className="bg-background border-primary-300 rounded-full text-base w-full dark:border-primary-800/60 dark:hover:bg-primary-900/20 font-medium group hover:bg-primary-50 mt-2 px-6 py-6 sm:w-auto"
-    >
-      <motion.a href="#features" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-        了解產品特色
-        <motion.span
-          animate={{ y: [0, 2, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
-          className="inline-block ml-2"
-        >
-          <ChevronDown className="h-5 w-5" />
-        </motion.span>
-      </motion.a>
-    </Button>
   </motion.div>
 );
 

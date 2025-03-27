@@ -8,15 +8,19 @@ import { Menu, X, ChevronRight, Heart, Activity, Bell, BarChart2, Droplets } fro
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
 import { LegalPageContext } from "../legal/LegalContextProvider";
+import { useLocale } from "../i18n/context";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const navItems = [
-  { href: "#preview", label: "產品預覽", icon: <BarChart2 className="w-5 h-5" /> },
-  { href: "#features", label: "功能特色", icon: <Activity className="w-5 h-5" /> },
-  { href: "#testimonials", label: "未來展望", icon: <Droplets className="w-5 h-5" /> },
-  { href: "#faq", label: "常見問題", icon: <Bell className="w-5 h-5" /> },
+// 這些導航項目鍵將使用翻譯
+const navItemKeys = [
+  { href: "#preview", labelKey: "產品預覽", icon: <BarChart2 className="w-5 h-5" /> },
+  { href: "#features", labelKey: "功能特色", icon: <Activity className="w-5 h-5" /> },
+  { href: "#testimonials", labelKey: "未來展望", icon: <Droplets className="w-5 h-5" /> },
+  { href: "#faq", labelKey: "常見問題", icon: <Bell className="w-5 h-5" /> },
 ];
 
 export default function Navbar() {
+  const { dictionary } = useLocale();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +36,7 @@ export default function Navbar() {
       setIsScrolled(window.scrollY > 10);
 
       // 檢測當前滾動位置，更新活動項目
-      const sections = navItems.map(item => item.href.substring(1));
+      const sections = navItemKeys.map(item => item.href.substring(1));
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -70,6 +74,11 @@ export default function Navbar() {
     return isLegalPage ? "/" : href;
   };
 
+  // 使用字典的翻譯獲取導航項目標籤
+  const getNavLabel = (key: string) => {
+    return dictionary?.導航?.[key as keyof typeof dictionary.導航] || key;
+  };
+
   return (
     <>
       <motion.nav
@@ -78,7 +87,9 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-slate-50 dark:bg-slate-950 shadow-medium py-2" : "bg-slate-50 dark:bg-slate-950 py-3"}`}
+        className={`fixed top-0 w-full z-50 transition-all duration-500 ${
+          isScrolled ? "bg-slate-50 dark:bg-slate-950 shadow-medium py-2" : "bg-slate-50 dark:bg-slate-950 py-3"
+        }`}
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
@@ -118,17 +129,19 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                {navItems.map((item, i) => (
+                {navItemKeys.map((item, i) => (
                   <motion.div key={item.href} custom={i} initial="hidden" animate="visible" variants={itemVariants}>
                     <Link
                       href={getNavHref(item.href)}
                       className={`text-optimized relative px-4 py-2 text-base font-medium rounded-full flex items-center transition-all duration-300 ${
-                        activeItem === item.href ? "text-teal-700 dark:text-teal-300" : "text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-300"
+                        activeItem === item.href
+                          ? "text-teal-700 dark:text-teal-300"
+                          : "text-slate-700 hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-300"
                       } hover:bg-slate-50/60 dark:hover:bg-slate-900/30`}
                       onClick={() => setActiveItem(item.href)}
                     >
                       <span className="mr-1">{item.icon}</span>
-                      <span className="font-rounded">{item.label}</span>
+                      <span className="font-rounded">{getNavLabel(item.labelKey)}</span>
                       {activeItem === item.href && (
                         <motion.span
                           layoutId="activeNavIndicator"
@@ -139,6 +152,11 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
+              </motion.div>
+
+              {/* 語言切換器 */}
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                <LanguageSwitcher />
               </motion.div>
 
               {/* 主題切換按鈕 */}
@@ -153,7 +171,10 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button asChild className="rounded-full px-6 py-6 shadow-medium gradient-primary-to-accent hover:shadow-lg transition-all duration-300 text-base">
+                <Button
+                  asChild
+                  className="rounded-full px-6 py-6 shadow-medium gradient-primary-to-accent hover:shadow-lg transition-all duration-300 text-base"
+                >
                   <Link href={getNavHref("#subscribe")}>
                     <motion.span
                       className="flex items-center space-x-1"
@@ -168,7 +189,7 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      <span>預先註冊</span>
+                      <span>{dictionary?.導航?.預先註冊 || "預先註冊"}</span>
                       <motion.span
                         animate={{ x: [0, 5, 0] }}
                         transition={{
@@ -198,14 +219,19 @@ export default function Navbar() {
 
                 <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-slate-50 dark:bg-slate-950 border-none">
                   <nav className="flex flex-col gap-6 mt-12">
-                    <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                    <motion.div
+                      className="flex items-center justify-center mb-8"
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
                       <span className="text-4xl font-bold">
                         <span className="text-teal-600 dark:text-teal-400">健康</span>
                         <span className="text-emerald-600 dark:text-emerald-400">守護</span>
                       </span>
                     </motion.div>
 
-                    {navItems.map((item, i) => (
+                    {navItemKeys.map((item, i) => (
                       <motion.div key={item.href} initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: i * 0.1, duration: 0.4 }}>
                         <Link
                           href={getNavHref(item.href)}
@@ -220,15 +246,24 @@ export default function Navbar() {
                           }}
                         >
                           <span className={activeItem === item.href ? "text-white" : "text-teal-600 dark:text-teal-400"}>{item.icon}</span>
-                          <span>{item.label}</span>
+                          <span>{getNavLabel(item.labelKey)}</span>
                         </Link>
                       </motion.div>
                     ))}
+
+                    {/* 行動版語言切換器 */}
+                    <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4, duration: 0.4 }} className="px-5">
+                      <LanguageSwitcher />
+                    </motion.div>
+
                     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-8">
-                      <Button className="w-full rounded-xl gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg" asChild>
+                      <Button
+                        className="w-full rounded-xl gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg"
+                        asChild
+                      >
                         <Link href={getNavHref("#subscribe")} onClick={() => setIsMobileMenuOpen(false)}>
                           <span className="flex items-center justify-center space-x-2">
-                            <span>預先註冊</span>
+                            <span>{dictionary?.導航?.預先註冊 || "預先註冊"}</span>
                             <motion.span
                               animate={{ x: [0, 5, 0] }}
                               transition={{
