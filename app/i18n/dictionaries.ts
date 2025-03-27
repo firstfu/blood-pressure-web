@@ -157,7 +157,7 @@ export type Dictionary = {
   };
 };
 
-// 字典緩存
+// 字典緩存 - 預先加載所有字典以提高切換速度
 const dictionaryCache: Record<Locale, Dictionary | null> = {
   en: null,
   "zh-TW": null,
@@ -171,6 +171,82 @@ const lastLoadTime: Record<Locale, number> = {
   "zh-CN": 0,
 };
 
+// 是否正在加載的標記
+const isLoading: Record<Locale, boolean> = {
+  en: false,
+  "zh-TW": false,
+  "zh-CN": false,
+};
+
+// 預加載所有字典的程序
+let preloadStarted = false;
+
+/**
+ * 預加載所有語言字典
+ */
+const preloadDictionaries = async () => {
+  if (preloadStarted) return;
+  preloadStarted = true;
+
+  console.log("Preloading all dictionaries in background...");
+
+  try {
+    // 首先確保當前語言已加載（如果可能）
+    const currentLocale = typeof window !== "undefined" ? (localStorage.getItem("locale") as Locale) : null;
+
+    if (currentLocale) {
+      await loadDictionaryFile(currentLocale);
+    }
+
+    // 然後在背景加載其他語言
+    const locales: Locale[] = ["zh-TW", "zh-CN", "en"];
+
+    for (const locale of locales) {
+      if (locale !== currentLocale) {
+        // 使用 setTimeout 錯開加載時間，減輕初始負擔
+        setTimeout(() => {
+          loadDictionaryFile(locale).catch(e => console.log(`Background preload of ${locale} dictionary failed:`, e));
+        }, 2000 + Math.random() * 3000); // 2-5秒延遲錯開加載
+      }
+    }
+  } catch (e) {
+    console.error("Dictionary preload error:", e);
+  }
+};
+
+/**
+ * 加載特定語言的字典文件
+ */
+const loadDictionaryFile = async (locale: Locale): Promise<Dictionary> => {
+  if (isLoading[locale]) {
+    // 如果正在加載中，等待直到加載完成
+    return new Promise(resolve => {
+      const checkInterval = setInterval(() => {
+        if (!isLoading[locale] && dictionaryCache[locale]) {
+          clearInterval(checkInterval);
+          resolve(dictionaryCache[locale]!);
+        }
+      }, 50);
+    });
+  }
+
+  try {
+    isLoading[locale] = true;
+    console.log(`Actually loading dictionary file for ${locale}`);
+
+    // 根據語言代碼動態引入相應的字典
+    const module = await import(`../../dictionaries/${locale}.json`);
+
+    // 更新緩存和時間戳
+    dictionaryCache[locale] = module.default;
+    lastLoadTime[locale] = Date.now();
+
+    return module.default;
+  } finally {
+    isLoading[locale] = false;
+  }
+};
+
 /**
  * 根據語言代碼獲取相應的字典
  * @param locale 語言代碼
@@ -178,29 +254,39 @@ const lastLoadTime: Record<Locale, number> = {
  */
 export const getDictionary = async (locale: Locale): Promise<Dictionary> => {
   try {
-    // 檢查緩存 - 如果距離上次加載不超過10分鐘，直接返回緩存
-    const now = Date.now();
-    const cacheTimeout = 10 * 60 * 1000; // 10分鐘
-
-    if (dictionaryCache[locale] && now - lastLoadTime[locale] < cacheTimeout) {
+    // 檢查緩存 - 如果已加載，直接返回
+    if (dictionaryCache[locale]) {
       console.log(`Using cached dictionary for ${locale}`);
+
+      // 確保所有字典在後台預加載（只在客戶端執行）
+      if (typeof window !== "undefined" && !preloadStarted) {
+        setTimeout(preloadDictionaries, 1000);
+      }
+
       return dictionaryCache[locale]!;
     }
 
-    console.log(`Loading dictionary for ${locale} from file`);
+    // 加載請求的字典
+    const dictionary = await loadDictionaryFile(locale);
 
-    // 根據語言代碼動態引入相應的字典
-    const module = await import(`../../dictionaries/${locale}.json`);
+    // 確保所有字典在後台預加載（只在客戶端執行）
+    if (typeof window !== "undefined" && !preloadStarted) {
+      setTimeout(preloadDictionaries, 1000);
+    }
 
-    // 更新緩存和時間戳
-    dictionaryCache[locale] = module.default;
-    lastLoadTime[locale] = now;
-
-    return module.default;
+    return dictionary;
   } catch (error) {
     console.error(`Error loading dictionary for ${locale}:`, error);
 
-    // 如果加載失敗，嘗試載入英文作為備用
+    // 如果加載失敗，嘗試載入已存在的任何字典
+    for (const fallbackLocale of ["zh-TW", "en", "zh-CN"]) {
+      if (dictionaryCache[fallbackLocale as Locale]) {
+        console.log(`Falling back to cached ${fallbackLocale} dictionary`);
+        return dictionaryCache[fallbackLocale as Locale]!;
+      }
+    }
+
+    // 如果沒有緩存，嘗試載入英文作為備用
     if (locale !== "en") {
       console.log(`Falling back to English dictionary`);
       return getDictionary("en");
