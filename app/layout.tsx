@@ -62,14 +62,23 @@ const zenMaruGothic = Noto_Sans_TC({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "血壓管家 - 簡單記錄血壓數值",
-  description: "血壓管家幫您記錄和分析血壓數值，提供簡便的記錄工具，專注於血壓監測與數據分析。",
-};
 
 async function getInitialDictionary() {
   // 獲取默認語言字典作為初始值
   return getDictionary(i18n.defaultLocale);
+}
+
+export async function generateMetadata({ params }: { params: { lang?: string } }): Promise<Metadata> {
+  // 檢測目前使用的語言
+  const lang = params.lang || "zh-TW";
+  const isEnglish = lang === "en";
+
+  return {
+    title: isEnglish ? "Blood Pressure Manager - Simple Blood Pressure Tracking" : "血壓管家 - 簡單記錄血壓數值",
+    description: isEnglish
+      ? "Blood Pressure Manager helps you record and analyze blood pressure values, providing a simple recording tool focused on blood pressure monitoring and data analysis."
+      : "血壓管家幫您記錄和分析血壓數值，提供簡便的記錄工具，專注於血壓監測與數據分析。",
+  };
 }
 
 export default async function RootLayout({

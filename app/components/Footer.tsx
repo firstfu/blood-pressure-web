@@ -28,7 +28,7 @@ export default function Footer() {
         {/* 移動端標題和社交媒體區塊 */}
         <div className="flex flex-col items-center text-center md:hidden mb-10">
           <Link href={getFooterHref("/")} className="flex items-center">
-            <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">
+            <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary whitespace-nowrap">
               {locale === "en" ? "Blood Pressure Manager" : "血壓管家"}
             </span>
           </Link>
@@ -54,7 +54,7 @@ export default function Footer() {
           {/* 僅在桌面版顯示的品牌和描述 */}
           <div className="hidden md:block md:col-span-1">
             <Link href={getFooterHref("/")} className="flex items-center">
-              <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">
+              <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary whitespace-nowrap">
                 {locale === "en" ? "Blood Pressure Manager" : "血壓管家"}
               </span>
             </Link>
