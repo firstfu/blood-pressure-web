@@ -83,21 +83,6 @@ export default function Footer() {
                   {dictionary?.頁腳?.功能特點 || "功能特點"}
                 </Link>
               </li>
-              <li>
-                <Link href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors">
-                  {dictionary?.頁腳?.價格方案 || "價格方案"}
-                </Link>
-              </li>
-              <li>
-                <Link href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors">
-                  {dictionary?.頁腳?.下載應用 || "下載應用"}
-                </Link>
-              </li>
-              <li>
-                <Link href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors">
-                  {dictionary?.頁腳?.更新日誌 || "更新日誌"}
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -105,12 +90,12 @@ export default function Footer() {
             <h3 className="text-foreground text-lg font-semibold mb-4">{dictionary?.頁腳?.支援 || "支援"}</h3>
             <ul className="space-y-3 md:space-y-2 text-center md:text-left">
               <li>
-                <Link href={getFooterHref("/legal/faq")} className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors">
                   {dictionary?.頁腳?.常見問題 || "常見問題"}
                 </Link>
               </li>
               <li>
-                <Link href={getFooterHref("/legal/guide")} className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors">
                   {dictionary?.頁腳?.使用指南 || "使用指南"}
                 </Link>
               </li>
