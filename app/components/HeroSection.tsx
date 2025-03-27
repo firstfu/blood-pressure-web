@@ -113,7 +113,7 @@ const ReflectionEffect = () => (
 );
 
 export default function HeroSection() {
-  const { dictionary } = useLocale();
+  const { dictionary, locale } = useLocale();
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
@@ -133,12 +133,12 @@ export default function HeroSection() {
     },
     {
       icon: <Heart className="h-7 w-7 md:h-5 md:w-5" />,
-      count: "專業",
+      count: locale === "en" ? "Professional" : "專業",
       text: dictionary?.首頁?.社會證明?.醫療顧問 || "醫療顧問團隊監製",
     },
     {
       icon: <Clock className="h-7 w-7 md:h-5 md:w-5" />,
-      count: "提前",
+      count: locale === "en" ? "Early" : "提前",
       text: dictionary?.首頁?.社會證明?.搶先使用 || "獲得搶先使用資格",
     },
   ];

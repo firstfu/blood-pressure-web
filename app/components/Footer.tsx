@@ -13,7 +13,7 @@ import { LegalPageContext } from "../legal/LegalContextProvider";
 import { useLocale } from "../i18n/context";
 
 export default function Footer() {
-  const { dictionary } = useLocale();
+  const { dictionary, locale } = useLocale();
   const currentYear = new Date().getFullYear();
   const isLegalPage = useContext(LegalPageContext);
 
@@ -28,11 +28,11 @@ export default function Footer() {
         {/* 移動端標題和社交媒體區塊 */}
         <div className="flex flex-col items-center text-center md:hidden mb-10">
           <Link href={getFooterHref("/")} className="flex items-center">
-            <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">血壓管家</span>
+            <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">
+              {locale === "en" ? "Blood Pressure Manager" : "血壓管家"}
+            </span>
           </Link>
-          <p className="text-muted-foreground mt-4 max-w-md mx-auto">
-            {dictionary?.頁腳?.描述 || "專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。"}
-          </p>
+          <p className="text-muted-foreground mt-4 max-w-md mx-auto">{dictionary?.頁腳?.描述 || "專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。"}</p>
           <div className="flex mt-6 space-x-6 justify-center">
             <a href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
               <Facebook className="h-6 w-6" />
@@ -54,11 +54,11 @@ export default function Footer() {
           {/* 僅在桌面版顯示的品牌和描述 */}
           <div className="hidden md:block md:col-span-1">
             <Link href={getFooterHref("/")} className="flex items-center">
-              <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">血壓管家</span>
+              <span className="bg-clip-text bg-gradient-to-r text-2xl text-transparent font-bold from-primary to-secondary">
+                {locale === "en" ? "Blood Pressure Manager" : "血壓管家"}
+              </span>
             </Link>
-            <p className="text-muted-foreground mt-4">
-              {dictionary?.頁腳?.描述 || "專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。"}
-            </p>
+            <p className="text-muted-foreground mt-4">{dictionary?.頁腳?.描述 || "專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。"}</p>
             <div className="flex mt-6 space-x-4">
               <a href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
@@ -156,11 +156,11 @@ export default function Footer() {
 
         <div className="flex flex-col border-border border-t justify-center dark:border-primary-900/20 items-center md:flex-row md:justify-between mt-12 pt-8 text-center">
           <p className="text-muted-foreground text-sm mb-6 md:mb-0">
-            &copy; {currentYear} 血壓管家. {dictionary?.頁腳?.版權 || "保留所有權利"}.
+            &copy; {currentYear} {locale === "en" ? "Blood Pressure Manager" : "血壓管家"}. {dictionary?.頁腳?.版權 || "保留所有權利"}.
           </p>
           <div className="flex items-center space-x-4">
             <span className="flex text-muted-foreground text-sm items-center">
-              {dictionary?.共用?.製作者 || "以"} <Heart className="h-4 text-red-500 w-4 mx-1" /> {"製作"}
+              {dictionary?.共用?.製作者 || "以"} <Heart className="h-4 text-red-500 w-4 mx-1" /> {locale === "en" ? "by" : "製作"}
             </span>
             <ThemeToggle />
           </div>
