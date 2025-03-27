@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:25:00
+ * @ Description: 網站首頁組件，整合了所有主要區塊
+ */
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ValueSection from "./components/ValueSection";

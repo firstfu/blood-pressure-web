@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:27:00
+ * @ Description: 網站根佈局組件，設定全局字體、主題和國際化配置
+ */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Noto_Sans_TC, Noto_Serif_TC, Inter, IBM_Plex_Sans_JP } from "next/font/google";

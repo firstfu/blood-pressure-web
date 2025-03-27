@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:35:00
+ * @ Description: 預先註冊訂閱表單組件，提供電子郵件訂閱功能和表單驗證
+ */
 "use client";
 
 import { useState } from "react";

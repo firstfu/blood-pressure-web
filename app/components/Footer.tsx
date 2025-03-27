@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:37:00
+ * @ Description: 網站頁腳組件，包含導航鏈接、社交媒體連結和版權信息
+ */
 "use client";
 
 import Link from "next/link";

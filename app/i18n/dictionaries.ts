@@ -18,6 +18,8 @@ export type Dictionary = {
     搜尋: string;
     設定: string;
     製作者: string;
+    應用名稱_上: string;
+    應用名稱_下: string;
   };
   導航: {
     產品預覽: string;
@@ -25,6 +27,19 @@ export type Dictionary = {
     未來展望: string;
     常見問題: string;
     預先註冊: string;
+  };
+  訂閱表單: {
+    標題: string;
+    副標題: string;
+    電子郵件: string;
+    輸入框文字: string;
+    預先註冊按鈕: string;
+    註冊成功標題: string;
+    註冊成功訊息: string;
+    返回按鈕: string;
+    接收通知說明: string;
+    隱私說明: string;
+    隱私政策連結: string;
   };
   首頁: {
     標題: string;
@@ -118,7 +133,21 @@ export type Dictionary = {
       回答3_1: string;
       回答3_2: string;
       回答3_3: string;
+      更多問題: string;
+      聯絡我們: string;
     };
+  };
+  價值主張: {
+    標題: string;
+    副標題: string;
+    精確測試: string;
+    精確測試描述: string;
+    資料安全: string;
+    資料安全描述: string;
+    便捷記錄: string;
+    便捷記錄描述: string;
+    數據分析: string;
+    數據分析描述: string;
   };
   頁腳: {
     描述: string;
@@ -154,6 +183,9 @@ export type Dictionary = {
     必填欄位: string;
     無效輸入: string;
     伺服器錯誤: string;
+    請輸入您的電子郵件: string;
+    請輸入有效的電子郵件地址: string;
+    ["訂閱失敗，請稍後再試"]: string;
   };
 };
 

@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:32:00
+ * @ Description: 網站導航欄組件，包含動態導航項目、主題切換、語言切換等功能
+ */
 "use client";
 
 import { useState, useEffect, useRef, useContext } from "react";

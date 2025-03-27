@@ -1,3 +1,8 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-05 15:29:00
+ * @ Description: 全局樣式表，定義網站的色彩系統、字體、動畫與通用樣式
+ */
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -89,8 +94,8 @@
   --sidebar-ring: var(--color-primary-500);
 
   /* 字型系統 */
-  --font-sans: var(--font-noto-sans-tc), var(--font-ibm-plex-sans-jp), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-noto-sans-tc), var(--font-ibm-plex-sans-jp), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-noto-serif-tc), "Zen Old Mincho", serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-heading: var(--font-noto-serif-tc), "Zen Old Mincho", var(--font-ibm-plex-sans-jp), var(--font-noto-sans-tc), serif;
@@ -700,7 +705,10 @@ html {
 
 /* 中文排版優化 */
 .cjk-punctuation-spacing {
-  text-spacing: trim-start space-first allow-end;
+  text-justify: inter-ideograph;
+  text-align: justify;
+  word-break: normal;
+  overflow-wrap: break-word;
   hanging-punctuation: allow-end;
 }
 
