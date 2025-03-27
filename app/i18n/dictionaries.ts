@@ -283,13 +283,13 @@ const loadDictionaryFile = async (locale: Locale): Promise<Dictionary> => {
     console.log(`Actually loading dictionary file for ${locale}`);
 
     // 根據語言代碼動態引入相應的字典
-    const module = await import(`../../dictionaries/${locale}.json`);
+    const importedDictionary = await import(`../../dictionaries/${locale}.json`);
 
     // 更新緩存和時間戳
-    dictionaryCache[locale] = module.default;
+    dictionaryCache[locale] = importedDictionary.default;
     lastLoadTime[locale] = Date.now();
 
-    return module.default;
+    return importedDictionary.default;
   } finally {
     isLoading[locale] = false;
   }

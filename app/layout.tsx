@@ -47,6 +47,21 @@ const ibmPlexSansJP = IBM_Plex_Sans_JP({
   subsets: ["latin"],
 });
 
+// 添加 Zen 字體
+const zenOldMincho = Noto_Serif_TC({
+  // 暫時使用 Noto_Serif_TC 代替，實際使用時需要更換為正確的 Zen Old Mincho 導入
+  variable: "--font-zen-old-mincho",
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
+
+const zenMaruGothic = Noto_Sans_TC({
+  // 暫時使用 Noto_Sans_TC 代替，實際使用時需要更換為正確的 Zen Maru Gothic 導入
+  variable: "--font-zen-maru-gothic",
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "血壓管家 - 簡單記錄血壓數值",
   description: "血壓管家幫您記錄和分析血壓數值，提供簡便的記錄工具，專注於血壓監測與數據分析。",
@@ -67,16 +82,8 @@ export default async function RootLayout({
 
   return (
     <html lang="zh-TW" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSansTC.variable} ${notoSerifTC.variable} ${inter.variable} ${ibmPlexSansJP.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoSansTC.variable} ${notoSerifTC.variable} ${inter.variable} ${ibmPlexSansJP.variable} ${zenOldMincho.variable} ${zenMaruGothic.variable} antialiased`}
       >
         <ThemeProvider defaultTheme="system" storageKey="blood-pressure-theme">
           <LocaleProvider initialLocale={i18n.defaultLocale} initialDictionary={initialDictionary}>

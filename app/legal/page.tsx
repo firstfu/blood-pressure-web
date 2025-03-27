@@ -7,9 +7,9 @@ import { ArrowRight } from "lucide-react";
 import { getDictionary } from "../i18n/dictionaries";
 import { i18n } from "../i18n/settings";
 
-export default async function LegalPage({ params }: { params?: { locale?: string } }) {
-  // 如果沒有指定語言，使用預設語言
-  const locale = params?.locale || i18n.defaultLocale;
+export default async function LegalPage() {
+  // 使用默認語言
+  const locale = i18n.defaultLocale;
   // 確保語言在支援列表中
   const validLocale = i18n.locales.includes(locale as any) ? locale : i18n.defaultLocale;
   const dictionary = await getDictionary(validLocale as any);

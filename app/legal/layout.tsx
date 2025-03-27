@@ -11,28 +11,21 @@ import LegalContextProvider from "./LegalContextProvider";
 import { getDictionary } from "../i18n/dictionaries";
 import { i18n } from "../i18n/settings";
 
-export async function generateMetadata({ params }: { params: { locale?: string } }): Promise<Metadata> {
-  // 如果沒有指定語言，使用預設語言
-  const locale = params.locale || i18n.defaultLocale;
-  // 確保語言在支援列表中
-  const validLocale = i18n.locales.includes(locale as any) ? locale : i18n.defaultLocale;
-  const dictionary = await getDictionary(validLocale as any);
-
-  return {
-    title: `${dictionary.法律.法律文件} | ${dictionary.共用.應用名稱_上}${dictionary.共用.應用名稱_下}`,
-    description: `${dictionary.共用.應用名稱_上}${dictionary.共用.應用名稱_下}${dictionary.頁腳.隱私政策}、${dictionary.頁腳.使用條款}和${dictionary.頁腳.Cookie政策}`,
-  };
-}
+// 移除帶有類型錯誤的 generateMetadata 函數
+// 改用靜態產生的 metadata
+export const metadata: Metadata = {
+  title: `法律文件 | 血壓管家`,
+  description: `血壓管家隱私政策、使用條款和Cookie政策`,
+};
 
 export default async function LegalLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params?: { locale?: string };
 }>) {
-  // 如果沒有指定語言，使用預設語言
-  const locale = params?.locale || i18n.defaultLocale;
+  // 這裡我們不再使用 params 參數，因為這會與 Next.js 15.2.1 的類型定義衝突
+  // 而是使用 i18n 默認語言
+  const locale = i18n.defaultLocale;
   // 確保語言在支援列表中
   const validLocale = i18n.locales.includes(locale as any) ? locale : i18n.defaultLocale;
   const dictionary = await getDictionary(validLocale as any);

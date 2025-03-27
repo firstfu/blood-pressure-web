@@ -8,23 +8,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  ArrowRight,
-  Heart,
-  Activity,
-  Share2,
-  ChevronDown,
-  Star,
-  Droplets,
-  BarChart2,
-  Shield,
-  Smartphone,
-  ChevronLeft,
-  ChevronRight,
-  Users,
-  Clock,
-  Lock,
-} from "lucide-react";
+import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight, Users, Clock, Lock } from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import AppScreenshotCarousel from "./AppScreenshotCarousel";
@@ -182,35 +166,17 @@ export default function HeroSection() {
       <div className="container md:px-8 mx-auto px-5">
         <motion.div style={{ opacity }} className="flex flex-col gap-8 md:gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
-          <motion.div
-            className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4"
-            variants={animations.container}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
+          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
             <BadgeSection dictionary={dictionary} />
             <HeadingSection dictionary={dictionary} />
-            <motion.p
-              className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide"
-              variants={animations.item}
-            >
+            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide" variants={animations.item}>
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
-              <span className="md:hidden">
-                {dictionary?.首頁?.英雄區塊?.手機版副標題 || "每4人就有1人有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}
-              </span>
+              <span className="md:hidden">{dictionary?.首頁?.英雄區塊?.手機版副標題 || "每4人就有1人有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}</span>
               <span className="hidden md:inline">
-                {dictionary?.首頁?.英雄區塊?.副標題 ||
-                  "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
+                {dictionary?.首頁?.英雄區塊?.副標題 || "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
               </span>
             </motion.p>
-            <ActionButtons
-              handlePreRegister={handlePreRegister}
-              isSubmitting={isSubmitting}
-              isSuccess={isSuccess}
-              email={email}
-              setEmail={setEmail}
-              dictionary={dictionary}
-            />
+            <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} dictionary={dictionary} />
           </motion.div>
 
           {/* 右側 App 預覽 */}
@@ -246,9 +212,7 @@ export default function HeroSection() {
                   />
                 </svg>
               </div>
-              <span className="text-base">
-                {dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}
-              </span>
+              <span className="text-base">{dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}</span>
             </div>
           </motion.div>
         )}
@@ -277,14 +241,8 @@ export default function HeroSection() {
               </div>
               <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
                 {/* 啟用後顯示 */}
-                <motion.span
-                  animate={{ opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-                  className="flex items-center"
-                >
-                  <span className="mr-2 bg-emerald-100 text-emerald-800 py-0.5 px-2 rounded-full dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">
-                    BETA
-                  </span>
+                <motion.span animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }} className="flex items-center">
+                  <span className="mr-2 bg-emerald-100 text-emerald-800 py-0.5 px-2 rounded-full dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">BETA</span>
                   <span>{dictionary?.首頁?.英雄區塊?.即將發布 || "即將推出"}</span>
                 </motion.span>
               </div>
