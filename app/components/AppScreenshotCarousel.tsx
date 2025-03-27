@@ -34,18 +34,18 @@ const screenshots = [
     title: "健康報告",
     description: "專業的健康報告，輕鬆與醫生分享",
   },
-  {
-    id: 5,
-    image: "/images/screen5.png",
-    title: "個人設定",
-    description: "個性化的設定選項，符合使用習慣",
-  },
-  {
-    id: 6,
-    image: "/images/screen6.png",
-    title: "智能提醒",
-    description: "貼心的測量提醒，養成紀錄習慣",
-  },
+  //   {
+  //     id: 5,
+  //     image: "/images/screen5.png",
+  //     title: "個人設定",
+  //     description: "個性化的設定選項，符合使用習慣",
+  //   },
+  //   {
+  //     id: 6,
+  //     image: "/images/screen6.png",
+  //     title: "智能提醒",
+  //     description: "貼心的測量提醒，養成紀錄習慣",
+  //   },
 ];
 
 export default function AppScreenshotCarousel() {
@@ -118,7 +118,15 @@ export default function AppScreenshotCarousel() {
           >
             <div className="flex flex-col h-full justify-center w-full absolute inset-0 items-center">
               <div className="w-full max-h-full relative" style={{ aspectRatio: "9/19.5" }}>
-                <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-fill" sizes="100vw" quality={100} priority />
+                <Image
+                  src={screenshots[currentIndex].image}
+                  alt={screenshots[currentIndex].title}
+                  fill
+                  className="object-fill"
+                  sizes="100vw"
+                  quality={100}
+                  priority
+                />
               </div>
             </div>
 

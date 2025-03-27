@@ -8,7 +8,23 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight, Users, Clock, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  Heart,
+  Activity,
+  Share2,
+  ChevronDown,
+  Star,
+  Droplets,
+  BarChart2,
+  Shield,
+  Smartphone,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Clock,
+  Lock,
+} from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import AppScreenshotCarousel from "./AppScreenshotCarousel";
@@ -31,14 +47,14 @@ const heroImages = [
     src: "/images/screen4.png",
     alt: "血壓記錄App畫面 - 健康報告",
   },
-  {
-    src: "/images/screen5.png",
-    alt: "血壓記錄App畫面 - 個人設定",
-  },
-  {
-    src: "/images/screen6.png",
-    alt: "血壓記錄App畫面 - 智能提醒",
-  },
+  //   {
+  //     src: "/images/screen5.png",
+  //     alt: "血壓記錄App畫面 - 個人設定",
+  //   },
+  //   {
+  //     src: "/images/screen6.png",
+  //     alt: "血壓記錄App畫面 - 智能提醒",
+  //   },
 ];
 
 // 社會證明數據
@@ -164,13 +180,23 @@ export default function HeroSection() {
       <div className="container md:px-8 mx-auto px-5">
         <motion.div style={{ opacity }} className="flex flex-col gap-8 md:gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
-          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div
+            className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4"
+            variants={animations.container}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <BadgeSection />
             <HeadingSection />
-            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide" variants={animations.item}>
+            <motion.p
+              className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide"
+              variants={animations.item}
+            >
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
               <span className="md:hidden">每4人就有1人有高血壓風險。</span>
-              <span className="hidden md:inline">面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。</span>
+              <span className="hidden md:inline">
+                面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。
+              </span>
               <span className="md:hidden">智能血壓管家助您輕鬆記錄、分析血壓，守護健康。</span>
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} />
@@ -220,7 +246,12 @@ export default function HeroSection() {
       {/* 頁尾權益展示 */}
       <div className="bg-transparent absolute bottom-0 left-0 right-0">
         <div className="container mx-auto">
-          <motion.div className="flex justify-center items-center px-4 py-4" initial={{ opacity: 0 }} animate={{ opacity: 0.9 }} transition={{ duration: 0.8, delay: 1.2 }}>
+          <motion.div
+            className="flex justify-center items-center px-4 py-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.9 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+          >
             <div className="flex flex-wrap justify-center gap-4 md:gap-6 items-center lg:gap-12">
               {socialProofs.map((proof, index) => (
                 <motion.div
