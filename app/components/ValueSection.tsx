@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
 import { Shield, Clock, Zap, Heart } from "lucide-react";
+import { useLocale } from "../i18n/context";
 
 interface ValueProps {
   icon: React.ReactNode;
@@ -30,29 +31,30 @@ function Value({ icon, title, description, delay }: ValueProps) {
 }
 
 export default function ValueSection() {
+  const { dictionary } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const values = [
     {
       icon: <Heart className="h-full w-full" />,
-      title: "精確測試",
-      description: "我們的首要任務是提供精確的血壓測試記錄工具，幫助您掌握血壓狀況",
+      title: dictionary?.價值主張?.精確測試 || "精確測試",
+      description: dictionary?.價值主張?.精確測試描述 || "我們的首要任務是提供精確的血壓測試記錄工具，幫助您掌握血壓狀況",
     },
     {
       icon: <Shield className="h-full w-full" />,
-      title: "資料安全",
-      description: "您的血壓數據受到嚴格保護，確保個人測試記錄的隱私和安全",
+      title: dictionary?.價值主張?.資料安全 || "資料安全",
+      description: dictionary?.價值主張?.資料安全描述 || "您的血壓數據受到嚴格保護，確保個人測試記錄的隱私和安全",
     },
     {
       icon: <Clock className="h-full w-full" />,
-      title: "便捷記錄",
-      description: "簡化血壓測試記錄流程，讓您輕鬆追蹤每次測量結果",
+      title: dictionary?.價值主張?.便捷記錄 || "便捷記錄",
+      description: dictionary?.價值主張?.便捷記錄描述 || "簡化血壓測試記錄流程，讓您輕鬆追蹤每次測量結果",
     },
     {
       icon: <Zap className="h-full w-full" />,
-      title: "數據分析",
-      description: "分析您的血壓測試數據，提供清晰的數值變化趨勢報告",
+      title: dictionary?.價值主張?.數據分析 || "數據分析",
+      description: dictionary?.價值主張?.數據分析描述 || "分析您的血壓測試數據，提供清晰的數值變化趨勢報告",
     },
   ];
 
@@ -66,7 +68,8 @@ export default function ValueSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            為什麼選擇<span className="text-gradient-primary">血壓管家</span>？
+            {dictionary?.價值主張?.標題 || "為什麼選擇"}
+            <span className="text-gradient-primary">血壓管家</span>？
           </motion.h2>
           <motion.p
             className="text-xl md:text-lg text-muted-foreground text-optimized font-rounded max-w-3xl mx-auto px-4 md:px-0"
@@ -74,7 +77,7 @@ export default function ValueSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            血壓管家專注於提供便捷的血壓記錄功能，幫助您清晰記錄和分析血壓數值，智能管理您的健康數據。
+            {dictionary?.價值主張?.副標題 || "血壓管家專注於提供便捷的血壓記錄功能，幫助您清晰記錄和分析血壓數值，智能管理您的健康數據。"}
           </motion.p>
         </div>
 
