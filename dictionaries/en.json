@@ -42,6 +42,18 @@
             "特色描述5": "Data automatically syncs to the cloud, accessible across multiple devices, no worries about data loss or device changes",
             "特色描述6": "Support for smartphones, tablets, and computers, manage your health data anytime, anywhere"
         },
+        "未來展望": {
+            "標題": "Future Outlook",
+            "副標題": "We're constantly innovating to create a better blood pressure health management experience",
+            "標題1": "Smart Health Analytics",
+            "標題2": "Medical Resource Integration",
+            "標題3": "Data Security Assurance",
+            "標題4": "Continuous Updates",
+            "描述1": "Future versions will incorporate more health indicators, providing personalized health trend analysis and recommendations to help protect your cardiovascular health from all aspects.",
+            "描述2": "We plan to partner with more medical institutions so you can easily communicate with professional physicians and receive timely health advice and care.",
+            "描述3": "We commit to using the highest standards of encryption technology to protect your health data securely, allowing you to use the app with peace of mind and without privacy concerns.",
+            "描述4": "Our team will continuously improve the product experience based on user feedback, and pre-registered users will get first access to feature updates and exclusive offers."
+        },
         "英雄區塊": {
             "徽章文字": "Professional Health Monitoring",
             "主標題": "Smart Blood Pressure Management",

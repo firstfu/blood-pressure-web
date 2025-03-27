@@ -51,6 +51,18 @@ export type Dictionary = {
       特色描述5: string;
       特色描述6: string;
     };
+    未來展望: {
+      標題: string;
+      副標題: string;
+      標題1: string;
+      標題2: string;
+      標題3: string;
+      標題4: string;
+      描述1: string;
+      描述2: string;
+      描述3: string;
+      描述4: string;
+    };
     英雄區塊: {
       徽章文字: string;
       主標題: string;
@@ -145,12 +157,56 @@ export type Dictionary = {
   };
 };
 
+// 字典緩存
+const dictionaryCache: Record<Locale, Dictionary | null> = {
+  en: null,
+  "zh-TW": null,
+  "zh-CN": null,
+};
+
+// 最後一次加載的時間戳
+const lastLoadTime: Record<Locale, number> = {
+  en: 0,
+  "zh-TW": 0,
+  "zh-CN": 0,
+};
+
 /**
  * 根據語言代碼獲取相應的字典
  * @param locale 語言代碼
  * @returns 對應語言的字典
  */
 export const getDictionary = async (locale: Locale): Promise<Dictionary> => {
-  // 根據語言代碼動態引入相應的字典
-  return import(`../../dictionaries/${locale}.json`).then(module => module.default);
+  try {
+    // 檢查緩存 - 如果距離上次加載不超過10分鐘，直接返回緩存
+    const now = Date.now();
+    const cacheTimeout = 10 * 60 * 1000; // 10分鐘
+
+    if (dictionaryCache[locale] && now - lastLoadTime[locale] < cacheTimeout) {
+      console.log(`Using cached dictionary for ${locale}`);
+      return dictionaryCache[locale]!;
+    }
+
+    console.log(`Loading dictionary for ${locale} from file`);
+
+    // 根據語言代碼動態引入相應的字典
+    const module = await import(`../../dictionaries/${locale}.json`);
+
+    // 更新緩存和時間戳
+    dictionaryCache[locale] = module.default;
+    lastLoadTime[locale] = now;
+
+    return module.default;
+  } catch (error) {
+    console.error(`Error loading dictionary for ${locale}:`, error);
+
+    // 如果加載失敗，嘗試載入英文作為備用
+    if (locale !== "en") {
+      console.log(`Falling back to English dictionary`);
+      return getDictionary("en");
+    }
+
+    // 如果是英文也加載失敗，只能拋出錯誤
+    throw new Error(`Failed to load any dictionary: ${error}`);
+  }
 };

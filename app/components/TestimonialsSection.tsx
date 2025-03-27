@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Sparkles, LineChart, Heart, Shield, Clock, Globe } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import { useLocale } from "../i18n/context";
 
 interface FutureVisionProps {
   title: string;
@@ -33,28 +34,29 @@ function FutureVision({ title, description, icon, delay }: FutureVisionProps) {
 }
 
 export default function TestimonialsSection() {
+  const { dictionary } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   const futureVisions = [
     {
-      title: "智能健康分析",
-      description: "未來版本將融合更多健康指標，提供個人化的健康趨勢分析與建議，幫助您從各方面守護心血管健康。",
+      title: dictionary?.首頁?.未來展望?.標題1 || "智能健康分析",
+      description: dictionary?.首頁?.未來展望?.描述1 || "未來版本將融合更多健康指標，提供個人化的健康趨勢分析與建議，幫助您從各方面守護心血管健康。",
       icon: <LineChart className="h-6 w-6" />,
     },
     {
-      title: "醫療資源整合",
-      description: "我們計劃與更多醫療機構合作，讓您能輕鬆與專業醫師交流，獲得及時的健康建議與照護。",
+      title: dictionary?.首頁?.未來展望?.標題2 || "醫療資源整合",
+      description: dictionary?.首頁?.未來展望?.描述2 || "我們計劃與更多醫療機構合作，讓您能輕鬆與專業醫師交流，獲得及時的健康建議與照護。",
       icon: <Heart className="h-6 w-6" />,
     },
     {
-      title: "資料安全保障",
-      description: "我們承諾採用最高標準的加密技術，保護您的健康數據安全，讓您能安心使用而無需擔憂隱私問題。",
+      title: dictionary?.首頁?.未來展望?.標題3 || "資料安全保障",
+      description: dictionary?.首頁?.未來展望?.描述3 || "我們承諾採用最高標準的加密技術，保護您的健康數據安全，讓您能安心使用而無需擔憂隱私問題。",
       icon: <Shield className="h-6 w-6" />,
     },
     {
-      title: "持續更新優化",
-      description: "團隊將根據用戶反饋持續改進產品體驗，預先註冊用戶將獲得第一手的功能更新與專屬優惠。",
+      title: dictionary?.首頁?.未來展望?.標題4 || "持續更新優化",
+      description: dictionary?.首頁?.未來展望?.描述4 || "團隊將根據用戶反饋持續改進產品體驗，預先註冊用戶將獲得第一手的功能更新與專屬優惠。",
       icon: <Clock className="h-6 w-6" />,
     },
   ];
@@ -69,7 +71,7 @@ export default function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            未來展望
+            {dictionary?.導航?.未來展望 || "未來展望"}
           </motion.h2>
           <motion.p
             className="text-lg text-muted-foreground max-w-3xl mx-auto"
@@ -77,7 +79,7 @@ export default function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            我們正不斷創新，打造更完善的血壓健康管理體驗
+            {dictionary?.首頁?.未來展望?.副標題 || "我們正不斷創新，打造更完善的血壓健康管理體驗"}
           </motion.p>
         </div>
 
