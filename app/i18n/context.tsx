@@ -2,6 +2,10 @@
  * @ Author: firstfu
  * @ Create Time: 2024-08-01 15:45:30
  * @ Description: 語言上下文管理器，提供全應用的語言切換能力
+ * @ 語系檢測優先順序：
+ * @ 1. 本地儲存 (localStorage) 的用戶偏好
+ * @ 2. 瀏覽器語系設定 (navigator.language)
+ * @ 3. 系統預設語系 (defaultLocale)
  */
 
 "use client";
@@ -139,20 +143,54 @@ export function LocaleProvider({ children, initialLocale = i18n.defaultLocale, i
     };
   }, [locale]);
 
-  // 從 localStorage 恢復語言設置
+  // 從 localStorage 恢復語言設置，或從瀏覽器語系設定中取得
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
+        // 優先從 localStorage 讀取
         const savedLocale = localStorage.getItem("locale") as Locale | null;
-        console.log(`Restored locale from localStorage: ${savedLocale}`);
 
         if (savedLocale && i18n.locales.includes(savedLocale)) {
+          console.log(`Restored locale from localStorage: ${savedLocale}`);
           setLocaleState(savedLocale);
         } else {
-          console.log(`Using default locale: ${i18n.defaultLocale}`);
+          // 嘗試從瀏覽器語系設定中獲取
+          const browserLocale = navigator.language;
+          console.log(`Detected browser locale: ${browserLocale}`);
+
+          // 檢查是否完全匹配支援的語系
+          if (i18n.locales.includes(browserLocale as Locale)) {
+            console.log(`Using browser locale: ${browserLocale}`);
+            setLocaleState(browserLocale as Locale);
+          }
+          // 檢查語系的主要部分是否匹配 (例如 zh-HK 會匹配到 zh-TW)
+          else if (browserLocale.startsWith("zh")) {
+            // 繁體優先
+            if (browserLocale.includes("HK") || browserLocale.includes("TW")) {
+              console.log(`Browser locale ${browserLocale} mapped to zh-TW`);
+              setLocaleState("zh-TW");
+            } else if (browserLocale.includes("CN")) {
+              console.log(`Browser locale ${browserLocale} mapped to zh-CN`);
+              setLocaleState("zh-CN");
+            } else {
+              console.log(`Browser locale ${browserLocale} defaulted to zh-TW`);
+              setLocaleState("zh-TW");
+            }
+          }
+          // 檢查英文語系
+          else if (browserLocale.startsWith("en")) {
+            console.log(`Browser locale ${browserLocale} mapped to en`);
+            setLocaleState("en");
+          }
+          // 無法匹配時使用預設語系
+          else {
+            console.log(`Browser locale ${browserLocale} not supported, using default locale: ${i18n.defaultLocale}`);
+            setLocaleState(i18n.defaultLocale);
+          }
         }
       } catch (error) {
-        console.error("Error reading locale from localStorage:", error);
+        console.error("Error detecting locale:", error);
+        setLocaleState(i18n.defaultLocale);
       }
     }
   }, []);
