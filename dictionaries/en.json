@@ -178,5 +178,21 @@
         "便捷記錄描述": "Simplified blood pressure test recording process, making it easy to track each measurement result",
         "數據分析": "Data Analysis",
         "數據分析描述": "Analyze your blood pressure test data and provide clear value trend reports"
+    },
+    "法律": {
+        "返回首頁": "Back to Home",
+        "法律文件": "Legal Documents",
+        "隱私政策": "Privacy Policy",
+        "使用條款": "Terms of Service",
+        "Cookie政策": "Cookie Policy",
+        "資料安全": "Data Security",
+        "隱私政策描述": "Learn how we collect, use, and protect your personal data.",
+        "使用條款描述": "Terms and regulations you need to comply with when using our services.",
+        "Cookie政策描述": "Learn how we use cookies and tracking technologies.",
+        "資料安全描述": "How we protect the security of your health data.",
+        "說明文字": "Here are important legal documents related to the Blood Pressure Management System. We encourage you to read these documents to understand your rights and our responsibilities.",
+        "聯繫我們標題": "Contact Us",
+        "聯繫我們說明": "If you have any questions about our legal documents or need further clarification, please feel free to contact us.",
+        "聯繫信息": "Email: legal@bloodpressureapp.com\nPhone: +886-2-1234-5678\nAddress: No. 7, Section 5, Xinyi Road, Xinyi District, Taipei City, Taiwan"
     }
 }

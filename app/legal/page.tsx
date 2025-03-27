@@ -1,40 +1,46 @@
-import type { Metadata } from "next";
+// @ Author: firstfu
+// @ Create Time: 2024-03-27 14:47:35
+// @ Description: 法律主頁面，提供法律文件的概述和連結，支援多國語系
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getDictionary } from "../i18n/dictionaries";
+import { i18n } from "../i18n/settings";
 
-export const metadata: Metadata = {
-  title: "法律文件 | 血壓管理系統",
-  description: "血壓管理系統的法律文件、隱私政策和使用條款",
-};
+export default async function LegalPage({ params }: { params?: { locale?: string } }) {
+  // 如果沒有指定語言，使用預設語言
+  const locale = params?.locale || i18n.defaultLocale;
+  // 確保語言在支援列表中
+  const validLocale = i18n.locales.includes(locale as any) ? locale : i18n.defaultLocale;
+  const dictionary = await getDictionary(validLocale as any);
 
-const LegalLinks = [
-  {
-    name: "隱私政策",
-    href: "/legal/privacy-policy",
-    description: "了解我們如何收集、使用和保護您的個人資料。",
-  },
-  {
-    name: "使用條款",
-    href: "/legal/terms-of-service",
-    description: "使用我們服務所需遵守的條款與規定。",
-  },
-  {
-    name: "Cookie 政策",
-    href: "/legal/cookie-policy",
-    description: "了解我們如何使用 Cookies 及追蹤技術。",
-  },
-  {
-    name: "資料安全",
-    href: "/legal/data-security",
-    description: "我們如何保護您的健康資料安全。",
-  },
-];
+  const LegalLinks = [
+    {
+      name: dictionary.法律.隱私政策,
+      href: "/legal/privacy-policy",
+      description: dictionary.法律.隱私政策描述,
+    },
+    {
+      name: dictionary.法律.使用條款,
+      href: "/legal/terms-of-service",
+      description: dictionary.法律.使用條款描述,
+    },
+    {
+      name: dictionary.法律.Cookie政策,
+      href: "/legal/cookie-policy",
+      description: dictionary.法律.Cookie政策描述,
+    },
+    {
+      name: dictionary.法律.資料安全,
+      href: "/legal/data-security",
+      description: dictionary.法律.資料安全描述,
+    },
+  ];
 
-export default function LegalPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">法律文件</h1>
-      <p className="mb-8">以下是與血壓管理系統相關的重要法律文件。我們鼓勵您閱讀這些文件，以了解您的權利和我們的責任。</p>
+      <h1 className="text-3xl font-bold mb-6">{dictionary.法律.法律文件}</h1>
+      <p className="mb-8">{dictionary.法律.說明文字}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {LegalLinks.map(link => (
@@ -49,15 +55,9 @@ export default function LegalPage() {
       </div>
 
       <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-        <h2 className="text-xl font-semibold mb-4">聯繫我們</h2>
-        <p className="mb-4">如果您對我們的法律文件有任何疑問或需要進一步的說明，請隨時與我們聯繫。</p>
-        <p>
-          電子郵件：legal@bloodpressureapp.com
-          <br />
-          電話：+886-2-1234-5678
-          <br />
-          地址：台灣台北市信義區信義路五段7號
-        </p>
+        <h2 className="text-xl font-semibold mb-4">{dictionary.法律.聯繫我們標題}</h2>
+        <p className="mb-4">{dictionary.法律.聯繫我們說明}</p>
+        <p className="whitespace-pre-line">{dictionary.法律.聯繫信息}</p>
       </div>
     </div>
   );

@@ -187,6 +187,22 @@ export type Dictionary = {
     請輸入有效的電子郵件地址: string;
     ["訂閱失敗，請稍後再試"]: string;
   };
+  法律: {
+    返回首頁: string;
+    法律文件: string;
+    隱私政策: string;
+    使用條款: string;
+    Cookie政策: string;
+    資料安全: string;
+    隱私政策描述: string;
+    使用條款描述: string;
+    Cookie政策描述: string;
+    資料安全描述: string;
+    說明文字: string;
+    聯繫我們標題: string;
+    聯繫我們說明: string;
+    聯繫信息: string;
+  };
 };
 
 // 字典緩存 - 預先加載所有字典以提高切換速度
