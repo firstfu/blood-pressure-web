@@ -6,7 +6,7 @@
 
 import type { Metadata } from "next";
 import LegalContextProvider from "./LegalContextProvider";
-import PageLayout from "./PageLayout";
+import PageLayout from "./page-layout";
 
 // 靜態產生的 metadata
 export const metadata: Metadata = {
