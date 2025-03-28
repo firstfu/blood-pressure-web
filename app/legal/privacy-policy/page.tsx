@@ -1,143 +1,153 @@
-// @ Author: firstfu
-// @ Create Time: 2023-03-20 10:45:32
-// @ Description: 隱私權政策頁面，提供使用者了解資料使用與保護方式
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-08-28 09:50:42
+ * @ Description: 隱私政策頁面，支援多語言
+ */
 
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "隱私政策 | 血壓管家",
-  description: "了解我們如何收集、使用和保護您的個人資料",
-};
+import { useLocale } from "@/app/i18n/context";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import LanguageSwitcher from "@/app/components/LanguageSwitcher";
+import { motion } from "framer-motion";
 
 export default function PrivacyPolicy() {
+  const { dictionary, isLoading } = useLocale();
+
+  if (isLoading || !dictionary) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-500"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="bg-clip-text bg-gradient-to-r text-3xl text-transparent font-bold from-primary mb-6 to-secondary">隱私權政策</h1>
-      <p className="text-muted-foreground mb-6">最後更新日期：{new Date().toLocaleDateString("zh-TW")}</p>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">簡介</h2>
-        <p className="text-foreground mb-4">
-          歡迎使用血壓管家（以下簡稱「本系統」、「我們」或「我們的」）。我們非常重視您的隱私，並致力於保護您的個人資料。本隱私政策旨在告知您我們如何收集、使用、分享和保護您的資訊。
-        </p>
-        <p className="text-foreground mb-4">使用我們的服務即表示您同意本隱私政策中描述的做法。請仔細閱讀本政策，以了解我們如何處理您的資訊。</p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">我們收集的資訊</h2>
-        <p className="text-foreground mb-4">我們可能收集以下類型的資訊：</p>
-        <ul className="list-disc text-foreground mb-4 pl-8 space-y-2">
-          <li>
-            <strong>個人識別資訊</strong>：包括您的姓名、電子郵件地址、電話號碼和其他您在註冊、設置個人檔案或使用我們服務時提供的資訊。
-          </li>
-          <li>
-            <strong>健康相關資訊</strong>：包括您的血壓讀數、測量時間、用藥記錄、症狀記錄以及其他您輸入到系統中的健康資訊。
-          </li>
-          <li>
-            <strong>使用資訊</strong>：關於您如何使用我們服務的資訊，包括訪問時間、訪問頁面、使用功能等。
-          </li>
-          <li>
-            <strong>設備資訊</strong>：包括您的設備類型、操作系統、瀏覽器類型、IP 地址等技術資訊。
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">我們如何使用收集的資訊</h2>
-        <p className="text-foreground mb-4">我們使用收集的資訊以下列方式：</p>
-        <ul className="list-disc text-foreground mb-4 pl-8 space-y-2">
-          <li>提供、維護和改進我們的服務；</li>
-          <li>創建和維護您的帳戶；</li>
-          <li>處理和分析您的健康資訊，以提供個性化的健康見解和建議；</li>
-          <li>與您溝通，回應您的詢問、請求或需求；</li>
-          <li>向您發送有關服務更新、健康提醒和其他通知；</li>
-          <li>監控和分析服務使用趨勢、活動和功能；</li>
-          <li>偵測、預防和解決技術問題、安全問題或詐欺活動。</li>
-        </ul>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">資訊分享與披露</h2>
-        <p className="text-foreground mb-4">我們不會在未經您明確許可的情況下出售、交換或出租您的個人資訊給第三方。我們可能會在以下情況下分享您的資訊：</p>
-        <ul className="list-disc text-foreground mb-4 pl-8 space-y-2">
-          <li>
-            <strong>服務提供商</strong>：與協助我們營運、提供或改進服務的第三方服務提供商分享，這些提供商受到保密協議的約束；
-          </li>
-          <li>
-            <strong>法律要求</strong>：當我們認為披露是遵守法律、法規或法律程序（如法院命令或傳票）所必需的；
-          </li>
-          <li>
-            <strong>保護權利</strong>：當我們認為披露是保護我們、我們的用戶或他人的權利、財產或安全所必需的；
-          </li>
-          <li>
-            <strong>企業轉讓</strong>：在合併、收購、重組或出售資產的情況下，您的資訊可能作為交易的一部分被轉讓；
-          </li>
-          <li>
-            <strong>同意分享</strong>：在您同意的情況下，我們可能會與醫療保健提供者或您指定的其他人分享您的健康資訊。
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">資料安全</h2>
-        <p className="text-foreground mb-4">
-          我們實施適當的技術、物理和管理安全措施，以保護您的個人資訊免受未經授權的訪問、使用或披露。然而，請注意，沒有任何網絡傳輸或電子存儲方法是完全安全的。
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">您的權利與選擇</h2>
-        <p className="text-foreground mb-4">您對自己的個人資訊擁有以下權利：</p>
-        <ul className="list-disc text-foreground mb-4 pl-8 space-y-2">
-          <li>
-            <strong>訪問和更新</strong>：您可以通過帳戶設置訪問和更新您的個人資訊；
-          </li>
-          <li>
-            <strong>資料導出</strong>：您可以請求導出您在我們服務中存儲的個人資訊的副本；
-          </li>
-          <li>
-            <strong>刪除資料</strong>：您可以請求刪除您的帳戶和相關資訊；
-          </li>
-          <li>
-            <strong>通知偏好</strong>：您可以通過帳戶設置或聯繫我們來更改您對通知和通訊的偏好；
-          </li>
-          <li>
-            <strong>同意撤回</strong>：如果我們基於您的同意處理您的資訊，您有權隨時撤回同意。
-          </li>
-        </ul>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">兒童隱私</h2>
-        <p className="text-foreground mb-4">
-          我們的服務不面向 16 歲以下的兒童。我們不會故意收集 16
-          歲以下兒童的個人識別資訊。如果您是父母或監護人，並相信我們可能收集了您子女的資訊，請聯繫我們，我們將採取措施刪除這些資訊。
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">隱私政策變更</h2>
-        <p className="text-foreground mb-4">
-          我們可能會不時更新本隱私政策。更新後的政策將在此頁面上發布，並更新政策頂部的「最後更新日期」。我們鼓勵您定期查看本政策以了解任何變更。在重大變更的情況下，我們可能會通過電子郵件或服務內通知向您發送通知。
-        </p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="text-2xl text-foreground font-semibold mb-4">聯繫我們</h2>
-        <p className="text-foreground mb-4">如果您對本隱私政策有任何疑問、意見或請求，請通過以下方式聯繫我們：</p>
-        <div className="bg-card/50 border border-border p-6 rounded-lg shadow-sm">
-          <p className="text-foreground">
-            電子郵件：
-            <a href="mailto:privacy@bloodpressureapp.com" className="text-primary hover:underline">
-              privacy@bloodpressureapp.com
-            </a>
-            <br />
-            電話：+886-2-1234-5678
-            <br />
-            地址：台灣台北市信義區信義路五段7號
-          </p>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      <div className="container mx-auto py-12 px-4">
+        <div className="mb-8 flex items-center justify-between">
+          <Link href="/">
+            <Button variant="outline" className="flex items-center space-x-2">
+              <ChevronLeft className="h-4 w-4" />
+              <span>{dictionary.共用.首頁}</span>
+            </Button>
+          </Link>
+          <LanguageSwitcher />
         </div>
-      </section>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-4xl mx-auto bg-white dark:bg-slate-900 p-8 rounded-xl shadow-md"
+        >
+          <motion.h1 className="text-3xl font-bold mb-2 text-foreground">{dictionary.法律.隱私政策}</motion.h1>
+          <p className="text-muted-foreground mb-6">
+            {dictionary.共用.最後更新日期}: {`2024-03-29`}
+          </p>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.隱私政策簡介標題}</h2>
+            <p className="mb-4">{dictionary.法律.隱私政策簡介內容1}</p>
+            <p className="mb-4">{dictionary.法律.隱私政策簡介內容2}</p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.收集資訊標題}</h2>
+            <p className="mb-4">{dictionary.法律.收集資訊內容}</p>
+            <ul className="list-disc pl-8 mb-4 space-y-2">
+              <li>
+                <strong>{dictionary.法律.個人識別標題}：</strong> {dictionary.法律.個人識別內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.健康相關標題}：</strong> {dictionary.法律.健康相關內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.使用資訊標題}：</strong> {dictionary.法律.使用資訊內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.設備資訊標題}：</strong> {dictionary.法律.設備資訊內容}
+              </li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.使用收集標題}</h2>
+            <p className="mb-4">{dictionary.法律.使用收集內容}</p>
+            <ul className="list-disc pl-8 mb-4 space-y-2">
+              <li>{dictionary.法律.使用收集列表1}</li>
+              <li>{dictionary.法律.使用收集列表2}</li>
+              <li>{dictionary.法律.使用收集列表3}</li>
+              <li>{dictionary.法律.使用收集列表4}</li>
+              <li>{dictionary.法律.使用收集列表5}</li>
+              <li>{dictionary.法律.使用收集列表6}</li>
+              <li>{dictionary.法律.使用收集列表7}</li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.資訊分享標題}</h2>
+            <p className="mb-4">{dictionary.法律.資訊分享內容}</p>
+            <ul className="list-disc pl-8 mb-4 space-y-2">
+              <li>
+                <strong>{dictionary.法律.服務提供商標題}：</strong> {dictionary.法律.服務提供商內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.法律要求標題}：</strong> {dictionary.法律.法律要求內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.保護權利標題}：</strong> {dictionary.法律.保護權利內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.企業轉讓標題}：</strong> {dictionary.法律.企業轉讓內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.同意分享標題}：</strong> {dictionary.法律.同意分享內容}
+              </li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.用戶權利標題}</h2>
+            <p className="mb-4">{dictionary.法律.用戶權利內容}</p>
+            <ul className="list-disc pl-8 mb-4 space-y-2">
+              <li>
+                <strong>{dictionary.法律.訪問權利標題}：</strong> {dictionary.法律.訪問權利內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.導出權利標題}：</strong> {dictionary.法律.導出權利內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.刪除權利標題}：</strong> {dictionary.法律.刪除權利內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.通知偏好標題}：</strong> {dictionary.法律.通知偏好內容}
+              </li>
+              <li>
+                <strong>{dictionary.法律.撤回同意標題}：</strong> {dictionary.法律.撤回同意內容}
+              </li>
+            </ul>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.兒童隱私標題}</h2>
+            <p className="mb-4">{dictionary.法律.兒童隱私內容}</p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.政策變更標題}</h2>
+            <p className="mb-4">{dictionary.法律.政策變更內容}</p>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{dictionary.法律.聯繫我們標題}</h2>
+            <p className="mb-4">{dictionary.法律.聯繫我們說明}</p>
+            <p className="whitespace-pre-line">{dictionary.法律.聯繫信息}</p>
+          </section>
+        </motion.div>
+      </div>
     </div>
   );
 }
