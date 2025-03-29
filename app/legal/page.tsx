@@ -41,19 +41,7 @@ export default async function LegalPage() {
     <div>
       <h1 className="text-3xl font-bold mb-6">{dictionary.法律.法律文件}</h1>
       <p className="mb-8">{dictionary.法律.說明文字}</p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {LegalLinks.map(link => (
-          <Link href={link.href} key={link.href} className="block p-6 border rounded-lg hover:shadow-md transition-shadow duration-200">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">{link.name}</h2>
-              <ArrowRight className="h-5 w-5 text-blue-600" />
-            </div>
-            <p className="mt-2 text-gray-600">{link.description}</p>
-          </Link>
-        ))}
-      </div>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
       <div className="mt-12 p-6 bg-gray-50 rounded-lg">
         <h2 className="text-xl font-semibold mb-4">{dictionary.法律.聯繫我們標題}</h2>
         <p className="mb-4">{dictionary.法律.聯繫我們說明}</p>
