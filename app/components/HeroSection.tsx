@@ -218,32 +218,31 @@ export default function HeroSection() {
         )}
       </AnimatePresence>
 
-      {/* 頁尾權益展示 */}
-      <div className="bg-transparent absolute bottom-0 left-0 right-0">
-        <div className="container mx-auto">
-          <motion.div
-            className="flex justify-center items-center px-4 py-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <div className="w-full max-w-5xl border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center py-4 space-y-4 md:space-y-0">
-              <div className="flex space-x-8 items-center">
+      {/* 頁尾權益展示 - 整體區塊置中，文字左對齊 */}
+      <div className="bg-transparent relative mt-8 md:mt-4 mb-12 md:mb-0 flex justify-center w-full">
+        <div className="container flex justify-center">
+          <motion.div className="max-w-xs" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+            <div className="border-t border-gray-100 dark:border-gray-800 py-6 w-full">
+              {/* 社會證明區塊 - 整體置中但文字靠左對齊 */}
+              <div className="flex flex-col space-y-5">
                 {socialProofs.map((item, idx) => (
-                  <div key={idx} className="flex items-center space-x-1">
-                    <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
-                    <div className="flex flex-col md:flex-row md:items-baseline md:space-x-1">
-                      <span className="font-semibold text-teal-700 dark:text-teal-300 mr-1 md:mr-0 whitespace-nowrap">{item.count}</span>
-                      <span className="text-xs md:text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">{item.text}</span>
+                  <div key={idx} className="flex items-center">
+                    <div className="w-8 h-8 mr-3 flex items-center justify-center">
+                      <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-teal-700 dark:text-teal-300 font-semibold mr-1.5">{item.count}</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-sm">{item.text}</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
-                {/* 啟用後顯示 */}
+
+              {/* BETA標籤 - 置於底部中心 */}
+              <div className="flex justify-center w-full mt-8">
                 <motion.span animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }} className="flex items-center">
                   <span className="mr-2 bg-emerald-100 text-emerald-800 py-0.5 px-2 rounded-full dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">BETA</span>
-                  <span>{dictionary?.首頁?.英雄區塊?.即將發布 || "即將推出"}</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400">{dictionary?.首頁?.英雄區塊?.即將發布 || "即將推出"}</span>
                 </motion.span>
               </div>
             </div>
