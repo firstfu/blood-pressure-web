@@ -10,7 +10,24 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight, Users, Clock, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  Heart,
+  Activity,
+  Share2,
+  ChevronDown,
+  Star,
+  Droplets,
+  BarChart2,
+  Shield,
+  Smartphone,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+  Clock,
+  Lock,
+  Loader2,
+} from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { useLocale } from "../i18n/context";
@@ -172,6 +189,19 @@ const BackgroundGlowSVG = () => (
   </motion.div>
 );
 
+// 社會證明項目元件
+const SocialProofItem = ({ icon, count, text, className = "" }) => (
+  <div className={`flex items-start ${className}`}>
+    <div className="w-7 h-7 mr-3 flex-shrink-0 flex items-center justify-center">
+      <div className="text-teal-600 dark:text-teal-400">{icon}</div>
+    </div>
+    <div className="text-left">
+      <span className="text-teal-700 dark:text-teal-300 font-semibold block leading-tight text-lg md:text-base">{count}</span>
+      <span className="text-slate-500 dark:text-slate-400 text-base md:text-sm block">{text}</span>
+    </div>
+  </div>
+);
+
 export default function HeroSection() {
   const { dictionary, locale } = useLocale();
   const [isSuccess, setIsSuccess] = useState(false);
@@ -187,17 +217,17 @@ export default function HeroSection() {
   // 社會證明數據 - 使用字典中的翻譯
   const socialProofs = [
     {
-      icon: <Shield className="h-7 w-7 md:h-5 md:w-5" />,
+      icon: <Shield className="h-5 w-5" />,
       count: "100%",
       text: dictionary?.首頁?.社會證明?.隱私保障 || "隱私保障技術",
     },
     {
-      icon: <Heart className="h-7 w-7 md:h-5 md:w-5" />,
+      icon: <Heart className="h-5 w-5" />,
       count: locale === "en" ? "Professional" : "專業",
       text: dictionary?.首頁?.社會證明?.醫療顧問 || "醫療顧問團隊監製",
     },
     {
-      icon: <Clock className="h-7 w-7 md:h-5 md:w-5" />,
+      icon: <Clock className="h-5 w-5" />,
       count: locale === "en" ? "Early" : "提前",
       text: dictionary?.首頁?.社會證明?.搶先使用 || "獲得搶先使用資格",
     },
@@ -220,14 +250,14 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="md:pt-20 mt-0 overflow-hidden pb-20 pt-8 lg:pt-12 relative">
+    <section id="hero" ref={heroRef} className="md:pt-20 mt-0 overflow-hidden pb-16 pt-10 lg:pt-20 relative">
       <BackgroundDecorations />
 
       <div className="container md:px-8 mx-auto px-4">
-        <motion.div style={{ opacity }} className="flex flex-col gap-8 md:gap-16 items-center lg:flex-row pt-0">
+        <motion.div style={{ opacity }} className="flex flex-col gap-6 md:gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
           <motion.div
-            className="w-full lg:w-1/2 md:space-y-8 space-y-4 text-center lg:text-left"
+            className="w-full lg:w-1/2 space-y-6 md:space-y-8 text-center lg:text-left"
             variants={animations.container}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -235,43 +265,22 @@ export default function HeroSection() {
             <BadgeSection dictionary={dictionary} />
             <HeadingSection dictionary={dictionary} />
             <motion.p
-              className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl lg:max-w-none mx-auto lg:mx-0 tracking-wide"
+              className="text-lg md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl lg:max-w-none mx-auto lg:mx-0 tracking-wide"
               variants={animations.item}
             >
+              <strong className="text-foreground font-medium md:hidden">每4人就有1人</strong>
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
-              <span className="md:hidden">{dictionary?.首頁?.英雄區塊?.手機版副標題 || "每4人就有1人有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}</span>
+              <span className="md:hidden"> {dictionary?.首頁?.英雄區塊?.手機版副標題 || "有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}</span>
               <span className="hidden md:inline">
                 {dictionary?.首頁?.英雄區塊?.副標題 || "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
               </span>
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} dictionary={dictionary} />
-
-            {/* 移動端社會證明 - 僅在移動端顯示 */}
-            <motion.div
-              className="pt-6 mt-2 border-t border-gray-100 dark:border-gray-800 w-full lg:hidden"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {socialProofs.map((item, idx) => (
-                  <div key={idx} className="flex items-center justify-center md:justify-start">
-                    <div className="w-8 h-8 mr-3 flex items-center justify-center">
-                      <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="text-teal-700 dark:text-teal-300 font-semibold mr-1.5">{item.count}</span>
-                      <span className="text-slate-500 dark:text-slate-400 text-sm">{item.text}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </motion.div>
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-0 lg:w-1/2 mt-4 md:mt-8 relative max-w-[280px] md:max-w-[320px] lg:max-w-none mx-auto"
+            className="flex justify-center items-center lg:translate-y-0 lg:mt-2 lg:translate-x-0 lg:w-1/2 mt-8 md:mt-6 pt-2 relative max-w-[280px] md:max-w-[320px] lg:max-w-none mx-auto"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -281,6 +290,23 @@ export default function HeroSection() {
             <BackgroundGlowSVG />
           </motion.div>
         </motion.div>
+
+        {/* 社會證明區塊 */}
+        <div className="border-t border-gray-100 dark:border-gray-800 mt-10 pt-8">
+          {/* 桌面版 - 水平排列 */}
+          <div className="hidden md:flex justify-center items-start gap-16">
+            {socialProofs.map((item, index) => (
+              <SocialProofItem key={index} icon={item.icon} count={item.count} text={item.text} />
+            ))}
+          </div>
+
+          {/* 移動版 - 垂直排列 */}
+          <div className="flex flex-col items-center gap-6 md:hidden">
+            {socialProofs.map((item, index) => (
+              <SocialProofItem key={index} icon={item.icon} count={item.count} text={item.text} className="w-64" />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* 成功提示 */}
@@ -307,30 +333,6 @@ export default function HeroSection() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* 頁尾權益展示 - 僅在桌面版顯示 */}
-      <div className="bg-transparent relative mt-8 md:mt-4 hidden lg:flex justify-center w-full">
-        <div className="container flex justify-center">
-          <motion.div className="max-w-xs md:max-w-2xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
-            <div className="border-t border-gray-100 dark:border-gray-800 py-6 w-full">
-              {/* 社會證明區塊 - 整體置中但文字靠左對齊 */}
-              <div className="flex flex-col md:flex-row md:justify-between md:items-center md:space-y-0 md:space-x-6 space-y-5">
-                {socialProofs.map((item, idx) => (
-                  <div key={idx} className="flex items-center">
-                    <div className="w-8 h-8 mr-3 flex items-center justify-center">
-                      <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
-                    </div>
-                    <div className="flex items-center">
-                      <span className="text-teal-700 dark:text-teal-300 font-semibold mr-1.5">{item.count}</span>
-                      <span className="text-slate-500 dark:text-slate-400 text-sm">{item.text}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
     </section>
   );
 }
@@ -370,18 +372,29 @@ const BackgroundDecorations = () => (
 // 徽章區塊元件
 const BadgeSection = ({ dictionary }) => (
   <motion.div className="inline-flex justify-center lg:justify-start" variants={animations.item}>
-    <div className="bg-white dark:bg-gray-800 relative border-gradient-badge font-medium py-1 px-3 rounded-full text-xs uppercase tracking-wider">
-      <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-400">
+    <div className="bg-white dark:bg-gray-800 relative border-gradient-badge shadow-md font-medium py-3 px-7 md:py-2.5 md:px-6 rounded-full text-xl md:text-lg uppercase tracking-wider">
+      <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-400 font-semibold">
         {dictionary?.首頁?.英雄區塊?.徽章文字 || "專業健康監測"}
       </span>
-      <div className="absolute inset-px rounded-full border-gradient-glow animate-pulse"></div>
+      <motion.div
+        className="absolute inset-px rounded-full border-gradient-glow"
+        animate={{
+          opacity: [0.5, 1, 0.5],
+          scale: [1, 1.02, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      ></motion.div>
     </div>
   </motion.div>
 );
 
 // 標題區塊元件
 const HeadingSection = ({ dictionary }) => (
-  <motion.h1 className="font-bold heading-title lg:text-5xl md:text-4xl text-3xl !leading-tight tracking-tight font-display" variants={animations.item}>
+  <motion.h1 className="font-bold heading-title text-4xl md:text-4xl lg:text-5xl !leading-tight tracking-tight font-display" variants={animations.item}>
     <span className="block">
       <motion.span
         className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-500"
@@ -405,20 +418,20 @@ const HeadingSection = ({ dictionary }) => (
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail, dictionary }) => (
-  <motion.div className="flex flex-col sm:flex-row gap-3 sm:items-center mt-2 sm:mt-0 mx-auto lg:mx-0 max-w-md lg:max-w-none" variants={animations.item}>
+  <motion.div className="flex flex-col sm:flex-row gap-4 sm:items-center mt-3 sm:mt-0 mx-auto lg:mx-0 max-w-md lg:max-w-none" variants={animations.item}>
     <div className="relative flex-grow">
       <Input
         type="email"
         placeholder={dictionary?.首頁?.英雄區塊?.輸入框文字 || "您的電子郵件"}
-        className="shadow-sm border-slate-200 dark:border-slate-800 h-12 px-4 pr-24 rounded-full transition-all hover:border-teal-300 focus:border-teal-500 dark:focus:border-teal-400"
+        className="shadow-sm border-slate-200 dark:border-slate-800 h-14 sm:h-12 text-base px-5 pr-28 rounded-full transition-all hover:border-teal-300 focus:border-teal-500 dark:focus:border-teal-400"
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
-      <div className="absolute right-[3px] top-[3px]">
+      <div className="absolute right-1 top-1">
         <Button
           onClick={() => email && handlePreRegister()}
           disabled={isSubmitting || isSuccess}
-          className={`rounded-full !px-3 md:px-5 py-5 transition-all !h-10 ${
+          className={`rounded-full px-5 h-12 sm:h-10 transition-all ${
             isSuccess ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600"
           }`}
         >
@@ -429,10 +442,10 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
               </svg>
-              {dictionary?.首頁?.英雄區塊?.已註冊 || "已預先註冊"}
+              <span className="text-base font-medium">{dictionary?.首頁?.英雄區塊?.已註冊 || "已註冊"}</span>
             </span>
           ) : (
-            <span>{dictionary?.首頁?.英雄區塊?.註冊按鈕 || "預先註冊"}</span>
+            <span className="text-base font-medium">{dictionary?.首頁?.英雄區塊?.註冊按鈕 || "預先註冊"}</span>
           )}
         </Button>
       </div>
