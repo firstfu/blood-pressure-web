@@ -3,7 +3,7 @@
 /**
  * @ Author: firstfu
  * @ Create Time: 2024-03-28 16:42:45
- * @ Description: 法律頁面專用導航欄，不包含語言切換器
+ * @ Description: 法律頁面專用導航欄，包含語系切換器
  */
 
 import { useState, useEffect, useRef } from "react";
@@ -14,6 +14,7 @@ import { Menu, ChevronRight, Activity, Bell, BarChart2, Droplets } from "lucide-
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ThemeToggle } from "../components/theme-toggle";
 import { useLocale } from "@/app/i18n/context";
+import LanguageSwitcher from "../components/LanguageSwitcher";
 
 // 這些導航項目鍵將使用翻譯
 const navItemKeys = [
@@ -145,49 +146,14 @@ export default function LegalNavbar() {
                 ))}
               </motion.div>
 
+              {/* 語言切換器 */}
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                <LanguageSwitcher />
+              </motion.div>
+
               {/* 主題切換按鈕 */}
               <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.5 }}>
                 <ThemeToggle />
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button asChild className="rounded-full px-6 py-6 shadow-medium gradient-primary-to-accent hover:shadow-lg transition-all duration-300 text-base">
-                  <Link href="/">
-                    <motion.span
-                      className="flex items-center space-x-1"
-                      initial={{ opacity: 0.9 }}
-                      animate={{
-                        opacity: [0.9, 1, 0.9],
-                        scale: [0.98, 1, 0.98],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse",
-                      }}
-                    >
-                      <span>{dictionary?.導航?.預先註冊 || "預先註冊"}</span>
-                      <motion.span
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{
-                          duration: 1.5,
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          ease: "easeInOut",
-                          repeatDelay: 1,
-                        }}
-                      >
-                        <ChevronRight className="h-5 w-5 ml-1" />
-                      </motion.span>
-                    </motion.span>
-                  </Link>
-                </Button>
               </motion.div>
             </div>
 
@@ -235,19 +201,13 @@ export default function LegalNavbar() {
                       </motion.div>
                     ))}
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-8 flex justify-center">
-                      <ThemeToggle />
+                    {/* 移動端語言切換器 */}
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.4 }} className="mt-4 flex justify-center">
+                      <LanguageSwitcher />
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.4 }} className="mt-4 px-5">
-                      <Button asChild className="w-full rounded-xl py-6 shadow-medium gradient-primary-to-accent text-lg">
-                        <Link href="/">
-                          <span className="flex items-center justify-center">
-                            <span>{dictionary?.導航?.預先註冊 || "預先註冊"}</span>
-                            <ChevronRight className="h-5 w-5 ml-1" />
-                          </span>
-                        </Link>
-                      </Button>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-4 flex justify-center">
+                      <ThemeToggle />
                     </motion.div>
                   </nav>
                 </SheetContent>

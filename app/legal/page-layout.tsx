@@ -7,7 +7,6 @@
  */
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import Footer from "../components/Footer";
 import { useLocale } from "@/app/i18n/context";
 import { ReactNode } from "react";
@@ -37,13 +36,6 @@ export default function PageLayout({ children }: { children: ReactNode }) {
       <LegalNavbar />
 
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <Link href="/" className="text-blue-600 hover:text-blue-800 inline-flex items-center">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {dictionary.法律.返回首頁}
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <aside className="md:col-span-1">
             <div className="sticky top-8">
