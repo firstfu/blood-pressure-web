@@ -6,13 +6,121 @@
 
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
 import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-react";
 import Image from "next/image";
-import AppScreenshotCarousel from "./AppScreenshotCarousel";
 import { useLocale } from "../i18n/context";
+
+// 輪播圖片集
+const featureImages = [
+  {
+    src: "/images/screen1.png",
+    alt: "血壓記錄App畫面 - 主頁",
+  },
+  {
+    src: "/images/screen2.png",
+    alt: "血壓記錄App畫面 - 數據分析",
+  },
+  {
+    src: "/images/screen3.png",
+    alt: "血壓記錄App畫面 - 歷史記錄",
+  },
+  {
+    src: "/images/screen4.png",
+    alt: "血壓記錄App畫面 - 健康報告",
+  },
+];
+
+// SVG手機預覽元件
+const PhonePreviewSVG = () => {
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
+  const screenImages = featureImages;
+
+  // 自動輪播
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentScreenIndex(prev => (prev + 1) % screenImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [screenImages.length]);
+
+  return (
+    <div className="h-full w-full relative">
+      <svg viewBox="0 0 360 720" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
+        {/* 手機外框 */}
+        <defs>
+          <linearGradient id="featureScreenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#34d399" stopOpacity="0.05" />
+          </linearGradient>
+          <linearGradient id="featurePhoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#222" />
+            <stop offset="100%" stopColor="#333" />
+          </linearGradient>
+          <clipPath id="featureScreenClip">
+            <rect x="18" y="18" width="324" height="684" rx="32" ry="32" />
+          </clipPath>
+        </defs>
+
+        {/* 手機框架 */}
+        <rect x="0" y="0" width="360" height="720" rx="54" ry="54" className="fill-gray-900 dark:fill-gray-800" />
+
+        {/* 手機內框 */}
+        <rect x="18" y="18" width="324" height="684" rx="44" ry="44" fill="#f8fafc" className="dark:fill-gray-900" />
+
+        {/* 動態島 */}
+        <rect x="120" y="18" width="120" height="40" rx="20" ry="20" className="fill-black" />
+        <rect x="135" y="24" width="90" height="28" rx="14" ry="14" className="fill-black" />
+
+        {/* 前置鏡頭等 */}
+        <circle cx="160" cy="38" r="3.5" className="fill-gray-800" />
+        <circle cx="160.5" cy="38.5" r="1.2" className="fill-blue-400/40" />
+        <circle cx="174" cy="38" r="2.5" className="fill-gray-800/80" />
+
+        {/* 手機按鈕 */}
+        {/* 電源鍵 */}
+        <rect x="359" y="160" width="8" height="90" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+
+        {/* 音量上鍵 */}
+        <rect x="-7" y="140" width="8" height="70" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+
+        {/* 音量下鍵 */}
+        <rect x="-7" y="220" width="8" height="70" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+
+        {/* 靜音鍵 */}
+        <rect x="-7" y="300" width="8" height="45" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+
+        {/* 屏幕内容区域 */}
+        <g clipPath="url(#featureScreenClip)">
+          <rect x="18" y="18" width="324" height="684" fill="url(#featureScreenGradient)" />
+
+          {/* 使用圖片 */}
+          <image href={screenImages[currentScreenIndex].src} x="18" y="18" width="324" height="684" preserveAspectRatio="xMidYMid slice" />
+        </g>
+
+        {/* 反射效果 */}
+        <rect
+          x="18"
+          y="18"
+          width="324"
+          height="684"
+          rx="44"
+          ry="44"
+          fill="transparent"
+          className="opacity-20"
+          style={{
+            mixBlendMode: "soft-light",
+          }}
+        >
+          <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite" />
+        </rect>
+      </svg>
+    </div>
+  );
+};
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -130,10 +238,10 @@ export default function FeaturesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 relative" ref={ref}>
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 relative" ref={ref}>
           {/* 左側功能列表 */}
-          <div className="order-2 lg:col-span-4 lg:order-1">
-            <div className="grid grid-cols-1 gap-8">
+          <div className="order-2 lg:col-span-4 lg:order-1 lg:pr-4">
+            <div className="grid grid-cols-1 gap-10">
               {features.slice(0, 3).map((feature, index) => (
                 <Feature key={index} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + index * 0.1} />
               ))}
@@ -142,38 +250,18 @@ export default function FeaturesSection() {
 
           {/* 中間應用截圖 */}
           <motion.div
-            className="flex order-1 justify-center lg:col-span-4 lg:order-2"
+            className="flex order-1 justify-center items-center lg:col-span-4 lg:order-2"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="border-[6px] border-gray-900 h-[550px] rounded-[2.8rem] shadow-2xl w-full dark:border-gray-800 dark:shadow-primary-900/30 max-w-[300px] md:h-[600px] md:max-w-[320px] overflow-hidden relative">
-              {/* iPhone 16 Pro 動態島 */}
-              <div className="flex bg-black h-[38px] justify-center rounded-b-3xl w-[120px] -translate-x-1/2 absolute items-center left-1/2 top-0 z-30">
-                <div className="flex bg-black h-[26px] rounded-full w-[90px] items-center px-2 space-x-2">
-                  <div className="bg-gray-800 h-3 rounded-full w-3 relative ring-1 ring-gray-700">
-                    <div className="bg-blue-400/40 h-1 rounded-full w-1 absolute right-0.5 top-0.5"></div>
-                  </div>
-                  <div className="bg-gray-800/80 h-2 rounded-full w-2"></div>
-                </div>
-              </div>
-
-              {/* iPhone 16 Pro 側邊按鈕 */}
-              <div className="bg-gray-800 h-12 rounded-l-md w-[6px] -left-[6px] absolute dark:bg-gray-700 top-24 z-30"></div>
-              <div className="bg-gray-800 h-16 rounded-l-md w-[6px] -left-[6px] absolute dark:bg-gray-700 top-40 z-30"></div>
-              <div className="bg-gray-800 h-16 rounded-l-md w-[6px] -left-[6px] absolute dark:bg-gray-700 top-60 z-30"></div>
-
-              {/* iPhone 16 Pro 右側按鈕 */}
-              <div className="bg-gray-800 h-16 rounded-r-md w-[6px] -right-[6px] absolute dark:bg-gray-700 top-32 z-30"></div>
-
-              <div className="bg-gradient-radial absolute dark:from-primary-900/20 dark:to-secondary-900/20 from-primary-500/5 inset-0 to-secondary-500/10"></div>
-
+            <div className="h-[620px] w-full max-w-[350px] md:h-[680px] md:max-w-[380px] overflow-hidden relative">
               {/* 發光效果 */}
               <motion.div
-                className="bg-gradient-to-tr -inset-10 -z-10 absolute blur-3xl dark:from-primary-600/10 dark:to-accent-600/10 dark:via-secondary-600/10 from-primary-500/20 opacity-60 to-accent-500/20 via-secondary-500/20"
+                className="bg-gradient-to-tr -inset-20 -z-10 absolute blur-3xl dark:from-primary-600/20 dark:to-accent-600/20 dark:via-secondary-600/20 from-primary-500/30 opacity-80 to-accent-500/30 via-secondary-500/30"
                 animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.5, 0.7, 0.5],
+                  scale: [1, 1.2, 1],
+                  opacity: [0.6, 0.8, 0.6],
                 }}
                 transition={{
                   duration: 8,
@@ -182,19 +270,17 @@ export default function FeaturesSection() {
                 }}
               />
 
-              <div className="absolute inset-0">
-                <AppScreenshotCarousel />
-              </div>
+              <PhonePreviewSVG />
 
               {/* 裝飾元素 - 簡約圓點 */}
-              <div className="bg-secondary-400/20 h-16 rounded-full w-16 -right-8 -top-8 absolute blur-xl dark:bg-secondary-600/10"></div>
-              <div className="bg-primary-400/20 h-16 rounded-full w-16 -bottom-8 -left-8 absolute blur-xl dark:bg-primary-600/10"></div>
+              <div className="bg-secondary-400/30 h-20 rounded-full w-20 -right-10 -top-10 absolute blur-xl dark:bg-secondary-600/20"></div>
+              <div className="bg-primary-400/30 h-20 rounded-full w-20 -bottom-10 -left-10 absolute blur-xl dark:bg-primary-600/20"></div>
             </div>
           </motion.div>
 
           {/* 右側功能列表 */}
-          <div className="order-3 lg:col-span-4">
-            <div className="grid grid-cols-1 gap-8">
+          <div className="order-3 lg:col-span-4 lg:pl-4">
+            <div className="grid grid-cols-1 gap-10">
               {features.slice(3, 6).map((feature, index) => (
                 <Feature key={index + 3} icon={feature.icon} title={feature.title} description={feature.description} delay={0.3 + (index + 3) * 0.1} />
               ))}
