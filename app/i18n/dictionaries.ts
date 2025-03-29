@@ -425,21 +425,18 @@ export type Dictionary = {
 const dictionaryCache: Record<Locale, Dictionary | null> = {
   en: null,
   "zh-TW": null,
-  "zh-CN": null,
 };
 
 // 最後一次加載的時間戳
 const lastLoadTime: Record<Locale, number> = {
   en: 0,
   "zh-TW": 0,
-  "zh-CN": 0,
 };
 
 // 是否正在加載的標記
 const isLoading: Record<Locale, boolean> = {
   en: false,
   "zh-TW": false,
-  "zh-CN": false,
 };
 
 // 預加載所有字典的程序
@@ -463,7 +460,7 @@ const preloadDictionaries = async () => {
     }
 
     // 然後在背景加載其他語言
-    const locales: Locale[] = ["zh-TW", "zh-CN", "en"];
+    const locales: Locale[] = ["zh-TW", "en"];
 
     for (const locale of locales) {
       if (locale !== currentLocale) {
@@ -543,7 +540,7 @@ export const getDictionary = async (locale: Locale): Promise<Dictionary> => {
     console.error(`Error loading dictionary for ${locale}:`, error);
 
     // 如果加載失敗，嘗試載入已存在的任何字典
-    for (const fallbackLocale of ["zh-TW", "en", "zh-CN"]) {
+    for (const fallbackLocale of ["zh-TW", "en"]) {
       if (dictionaryCache[fallbackLocale as Locale]) {
         console.log(`Falling back to cached ${fallbackLocale} dictionary`);
         return dictionaryCache[fallbackLocale as Locale]!;

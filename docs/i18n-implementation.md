@@ -7,7 +7,6 @@
 目前支援的語言：
 
 - 繁體中文 (zh-TW) - 預設
-- 簡體中文 (zh-CN)
 - 英文 (en)
 
 ## 實現架構
@@ -18,8 +17,7 @@
 /                           # 專案根目錄
 ├── dictionaries/           # 翻譯檔案目錄
 │   ├── en.json             # 英文翻譯
-│   ├── zh-TW.json          # 繁體中文翻譯
-│   └── zh-CN.json          # 簡體中文翻譯
+│   └── zh-TW.json          # 繁體中文翻譯
 ├── app/
 │   ├── i18n/               # i18n 相關功能目錄
 │   │   ├── settings.ts     # 設定檔，定義支援的語言
@@ -42,7 +40,7 @@
 ```typescript
 export const i18n = {
   defaultLocale: "zh-TW",
-  locales: ["en", "zh-TW", "zh-CN"],
+  locales: ["en", "zh-TW"],
 } as const;
 
 export type Locale = (typeof i18n)["locales"][number];

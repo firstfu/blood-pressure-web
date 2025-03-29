@@ -163,19 +163,11 @@ export function LocaleProvider({ children, initialLocale = i18n.defaultLocale, i
             console.log(`Using browser locale: ${browserLocale}`);
             setLocaleState(browserLocale as Locale);
           }
-          // 檢查語系的主要部分是否匹配 (例如 zh-HK 會匹配到 zh-TW)
+          // 檢查語系的主要部分是否匹配
           else if (browserLocale.startsWith("zh")) {
-            // 繁體優先
-            if (browserLocale.includes("HK") || browserLocale.includes("TW")) {
-              console.log(`Browser locale ${browserLocale} mapped to zh-TW`);
-              setLocaleState("zh-TW");
-            } else if (browserLocale.includes("CN")) {
-              console.log(`Browser locale ${browserLocale} mapped to zh-CN`);
-              setLocaleState("zh-CN");
-            } else {
-              console.log(`Browser locale ${browserLocale} defaulted to zh-TW`);
-              setLocaleState("zh-TW");
-            }
+            // 所有中文都導向繁體中文
+            console.log(`Browser locale ${browserLocale} mapped to zh-TW`);
+            setLocaleState("zh-TW");
           }
           // 檢查英文語系
           else if (browserLocale.startsWith("en")) {
@@ -229,13 +221,7 @@ export function LocaleProvider({ children, initialLocale = i18n.defaultLocale, i
       )}
 
       <AnimatePresence mode="wait">
-        <motion.div
-          key={locale}
-          initial={isLoading ? { opacity: 0.5 } : { opacity: 1 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0.5 }}
-          transition={{ duration: 0.2 }}
-        >
+        <motion.div key={locale} initial={isLoading ? { opacity: 0.5 } : { opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0.5 }} transition={{ duration: 0.2 }}>
           {children}
         </motion.div>
       </AnimatePresence>

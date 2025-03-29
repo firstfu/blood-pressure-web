@@ -15,7 +15,6 @@ import { Loader2 } from "lucide-react";
 const localeNames: Record<Locale, string> = {
   en: "English",
   "zh-TW": "繁體中文",
-  "zh-CN": "简体中文",
 };
 
 export default function LanguageSwitcher() {
@@ -89,13 +88,7 @@ export default function LanguageSwitcher() {
         aria-label="切換語言"
       >
         <span>{localeNames[locale]}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
         {(isLoading || isSwitching) && <Loader2 className="ml-2 h-4 w-4 animate-spin text-primary" />}
