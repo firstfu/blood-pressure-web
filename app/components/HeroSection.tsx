@@ -13,7 +13,6 @@ import { Card } from "@/components/ui/card";
 import { ArrowRight, Heart, Activity, Share2, ChevronDown, Star, Droplets, BarChart2, Shield, Smartphone, ChevronLeft, ChevronRight, Users, Clock, Lock } from "lucide-react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
-import AppScreenshotCarousel from "./AppScreenshotCarousel";
 import { useLocale } from "../i18n/context";
 
 // 輪播圖片集
@@ -68,42 +67,109 @@ const animations = {
   },
 };
 
-// 手機預覽元件
-const PhonePreview = ({ y }) => (
-  <motion.div className="bg-gray-800 border-[14px] border-gray-900 h-[620px] rounded-[3rem] shadow-2xl w-[300px] dark:border-gray-800 mx-auto overflow-hidden relative">
-    <div className="absolute inset-0 overflow-hidden">
-      <div className="h-full w-full relative">
-        <AppScreenshotCarousel />
-      </div>
-    </div>
-    <PhoneButtons />
-    <ReflectionEffect />
-  </motion.div>
-);
+// SVG手機預覽元件
+const PhonePreviewSVG = ({ y }) => {
+  const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
+  const screenImages = heroImages;
 
-// 手機按鈕元件
-const PhoneButtons = () => (
-  <>
-    <div className="bg-gray-900 h-8 rounded-l w-1 -right-[14px] absolute dark:bg-gray-800 top-[140px]"></div>
-    <div className="bg-gray-900 h-12 rounded-r w-1 -left-[14px] absolute dark:bg-gray-800 top-[120px]"></div>
-    <div className="bg-gray-900 h-12 rounded-r w-1 -left-[14px] absolute dark:bg-gray-800 top-[170px]"></div>
-  </>
-);
+  // 自動輪播
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentScreenIndex(prev => (prev + 1) % screenImages.length);
+    }, 5000);
 
-// 反光效果元件
-const ReflectionEffect = () => (
+    return () => clearInterval(interval);
+  }, [screenImages.length]);
+
+  return (
+    <motion.div className="w-[300px] h-[620px] mx-auto relative" style={{ y }}>
+      <svg viewBox="0 0 300 620" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
+        {/* 手機外框 */}
+        <defs>
+          <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.05" />
+            <stop offset="100%" stopColor="#34d399" stopOpacity="0.05" />
+          </linearGradient>
+          <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#222" />
+            <stop offset="100%" stopColor="#333" />
+          </linearGradient>
+          <clipPath id="screenClip">
+            <rect x="14" y="14" width="272" height="592" rx="28" ry="28" />
+          </clipPath>
+        </defs>
+
+        {/* 手機框架 */}
+        <rect x="0" y="0" width="300" height="620" rx="48" ry="48" className="fill-gray-900 dark:fill-gray-800" />
+
+        {/* 手機內框 */}
+        <rect x="14" y="14" width="272" height="592" rx="38" ry="38" fill="#f8fafc" className="dark:fill-gray-900" />
+
+        {/* 手機按鈕 */}
+        {/* 電源鍵 */}
+        <rect x="299" y="140" width="4" height="80" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+        {/* 音量上鍵 */}
+        <rect x="-3" y="120" width="4" height="60" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+        {/* 音量下鍵 */}
+        <rect x="-3" y="190" width="4" height="60" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+
+        {/* 頂部瀏海 */}
+        <rect x="105" y="14" width="90" height="25" rx="12" ry="12" className="fill-gray-900 dark:fill-gray-800" />
+
+        {/* 屏幕内容区域 */}
+        <g clipPath="url(#screenClip)">
+          <rect x="14" y="14" width="272" height="592" fill="url(#screenGradient)" />
+
+          {/* 使用圖片 */}
+          <image href={screenImages[currentScreenIndex].src} x="14" y="14" width="272" height="592" preserveAspectRatio="xMidYMid slice" />
+        </g>
+
+        {/* 反射效果 */}
+        <rect
+          x="14"
+          y="14"
+          width="272"
+          height="592"
+          rx="38"
+          ry="38"
+          fill="transparent"
+          className="opacity-20"
+          style={{
+            mixBlendMode: "soft-light",
+          }}
+        >
+          <animate attributeName="opacity" values="0.2;0.4;0.2" dur="5s" repeatCount="indefinite" />
+        </rect>
+      </svg>
+    </motion.div>
+  );
+};
+
+// SVG背景光暈效果元件
+const BackgroundGlowSVG = () => (
   <motion.div
-    className="bg-gradient-to-tr absolute from-transparent inset-0 pointer-events-none to-transparent via-white/10"
+    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"
     animate={{
-      opacity: [0.5, 0.8, 0.5],
-      backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+      scale: [1, 1.1, 1],
+      rotate: [0, 180, 360],
     }}
     transition={{
-      duration: 5,
+      duration: 20,
       repeat: Infinity,
       repeatType: "reverse",
     }}
-  />
+  >
+    <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+          <stop offset="0%" stopColor="var(--color-primary-500)" stopOpacity="0.3" className="dark:stop-opacity-[0.1]" />
+          <stop offset="50%" stopColor="var(--color-secondary-500)" stopOpacity="0.2" className="dark:stop-opacity-[0.08]" />
+          <stop offset="100%" stopColor="var(--color-accent-500)" stopOpacity="0.1" className="dark:stop-opacity-[0.03]" />
+        </radialGradient>
+      </defs>
+      <circle cx="200" cy="200" r="180" fill="url(#glowGradient)" className="blur-2xl" />
+    </svg>
+  </motion.div>
 );
 
 export default function HeroSection() {
@@ -181,8 +247,8 @@ export default function HeroSection() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <PhonePreview y={y} />
-            <BackgroundGlow />
+            <PhonePreviewSVG y={y} />
+            <BackgroundGlowSVG />
           </motion.div>
         </motion.div>
       </div>
@@ -342,20 +408,4 @@ const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setE
       </div>
     </div>
   </motion.div>
-);
-
-// 背景光暈效果元件
-const BackgroundGlow = () => (
-  <motion.div
-    className="bg-gradient-to-tr h-[300px] rounded-full w-[300px] -translate-x-1/2 -translate-y-1/2 -z-10 absolute blur-2xl dark:from-primary-500/10 dark:to-accent-500/10 dark:via-secondary-500/10 from-primary-500/30 left-1/2 to-accent-500/30 top-1/2 via-secondary-500/30"
-    animate={{
-      scale: [1, 1.1, 1],
-      rotate: [0, 180, 360],
-    }}
-    transition={{
-      duration: 20,
-      repeat: Infinity,
-      repeatType: "reverse",
-    }}
-  />
 );
