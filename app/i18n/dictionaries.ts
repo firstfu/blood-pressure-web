@@ -127,8 +127,16 @@ export type Dictionary = {
       回答1_4: string;
       問題2_1: string;
       問題2_2: string;
+      問題2_3: string;
+      問題2_4: string;
+      問題2_5: string;
+      問題2_6: string;
       回答2_1: string;
       回答2_2: string;
+      回答2_3: string;
+      回答2_4: string;
+      回答2_5: string;
+      回答2_6: string;
       問題3_1: string;
       問題3_2: string;
       問題3_3: string;

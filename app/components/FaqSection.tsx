@@ -69,13 +69,37 @@ export default function FaqSection() {
           question: dictionary?.首頁?.常見問題?.問題2_1 || "應用是否提供血壓異常警報？",
           answer:
             dictionary?.首頁?.常見問題?.回答2_1 ||
-            "是的，我們的應用提供可自定義的血壓警報功能。您可以設置個人化的血壓閾值，當測量結果超出這些範圍時，應用會立即通知您。這有助於及時發現潛在的健康問題。",
+            "血壓異常警報功能正在開發中，將在未來版本中推出。我們計劃提供可自定義的閾值設置，當測量結果超出設定範圍時，應用會發出通知提醒您。目前，應用會以視覺方式標示出異常數值，幫助您識別需要關注的讀數。",
         },
         {
           question: dictionary?.首頁?.常見問題?.問題2_2 || "如何與我的醫生分享我的血壓數據？",
           answer:
             dictionary?.首頁?.常見問題?.回答2_2 ||
             "我們提供多種方式分享您的健康數據。您可以生成專業的PDF報告，通過電子郵件發送給您的醫生；也可以在就診時直接展示應用中的趨勢圖表；還可以通過應用直接與已註冊的醫療專業人員分享您的數據。",
+        },
+        {
+          question: dictionary?.首頁?.常見問題?.問題2_3 || "我可以設定測量提醒嗎？",
+          answer:
+            dictionary?.首頁?.常見問題?.回答2_3 ||
+            "是的，您可以在應用中設定定期測量血壓的提醒。您可以根據自己的需求自定義提醒頻率（例如每天、每週特定日子或特定時間），確保您能夠保持規律的測量習慣，不會錯過重要的健康監測。",
+        },
+        {
+          question: dictionary?.首頁?.常見問題?.問題2_4 || "如何查看血壓趨勢分析？",
+          answer:
+            dictionary?.首頁?.常見問題?.回答2_4 ||
+            "在應用的「趨勢分析」頁面，您可以查看各種血壓數據的圖表和分析。系統提供日、週、月和年度視圖，幫助您了解血壓的長期變化模式。您可以識別特定時段的變化趨勢，並結合生活方式因素(如飲食、運動、睡眠)進行分析，從而更全面地了解自己的健康狀況。",
+        },
+        {
+          question: dictionary?.首頁?.常見問題?.問題2_5 || "可以手動輸入不同時間測量的血壓值嗎？",
+          answer:
+            dictionary?.首頁?.常見問題?.回答2_5 ||
+            "是的，您可以手動輸入在不同時間測量的血壓值。只需點擊「新增記錄」按鈕，然後選擇日期和時間，輸入收縮壓、舒張壓和脈搏數值即可。這對於記錄在其他地方（如醫院或藥房）測量的血壓特別有用，確保您的健康紀錄保持完整。",
+        },
+        {
+          question: dictionary?.首頁?.常見問題?.問題2_6 || "如何為血壓記錄添加備註？",
+          answer:
+            dictionary?.首頁?.常見問題?.回答2_6 ||
+            "添加備註功能可以幫助您記錄測量時的特殊情況或可能影響血壓的因素。在新增或編輯血壓記錄時，您可以在備註欄位輸入相關訊息，如情緒狀態、運動後測量、服藥情況或特殊飲食等。這些備註對分析血壓波動的原因非常有價值，也能為醫生提供更全面的參考資訊。",
         },
       ],
     },
@@ -107,10 +131,7 @@ export default function FaqSection() {
   ];
 
   return (
-    <section
-      id="faq"
-      className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-10 relative to-neutral-100/90"
-    >
+    <section id="faq" className="bg-gradient-to-b dark:from-background/95 dark:to-background/90 from-neutral-50/95 overflow-hidden py-20 md:py-10 relative to-neutral-100/90">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] h-full w-full absolute from-primary-400/5 left-0 opacity-60 to-transparent top-0 via-transparent"></div>
         <div className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] h-full w-full absolute bottom-0 from-secondary-400/5 opacity-60 right-0 to-transparent via-transparent"></div>
