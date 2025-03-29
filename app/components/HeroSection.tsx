@@ -237,14 +237,6 @@ export default function HeroSection() {
                   </div>
                 ))}
               </div>
-
-              {/* BETA標籤 - 置於底部中心 */}
-              <div className="flex justify-center w-full mt-8">
-                <motion.span animate={{ opacity: [0.7, 1, 0.7] }} transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }} className="flex items-center">
-                  <span className="mr-2 bg-emerald-100 text-emerald-800 py-0.5 px-2 rounded-full dark:bg-emerald-900/30 dark:text-emerald-400 text-xs">BETA</span>
-                  <span className="text-sm text-slate-500 dark:text-slate-400">{dictionary?.首頁?.英雄區塊?.即將發布 || "即將推出"}</span>
-                </motion.span>
-              </div>
             </div>
           </motion.div>
         </div>
