@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Mail, ArrowRight } from "lucide-react";
 import { useLocale } from "../i18n/context";
+import Link from "next/link";
 
 export default function SubscriptionForm() {
   const { dictionary } = useLocale();
@@ -66,12 +67,7 @@ export default function SubscriptionForm() {
 
       <div className="container mx-auto px-4">
         <div ref={ref} className="max-w-4xl mx-auto">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-          >
+          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">{dictionary?.訂閱表單?.標題 || "完整預先註冊"}</h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
               {dictionary?.訂閱表單?.副標題 || "填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議"}
@@ -132,9 +128,9 @@ export default function SubscriptionForm() {
                 <div className="text-base text-muted-foreground mt-6">
                   <p>
                     {dictionary?.訂閱表單?.隱私說明 || "我們重視您的隱私，您可以隨時取消訂閱。查看我們的"}{" "}
-                    <a href="#" className="text-primary hover:underline">
+                    <Link href="/legal/privacy-policy" className="text-primary hover:underline">
                       {dictionary?.訂閱表單?.隱私政策連結 || "隱私政策"}
-                    </a>
+                    </Link>
                     。
                   </p>
                 </div>
