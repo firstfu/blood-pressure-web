@@ -32,14 +32,6 @@ const heroImages = [
     src: "/images/screen4.png",
     alt: "血壓記錄App畫面 - 健康報告",
   },
-  //   {
-  //     src: "/images/screen5.png",
-  //     alt: "血壓記錄App畫面 - 個人設定",
-  //   },
-  //   {
-  //     src: "/images/screen6.png",
-  //     alt: "血壓記錄App畫面 - 智能提醒",
-  //   },
 ];
 
 // 動畫配置
@@ -219,12 +211,12 @@ export default function HeroSection() {
       </AnimatePresence>
 
       {/* 頁尾權益展示 - 整體區塊置中，文字左對齊 */}
-      <div className="bg-transparent relative mt-8 md:mt-4 mb-12 md:mb-0 flex justify-center w-full">
+      <div className="bg-transparent relative mt-8 md:mt-4 flex justify-center w-full">
         <div className="container flex justify-center">
-          <motion.div className="max-w-xs" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
+          <motion.div className="max-w-xs md:max-w-2xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
             <div className="border-t border-gray-100 dark:border-gray-800 py-6 w-full">
               {/* 社會證明區塊 - 整體置中但文字靠左對齊 */}
-              <div className="flex flex-col space-y-5">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-center md:space-y-0 md:space-x-6 space-y-5">
                 {socialProofs.map((item, idx) => (
                   <div key={idx} className="flex items-center">
                     <div className="w-8 h-8 mr-3 flex items-center justify-center">

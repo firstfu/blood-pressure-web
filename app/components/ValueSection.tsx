@@ -59,7 +59,7 @@ export default function ValueSection() {
   ];
 
   return (
-    <section id="values" className="py-16 md:py-20">
+    <section id="values" className="md:py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 md:mb-16">
           <motion.h2
