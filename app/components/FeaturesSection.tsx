@@ -71,27 +71,18 @@ const PhonePreviewSVG = () => {
         {/* 手機內框 */}
         <rect x="18" y="18" width="324" height="684" rx="44" ry="44" fill="#f8fafc" className="dark:fill-gray-900" />
 
-        {/* 動態島 */}
-        <rect x="120" y="18" width="120" height="40" rx="20" ry="20" className="fill-black" />
-        <rect x="135" y="24" width="90" height="28" rx="14" ry="14" className="fill-black" />
-
-        {/* 前置鏡頭等 */}
-        <circle cx="160" cy="38" r="3.5" className="fill-gray-800" />
-        <circle cx="160.5" cy="38.5" r="1.2" className="fill-blue-400/40" />
-        <circle cx="174" cy="38" r="2.5" className="fill-gray-800/80" />
+        {/* 頂部瀏海 */}
+        <rect x="135" y="18" width="90" height="25" rx="12" ry="12" className="fill-gray-900 dark:fill-gray-800" />
 
         {/* 手機按鈕 */}
         {/* 電源鍵 */}
-        <rect x="359" y="160" width="8" height="90" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="359" y="160" width="4" height="90" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
 
         {/* 音量上鍵 */}
-        <rect x="-7" y="140" width="8" height="70" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="-3" y="140" width="4" height="70" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
 
         {/* 音量下鍵 */}
-        <rect x="-7" y="220" width="8" height="70" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
-
-        {/* 靜音鍵 */}
-        <rect x="-7" y="300" width="8" height="45" rx="3" ry="3" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="-3" y="220" width="4" height="70" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
 
         {/* 屏幕内容区域 */}
         <g clipPath="url(#featureScreenClip)">

@@ -82,8 +82,8 @@ const PhonePreviewSVG = ({ y }) => {
   }, [screenImages.length]);
 
   return (
-    <motion.div className="w-[300px] h-[620px] mx-auto relative" style={{ y }}>
-      <svg viewBox="0 0 300 620" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
+    <motion.div className="w-[360px] h-[720px] mx-auto relative" style={{ y }}>
+      <svg viewBox="0 0 360 720" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
         {/* 手機外框 */}
         <defs>
           <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -95,43 +95,43 @@ const PhonePreviewSVG = ({ y }) => {
             <stop offset="100%" stopColor="#333" />
           </linearGradient>
           <clipPath id="screenClip">
-            <rect x="14" y="14" width="272" height="592" rx="28" ry="28" />
+            <rect x="18" y="18" width="324" height="684" rx="32" ry="32" />
           </clipPath>
         </defs>
 
         {/* 手機框架 */}
-        <rect x="0" y="0" width="300" height="620" rx="48" ry="48" className="fill-gray-900 dark:fill-gray-800" />
+        <rect x="0" y="0" width="360" height="720" rx="54" ry="54" className="fill-gray-900 dark:fill-gray-800" />
 
         {/* 手機內框 */}
-        <rect x="14" y="14" width="272" height="592" rx="38" ry="38" fill="#f8fafc" className="dark:fill-gray-900" />
+        <rect x="18" y="18" width="324" height="684" rx="44" ry="44" fill="#f8fafc" className="dark:fill-gray-900" />
 
         {/* 手機按鈕 */}
         {/* 電源鍵 */}
-        <rect x="299" y="140" width="4" height="80" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="359" y="160" width="4" height="90" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
         {/* 音量上鍵 */}
-        <rect x="-3" y="120" width="4" height="60" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="-3" y="140" width="4" height="70" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
         {/* 音量下鍵 */}
-        <rect x="-3" y="190" width="4" height="60" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
+        <rect x="-3" y="220" width="4" height="70" rx="2" ry="2" className="fill-gray-800 dark:fill-gray-700" />
 
         {/* 頂部瀏海 */}
-        <rect x="105" y="14" width="90" height="25" rx="12" ry="12" className="fill-gray-900 dark:fill-gray-800" />
+        <rect x="135" y="18" width="90" height="25" rx="12" ry="12" className="fill-gray-900 dark:fill-gray-800" />
 
         {/* 屏幕内容区域 */}
         <g clipPath="url(#screenClip)">
-          <rect x="14" y="14" width="272" height="592" fill="url(#screenGradient)" />
+          <rect x="18" y="18" width="324" height="684" fill="url(#screenGradient)" />
 
           {/* 使用圖片 */}
-          <image href={screenImages[currentScreenIndex].src} x="14" y="14" width="272" height="592" preserveAspectRatio="xMidYMid slice" />
+          <image href={screenImages[currentScreenIndex].src} x="18" y="18" width="324" height="684" preserveAspectRatio="xMidYMid slice" />
         </g>
 
         {/* 反射效果 */}
         <rect
-          x="14"
-          y="14"
-          width="272"
-          height="592"
-          rx="38"
-          ry="38"
+          x="18"
+          y="18"
+          width="324"
+          height="684"
+          rx="44"
+          ry="44"
           fill="transparent"
           className="opacity-20"
           style={{
@@ -159,7 +159,7 @@ const BackgroundGlowSVG = () => (
       repeatType: "reverse",
     }}
   >
-    <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="glowGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
           <stop offset="0%" stopColor="var(--color-primary-500)" stopOpacity="0.3" className="dark:stop-opacity-[0.1]" />
@@ -167,7 +167,7 @@ const BackgroundGlowSVG = () => (
           <stop offset="100%" stopColor="var(--color-accent-500)" stopOpacity="0.1" className="dark:stop-opacity-[0.03]" />
         </radialGradient>
       </defs>
-      <circle cx="200" cy="200" r="180" fill="url(#glowGradient)" className="blur-2xl" />
+      <circle cx="250" cy="250" r="230" fill="url(#glowGradient)" className="blur-2xl" />
     </svg>
   </motion.div>
 );
@@ -241,7 +241,7 @@ export default function HeroSection() {
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-5 lg:w-1/2 mt-8 relative"
+            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-0 lg:w-1/2 mt-8 relative"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
