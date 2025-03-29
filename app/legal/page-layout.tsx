@@ -11,6 +11,7 @@ import { ArrowLeft } from "lucide-react";
 import Footer from "../components/Footer";
 import { useLocale } from "@/app/i18n/context";
 import { ReactNode } from "react";
+import LegalNavbar from "./LegalNavbar";
 
 export default function PageLayout({ children }: { children: ReactNode }) {
   const { dictionary, isLoading } = useLocale();
@@ -33,16 +34,7 @@ export default function PageLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {/* 簡易頂部導航，沒有語言切換器 */}
-      <header className="bg-slate-50 dark:bg-slate-950 py-3 shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-teal-600 dark:text-teal-400 text-xl font-bold">血壓管家</span>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <LegalNavbar />
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
