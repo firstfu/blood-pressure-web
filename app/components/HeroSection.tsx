@@ -192,12 +192,12 @@ const BackgroundGlowSVG = () => (
 // 社會證明項目元件
 const SocialProofItem = ({ icon, count, text, className = "" }) => (
   <div className={`flex items-start ${className}`}>
-    <div className="w-7 h-7 mr-3 flex-shrink-0 flex items-center justify-center">
+    <div className="w-8 h-8 mr-3 flex-shrink-0 flex items-center justify-center">
       <div className="text-teal-600 dark:text-teal-400">{icon}</div>
     </div>
     <div className="text-left">
-      <span className="text-teal-700 dark:text-teal-300 font-semibold block leading-tight text-lg md:text-base">{count}</span>
-      <span className="text-slate-500 dark:text-slate-400 text-base md:text-sm block">{text}</span>
+      <span className="text-teal-700 dark:text-teal-300 font-semibold block leading-tight text-xl md:text-lg">{count}</span>
+      <span className="text-slate-500 dark:text-slate-400 text-lg md:text-base block">{text}</span>
     </div>
   </div>
 );
@@ -217,17 +217,17 @@ export default function HeroSection() {
   // 社會證明數據 - 使用字典中的翻譯
   const socialProofs = [
     {
-      icon: <Shield className="h-5 w-5" />,
+      icon: <Shield className="h-6 w-6" />,
       count: "100%",
       text: dictionary?.首頁?.社會證明?.隱私保障 || "隱私保障技術",
     },
     {
-      icon: <Heart className="h-5 w-5" />,
+      icon: <Heart className="h-6 w-6" />,
       count: locale === "en" ? "Professional" : "專業",
       text: dictionary?.首頁?.社會證明?.醫療顧問 || "醫療顧問團隊監製",
     },
     {
-      icon: <Clock className="h-5 w-5" />,
+      icon: <Clock className="h-6 w-6" />,
       count: locale === "en" ? "Early" : "提前",
       text: dictionary?.首頁?.社會證明?.搶先使用 || "獲得搶先使用資格",
     },
@@ -268,8 +268,8 @@ export default function HeroSection() {
               className="text-lg md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl lg:max-w-none mx-auto lg:mx-0 tracking-wide"
               variants={animations.item}
             >
-              <strong className="text-foreground font-medium md:hidden">每4人就有1人</strong>
-              <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
+              <strong className="text-foreground font-medium md:hidden">{locale === "en" ? "1 in 4 people" : "每4人就有1人"}</strong>
+              <strong className="text-foreground hidden md:inline">{locale === "en" ? "1 in 4 adults" : "每4個成年人就有1人"}</strong>
               <span className="md:hidden"> {dictionary?.首頁?.英雄區塊?.手機版副標題 || "有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}</span>
               <span className="hidden md:inline">
                 {dictionary?.首頁?.英雄區塊?.副標題 || "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
@@ -292,18 +292,18 @@ export default function HeroSection() {
         </motion.div>
 
         {/* 社會證明區塊 */}
-        <div className="border-t border-gray-100 dark:border-gray-800 mt-10 pt-8">
+        <div className="border-t border-gray-100 dark:border-gray-800 mt-12 pt-10">
           {/* 桌面版 - 水平排列 */}
-          <div className="hidden md:flex justify-center items-start gap-16">
+          <div className="hidden md:flex justify-center items-start gap-20">
             {socialProofs.map((item, index) => (
               <SocialProofItem key={index} icon={item.icon} count={item.count} text={item.text} />
             ))}
           </div>
 
           {/* 移動版 - 垂直排列 */}
-          <div className="flex flex-col items-center gap-6 md:hidden">
+          <div className="flex flex-col items-center gap-8 md:hidden">
             {socialProofs.map((item, index) => (
-              <SocialProofItem key={index} icon={item.icon} count={item.count} text={item.text} className="w-64" />
+              <SocialProofItem key={index} icon={item.icon} count={item.count} text={item.text} className="w-72" />
             ))}
           </div>
         </div>
