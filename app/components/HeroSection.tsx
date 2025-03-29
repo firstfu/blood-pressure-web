@@ -82,7 +82,7 @@ const PhonePreviewSVG = ({ y }) => {
   }, [screenImages.length]);
 
   return (
-    <motion.div className="w-[360px] h-[720px] mx-auto relative" style={{ y }}>
+    <motion.div className="w-[280px] h-[560px] md:w-[320px] md:h-[640px] lg:w-[360px] lg:h-[720px] mx-auto relative" style={{ y }}>
       <svg viewBox="0 0 360 720" xmlns="http://www.w3.org/2000/svg" className="w-full h-full drop-shadow-2xl">
         {/* 手機外框 */}
         <defs>
@@ -220,16 +220,24 @@ export default function HeroSection() {
   };
 
   return (
-    <section id="hero" ref={heroRef} className="md:pt-20 mt-0 overflow-hidden pb-20 pt-12 relative">
+    <section id="hero" ref={heroRef} className="md:pt-20 mt-0 overflow-hidden pb-20 pt-8 lg:pt-12 relative">
       <BackgroundDecorations />
 
-      <div className="container md:px-8 mx-auto px-5">
+      <div className="container md:px-8 mx-auto px-4">
         <motion.div style={{ opacity }} className="flex flex-col gap-8 md:gap-16 items-center lg:flex-row pt-0">
           {/* 左側內容 */}
-          <motion.div className="-mt-4 lg:w-1/2 md:space-y-8 space-y-4" variants={animations.container} initial="hidden" animate={isInView ? "visible" : "hidden"}>
+          <motion.div
+            className="w-full lg:w-1/2 md:space-y-8 space-y-4 text-center lg:text-left"
+            variants={animations.container}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
             <BadgeSection dictionary={dictionary} />
             <HeadingSection dictionary={dictionary} />
-            <motion.p className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl tracking-wide" variants={animations.item}>
+            <motion.p
+              className="text-base md:text-lg text-muted-foreground text-optimized font-sans leading-relaxed max-w-2xl lg:max-w-none mx-auto lg:mx-0 tracking-wide"
+              variants={animations.item}
+            >
               <strong className="text-foreground hidden md:inline">每4個成年人就有1人</strong>
               <span className="md:hidden">{dictionary?.首頁?.英雄區塊?.手機版副標題 || "每4人就有1人有高血壓風險。智能血壓管家助您輕鬆記錄、分析血壓，守護健康。"}</span>
               <span className="hidden md:inline">
@@ -237,11 +245,33 @@ export default function HeroSection() {
               </span>
             </motion.p>
             <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} dictionary={dictionary} />
+
+            {/* 移動端社會證明 - 僅在移動端顯示 */}
+            <motion.div
+              className="pt-6 mt-2 border-t border-gray-100 dark:border-gray-800 w-full lg:hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {socialProofs.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-center md:justify-start">
+                    <div className="w-8 h-8 mr-3 flex items-center justify-center">
+                      <div className="text-teal-600 dark:text-teal-400">{item.icon}</div>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-teal-700 dark:text-teal-300 font-semibold mr-1.5">{item.count}</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-sm">{item.text}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* 右側 App 預覽 */}
           <motion.div
-            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-0 lg:w-1/2 mt-8 relative"
+            className="flex justify-center items-center lg:-translate-y-10 lg:mt-0 lg:translate-x-0 lg:w-1/2 mt-4 md:mt-8 relative max-w-[280px] md:max-w-[320px] lg:max-w-none mx-auto"
             style={{ y }}
             variants={animations.container}
             initial="hidden"
@@ -278,8 +308,8 @@ export default function HeroSection() {
         )}
       </AnimatePresence>
 
-      {/* 頁尾權益展示 - 整體區塊置中，文字左對齊 */}
-      <div className="bg-transparent relative mt-8 md:mt-4 flex justify-center w-full">
+      {/* 頁尾權益展示 - 僅在桌面版顯示 */}
+      <div className="bg-transparent relative mt-8 md:mt-4 hidden lg:flex justify-center w-full">
         <div className="container flex justify-center">
           <motion.div className="max-w-xs md:max-w-2xl" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.5 }}>
             <div className="border-t border-gray-100 dark:border-gray-800 py-6 w-full">
@@ -339,7 +369,7 @@ const BackgroundDecorations = () => (
 
 // 徽章區塊元件
 const BadgeSection = ({ dictionary }) => (
-  <motion.div className="inline-flex" variants={animations.item}>
+  <motion.div className="inline-flex justify-center lg:justify-start" variants={animations.item}>
     <div className="bg-white dark:bg-gray-800 relative border-gradient-badge font-medium py-1 px-3 rounded-full text-xs uppercase tracking-wider">
       <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-300 dark:to-emerald-400">
         {dictionary?.首頁?.英雄區塊?.徽章文字 || "專業健康監測"}
@@ -375,7 +405,7 @@ const HeadingSection = ({ dictionary }) => (
 
 // 動作按鈕元件
 const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail, dictionary }) => (
-  <motion.div className="flex flex-col sm:flex-row gap-3 sm:items-center mt-2 sm:mt-0" variants={animations.item}>
+  <motion.div className="flex flex-col sm:flex-row gap-3 sm:items-center mt-2 sm:mt-0 mx-auto lg:mx-0 max-w-md lg:max-w-none" variants={animations.item}>
     <div className="relative flex-grow">
       <Input
         type="email"
