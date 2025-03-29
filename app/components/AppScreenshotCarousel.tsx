@@ -1,7 +1,7 @@
 /**
- * @Author: firstfu
- * @Create Time: 2024-06-28 10:15:23
- * @Description: 螢幕截圖輪播元件，支援左右滿版顯示在 iPhone 模型中
+ * @ Author: firstfu
+ * @ Create Time: 2024-06-28 10:15:23
+ * @ Description: 螢幕截圖輪播元件，支援左右滿版顯示在 iPhone 模型中
  */
 
 import React, { useState, useEffect } from "react";
@@ -118,15 +118,7 @@ export default function AppScreenshotCarousel() {
           >
             <div className="flex flex-col h-full justify-center w-full absolute inset-0 items-center">
               <div className="w-full max-h-full relative" style={{ aspectRatio: "9/19.5" }}>
-                <Image
-                  src={screenshots[currentIndex].image}
-                  alt={screenshots[currentIndex].title}
-                  fill
-                  className="object-fill"
-                  sizes="100vw"
-                  quality={100}
-                  priority
-                />
+                <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-fill" sizes="100vw" quality={100} priority />
               </div>
             </div>
 

@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 19:20:45
+ * @ Description: 主題管理提供者組件，處理亮色/暗色主題的切換邏輯和狀態管理
+ */
+
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";

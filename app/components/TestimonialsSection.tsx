@@ -1,6 +1,8 @@
-// @ Author: firstfu
-// @ Create Time: 2024-08-13 10:36:21
-// @ Description: 未來展望區塊 - 以未來願景替代尚未存在的用戶評價
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-08-13 10:36:21
+ * @ Description: 未來展望區塊 - 以未來願景替代尚未存在的用戶評價
+ */
 
 "use client";
 

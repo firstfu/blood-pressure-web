@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 19:12:30
+ * @ Description: 顯示血壓管家應用個人設置頁面的SVG組件，包含用戶設置和偏好選項
+ */
+
 import React from "react";
 
 export default function AppScreenshotSettings() {

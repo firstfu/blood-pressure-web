@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 19:14:05
+ * @ Description: 顯示血壓管家應用數據分析頁面的SVG組件，展示血壓趨勢圖和統計數據
+ */
+
 import React from "react";
 
 export default function AppScreenshotAnalytics() {

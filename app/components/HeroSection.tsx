@@ -1,6 +1,8 @@
-// @ Author: firstfu
-// @ Create Time: 2024-08-05 12:08:31
-// @ Description: Hero Section - 首頁主視覺區塊，包含產品介紹和手機預覽效果
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-08-05 12:08:31
+ * @ Description: Hero Section - 首頁主視覺區塊，包含產品介紹和手機預覽效果
+ */
 
 "use client";
 

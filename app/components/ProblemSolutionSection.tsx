@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 18:55:10
+ * @ Description: 血壓管理痛點與解決方案對比展示組件
+ */
+
 "use client";
 
 import { useRef } from "react";

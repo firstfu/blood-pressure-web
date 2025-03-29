@@ -1,8 +1,10 @@
-"use client";
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-03-20 16:45:17
+ * @ Description: 主題切換按鈕組件 - 優化切換動畫效果
+ */
 
-// @ Author: firstfu
-// @ Create Time: 2024-03-20 16:45:17
-// @ Description: 主題切換按鈕組件 - 優化切換動畫效果
+"use client";
 
 import { useTheme } from "@/app/providers/theme-provider";
 import { Button } from "@/components/ui/button";

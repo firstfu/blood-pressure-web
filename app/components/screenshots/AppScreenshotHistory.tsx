@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 18:50:22
+ * @ Description: 顯示血壓管家應用歷史記錄頁面的SVG組件
+ */
+
 import React from "react";
 
 export default function AppScreenshotHistory() {

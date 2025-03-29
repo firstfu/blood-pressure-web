@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 18:52:35
+ * @ Description: 顯示血壓管家應用的核心價值主張部分組件
+ */
+
 "use client";
 
 import { useRef } from "react";

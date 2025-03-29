@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 18:53:45
+ * @ Description: 顯示血壓管家應用功能特色的部分組件
+ */
+
 "use client";
 
 import { useRef } from "react";

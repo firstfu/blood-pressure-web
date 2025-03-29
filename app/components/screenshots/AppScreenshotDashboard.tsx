@@ -1,3 +1,9 @@
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-05-04 19:10:15
+ * @ Description: 顯示血壓管家應用主控台頁面的SVG組件，展示主要健康指標和測量提醒
+ */
+
 import React, { useEffect, useState } from "react";
 
 export default function AppScreenshotDashboard() {

@@ -1,6 +1,8 @@
-// @ Author: firstfu
-// @ Create Time: 2024-07-29 14:28:32
-// @ Description: FAQ 頁面內容區塊，提供用戶常見問題解答
+/**
+ * @ Author: firstfu
+ * @ Create Time: 2024-07-29 14:28:32
+ * @ Description: FAQ 頁面內容區塊，提供用戶常見問題解答
+ */
 
 "use client";
 
