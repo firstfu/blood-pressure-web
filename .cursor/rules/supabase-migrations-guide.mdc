@@ -1,11 +1,6 @@
 ---
 description: supabase migrations 用法
-globs: 
-alwaysApply: false
----
----
-description: supabase migrations 用法
-globs: 
+globs:
 alwaysApply: false
 ---
 # Supabase 數據庫遷移指南
