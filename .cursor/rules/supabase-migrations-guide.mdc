@@ -1,0 +1,244 @@
+---
+description: supabase migrations 用法
+globs: 
+alwaysApply: false
+---
+---
+description: supabase migrations 用法
+globs: 
+alwaysApply: false
+---
+# Supabase 數據庫遷移指南
+
+## 概述
+本文檔提供了使用 Supabase CLI 進行數據庫遷移的標準流程和最佳實踐。遷移是追蹤和管理數據庫結構變更的關鍵工具。
+
+## 基本原則
+1. 所有數據庫結構變更必須通過遷移文件進行
+2. 遷移文件必須是向前兼容的
+3. 每個遷移應該是原子性的，專注於一個特定的變更
+4. 遷移文件命名必須清晰描述其用途
+5. 所有遷移必須經過本地測試後才能部署到生產環境
+
+## 開發流程
+
+### 1. 本地開發環境設置
+```bash
+# 安裝 Supabase CLI
+brew install supabase/tap/supabase
+
+# 啟動本地開發環境
+supabase start
+```
+
+### 2. 創建遷移文件
+```bash
+# 格式
+supabase migration new <migration_name>
+
+# 示例
+supabase migration new create_users_table
+```
+
+### 3. 遷移文件結構
+```sql
+-- 遷移上行（必需）
+create table if not exists public.table_name (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- 遷移回滾（可選但建議）
+-- drop table if exists public.table_name;
+```
+
+### 4. 遷移指令說明
+
+#### 4.1 保留數據的遷移（推薦）
+```bash
+# 只應用新的遷移，保留現有數據
+supabase migration up
+
+# 檢查待執行的遷移
+supabase migration list
+
+# 檢查遷移變更內容
+supabase db diff
+```
+
+#### 4.2 重置數據庫（謹慎使用）
+```bash
+# 警告：此指令會清除所有數據
+# 僅建議在以下情況使用：
+# 1. 本地開發環境初始化
+# 2. 測試環境重置
+# 3. 遷移文件測試
+supabase db reset
+```
+
+## 數據管理
+
+### 1. 數據填充（Seed）
+位置：`supabase/seed.sql`
+
+#### 1.1 基本結構
+```sql
+-- 使用事務確保數據一致性
+begin;
+
+-- 插入測試數據（安全方式）
+insert into public.table_name (column1, column2)
+values
+  ('value1', 'value2'),
+  ('value3', 'value4')
+on conflict (id) do nothing;  -- 防止重複插入
+
+commit;
+```
+
+#### 1.2 高級填充技巧
+```sql
+-- 條件插入
+insert into public.table_name (column1, column2)
+select 'value1', 'value2'
+where not exists (
+    select 1 from public.table_name where column1 = 'value1'
+);
+
+-- 批量插入時使用事務和錯誤處理
+do $$
+begin
+    -- 插入操作
+    insert into public.table_name (column1)
+    values ('value1');
+exception when others then
+    -- 錯誤處理
+    raise notice 'Error: %', sqlerrm;
+end $$;
+```
+
+### 2. 數據備份和還原
+```bash
+# 備份數據庫
+supabase db dump -f backup.sql
+
+# 還原數據（本地開發環境）
+psql -U postgres -d postgres -f backup.sql
+```
+
+## 數據安全遷移範例
+
+### 1. 添加新列（安全）
+```sql
+-- 添加新列時不影響現有數據
+alter table if exists public.table_name
+add column if not exists new_column text default 'default_value';
+```
+
+### 2. 修改列（安全）
+```sql
+-- 修改列時保留數據
+alter table if exists public.table_name
+alter column column_name type new_type using column_name::new_type;
+```
+
+### 3. 添加約束（安全）
+```sql
+-- 添加約束時檢查現有數據
+alter table if exists public.table_name
+add constraint constraint_name check (column_name > 0) not valid;
+
+-- 驗證現有數據
+alter table if exists public.table_name
+validate constraint constraint_name;
+```
+
+## 部署流程
+
+### 1. 環境準備
+```bash
+# 登錄 Supabase CLI
+supabase login
+
+# 關聯遠程項目
+supabase link --project-ref <project-id>
+```
+
+### 2. 部署步驟
+```bash
+# 檢查遷移狀態
+supabase db diff
+
+# 部署到生產環境（保留數據）
+supabase db push
+```
+
+## 最佳實踐
+
+### 命名規範
+- 使用描述性名稱：create_users_table
+- 使用動詞開頭：add_column_to_users
+- 使用下劃線分隔：update_user_constraints
+
+### 安全考慮
+1. 始終使用 `if exists` 和 `if not exists` 子句
+2. 為所有表啟用行級安全性（RLS）
+3. 明確設置列的約束條件
+4. 為敏感數據添加適當的訪問策略
+5. 避免使用破壞性操作（如 DROP TABLE、TRUNCATE）
+6. 在生產環境中禁用 seed 操作
+
+### 性能考慮
+1. 大型表的遷移應在非高峰期執行
+2. 添加索引時使用 CREATE INDEX CONCURRENTLY
+3. 批量數據操作時使用事務
+4. 避免在單個遷移中進行過多更改
+5. 大量數據操作時使用批處理
+
+## 環境特定配置
+
+### 開發環境
+1. 可以使用 `db reset` 重置數據
+2. 可以執行 seed 操作
+3. 可以自由測試遷移
+
+### 測試環境
+1. 使用與生產環境相似的數據量
+2. 執行完整的遷移測試
+3. 驗證數據完整性
+
+### 生產環境
+1. 只使用 `migration up` 和 `db push`
+2. 禁用數據重置操作
+3. 必須先備份數據
+4. 建議在低峰期執行
+
+## 常見問題處理
+
+### 遷移失敗
+1. 檢查遷移日誌
+2. 使用 `supabase db diff` 檢查狀態
+3. 修復問題後使用 `migration up` 重試
+4. 必要時回滾到上一個穩定狀態
+
+### 數據不一致
+1. 使用 `supabase db diff` 檢查差異
+2. 確保所有環境使用相同的遷移版本
+3. 必要時使用修復性遷移（不要使用 reset）
+4. 使用事務確保數據一致性
+
+## 版本控制
+1. 將所有遷移文件納入版本控制
+2. 不要修改已提交的遷移文件
+3. 使用新的遷移文件來修正錯誤
+4. 保持遷移歷史的完整性
+5. 為每個環境維護配置文件
+
+## 監控和維護
+1. 定期檢查遷移日誌
+2. 監控遷移執行時間
+3. 定期備份重要數據
+4. 維護遷移文檔的更新
+5. 定期清理過時的測試數據（僅在非生產環境）
+6. 監控數據庫性能指標
