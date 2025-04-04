@@ -59,7 +59,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-muted-foreground mt-4">{dictionary?.頁腳?.描述 || "專注於血壓記錄的應用，幫助您輕鬆記錄和分析血壓數值，智能管理您的健康數據。"}</p>
-            <div className="flex mt-6 space-x-4">
+            {/* 移除社交媒體連結 */}
+            {/* <div className="flex mt-6 space-x-4">
               <a href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </a>
@@ -72,7 +73,7 @@ export default function Footer() {
               <a href={getFooterHref("/")} className="text-muted-foreground hover:text-primary transition-colors" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5" />
               </a>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col items-center md:items-start">
