@@ -279,7 +279,7 @@ export default function HeroSection() {
       setIsSuccess(true);
 
       // 3秒後隱藏成功訊息
-      setTimeout(() => setIsSuccess(false), 3000);
+      setTimeout(() => setIsSuccess(false), 5000);
 
       // 清空電子郵件輸入
       setEmail("");
@@ -370,11 +370,24 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-white rounded-lg shadow-lg text-center -translate-x-1/2 bottom-5 dark:bg-gray-800 fixed left-1/2 px-4 py-3 transform z-50"
+            className="bg-white rounded-xl shadow-2xl text-center -translate-x-1/2 bottom-10 dark:bg-gray-800 fixed left-1/2 px-6 py-6 transform z-50 w-[92%] sm:w-auto max-w-md mx-auto border border-green-100 dark:border-green-900/30"
           >
-            <div className="flex gap-2 items-center">
-              <div className="bg-green-100 p-1.5 rounded-full text-green-600 dark:bg-green-900/30 dark:text-green-400">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <button
+              onClick={() => setIsSuccess(false)}
+              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+              aria-label="關閉"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <div className="bg-green-100 p-3 rounded-full text-green-600 dark:bg-green-900/40 dark:text-green-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
                     d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -382,7 +395,10 @@ export default function HeroSection() {
                   />
                 </svg>
               </div>
-              <span className="text-base">{dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}</span>
+              <div className="text-lg font-medium text-green-700 dark:text-green-300">{dictionary?.訂閱表單?.註冊成功標題 || "成功加入等待名單！"}</div>
+              <div className="text-base text-gray-600 dark:text-gray-300 max-w-xs">
+                {dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}
+              </div>
             </div>
           </motion.div>
         )}
@@ -392,11 +408,24 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-white rounded-lg shadow-lg text-center -translate-x-1/2 bottom-5 dark:bg-gray-800 fixed left-1/2 px-4 py-3 transform z-50"
+            className="bg-white rounded-xl shadow-2xl text-center -translate-x-1/2 bottom-10 dark:bg-gray-800 fixed left-1/2 px-6 py-6 transform z-50 w-[92%] sm:w-auto max-w-md mx-auto border border-red-100 dark:border-red-900/30"
           >
-            <div className="flex gap-2 items-center">
-              <div className="bg-red-100 p-1.5 rounded-full text-red-600 dark:bg-red-900/30 dark:text-red-400">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+              aria-label="關閉"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            <div className="flex flex-col gap-4 items-center justify-center">
+              <div className="bg-red-100 p-3 rounded-full text-red-600 dark:bg-red-900/40 dark:text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -404,7 +433,8 @@ export default function HeroSection() {
                   />
                 </svg>
               </div>
-              <span className="text-base">{errorMessage}</span>
+              <div className="text-lg font-medium text-red-700 dark:text-red-300">發生錯誤</div>
+              <div className="text-base text-gray-600 dark:text-gray-300 max-w-xs">{errorMessage}</div>
             </div>
           </motion.div>
         )}
