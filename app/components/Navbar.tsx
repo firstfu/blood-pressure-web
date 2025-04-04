@@ -268,6 +268,11 @@ export default function Navbar() {
                       <LanguageSwitcher />
                     </motion.div>
 
+                    {/* 行動版主題切換按鈕 */}
+                    <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.45, duration: 0.4 }} className="px-5">
+                      <ThemeToggle />
+                    </motion.div>
+
                     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-8">
                       <Button className="w-full rounded-xl gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg" asChild>
                         <Link href={getNavHref("#subscribe")} onClick={() => setIsMobileMenuOpen(false)}>
