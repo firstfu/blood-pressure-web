@@ -46,7 +46,7 @@ export default function SubscriptionForm() {
 
     // 檢查是否同意條款
     if (!acceptTerms) {
-      setError("請同意我們的條款和條件");
+      setError(dictionary?.錯誤?.請同意條款 || "請同意我們的條款和條件");
       return;
     }
 

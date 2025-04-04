@@ -196,6 +196,7 @@ export type Dictionary = {
     請輸入您的電子郵件: string;
     請輸入有效的電子郵件地址: string;
     ["訂閱失敗，請稍後再試"]: string;
+    請同意條款: string;
   };
   法律: {
     返回首頁: string;

@@ -153,7 +153,8 @@
         "伺服器錯誤": "Server error occurred. Please try again later.",
         "請輸入您的電子郵件": "Please enter your email address",
         "請輸入有效的電子郵件地址": "Please enter a valid email address",
-        "訂閱失敗，請稍後再試": "Subscription failed, please try again later"
+        "訂閱失敗，請稍後再試": "Subscription failed, please try again later",
+        "請同意條款": "Please agree to our terms and conditions"
     },
     "訂閱表單": {
         "標題": "Join Our Waitlist",
