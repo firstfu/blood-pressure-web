@@ -42,6 +42,7 @@ export type Dictionary = {
     接收通知說明: string;
     隱私說明: string;
     隱私政策連結: string;
+    處理中: string;
   };
   首頁: {
     標題: string;
