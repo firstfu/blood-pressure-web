@@ -31,9 +31,10 @@ import {
 import { motion, useScroll, useTransform, useInView, AnimatePresence, useMotionTemplate, useSpring } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { useLocale } from "../i18n/context";
+import { getLocalizedImages } from "@/utils/localeImages";
 
-// 輪播圖片集
-const heroImages = [
+// 輪播圖片集 - 基本定義，實際使用時會根據語系進行處理
+const baseHeroImages = [
   {
     src: "/images/screen1.png",
     alt: "血壓記錄App畫面 - 主頁",
@@ -86,8 +87,11 @@ const animations = {
 
 // SVG手機預覽元件
 const PhonePreviewSVG = ({ y }) => {
+  const { locale } = useLocale();
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
-  const screenImages = heroImages;
+
+  // 根據當前語系獲取語系化的圖片路徑
+  const screenImages = getLocalizedImages(baseHeroImages, locale);
 
   // 自動輪播
   useEffect(() => {

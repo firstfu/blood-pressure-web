@@ -12,9 +12,10 @@ import { motion } from "framer-motion";
 import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-react";
 import Image from "next/image";
 import { useLocale } from "../i18n/context";
+import { getLocalizedImages } from "@/utils/localeImages";
 
-// 輪播圖片集
-const featureImages = [
+// 輪播圖片集 - 基本定義，實際使用時會根據語系進行處理
+const baseFeatureImages = [
   {
     src: "/images/screen1.png",
     alt: "血壓記錄App畫面 - 主頁",
@@ -35,8 +36,11 @@ const featureImages = [
 
 // SVG手機預覽元件
 const PhonePreviewSVG = () => {
+  const { locale } = useLocale();
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
-  const screenImages = featureImages;
+
+  // 根據當前語系獲取語系化的圖片路徑
+  const screenImages = getLocalizedImages(baseFeatureImages, locale);
 
   // 自動輪播
   useEffect(() => {

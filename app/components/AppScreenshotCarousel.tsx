@@ -8,49 +8,56 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useLocale } from "../i18n/context";
+import { getLocalizedImages } from "@/utils/localeImages";
 
-const screenshots = [
+// 基本截圖集合，實際使用時會根據語系進行轉換
+const baseScreenshots = [
   {
     id: 1,
-    image: "/images/screen1.png",
+    src: "/images/screen1.png",
     title: "簡單記錄",
     description: "直覺的介面設計，輕鬆記錄血壓數據",
   },
   {
     id: 2,
-    image: "/images/screen2.png",
+    src: "/images/screen2.png",
     title: "數據分析",
     description: "智能分析血壓趨勢，掌握健康狀況",
   },
   {
     id: 3,
-    image: "/images/screen3.png",
+    src: "/images/screen3.png",
     title: "歷史記錄",
     description: "完整的測量歷史，隨時查看過往數據",
   },
   {
     id: 4,
-    image: "/images/screen4.png",
+    src: "/images/screen4.png",
     title: "健康報告",
     description: "專業的健康報告，輕鬆與醫生分享",
   },
   //   {
   //     id: 5,
-  //     image: "/images/screen5.png",
+  //     src: "/images/screen5.png",
   //     title: "個人設定",
   //     description: "個性化的設定選項，符合使用習慣",
   //   },
   //   {
   //     id: 6,
-  //     image: "/images/screen6.png",
+  //     src: "/images/screen6.png",
   //     title: "智能提醒",
   //     description: "貼心的測量提醒，養成紀錄習慣",
   //   },
 ];
 
 export default function AppScreenshotCarousel() {
+  const { locale, dictionary } = useLocale();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+
+  // 根據當前語系獲取語系化的圖片路徑
+  const screenshots = getLocalizedImages(baseScreenshots, locale);
 
   // 自動輪播
   useEffect(() => {
@@ -61,7 +68,7 @@ export default function AppScreenshotCarousel() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [autoPlay]);
+  }, [autoPlay, screenshots.length]);
 
   // 暫停自動輪播（當用戶交互時）
   const pauseAutoPlay = () => {
@@ -118,7 +125,7 @@ export default function AppScreenshotCarousel() {
           >
             <div className="flex flex-col h-full justify-center w-full absolute inset-0 items-center">
               <div className="w-full max-h-full relative" style={{ aspectRatio: "9/19.5" }}>
-                <Image src={screenshots[currentIndex].image} alt={screenshots[currentIndex].title} fill className="object-fill" sizes="100vw" quality={100} priority />
+                <Image src={screenshots[currentIndex].src} alt={screenshots[currentIndex].title} fill className="object-fill" sizes="100vw" quality={100} priority />
               </div>
             </div>
 
