@@ -75,7 +75,7 @@ export default function ValueSection() {
             transition={{ duration: 0.6 }}
           >
             {dictionary?.價值主張?.標題 || "為什麼選擇"}
-            <span className="text-gradient-primary">血壓管家</span>?
+            <span className="text-gradient-primary">{dictionary?.共用?.應用名稱 || "血壓管家"}</span>?
           </motion.h2>
           <motion.p
             className="text-xl md:text-lg text-muted-foreground text-optimized font-rounded max-w-3xl mx-auto px-4 md:px-0"
@@ -83,7 +83,7 @@ export default function ValueSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {dictionary?.價值主張?.副標題 || "血壓管家專注於提供便捷的血壓記錄功能，幫助您清晰記錄和分析血壓數值，智能管理您的健康數據。"}
+            {dictionary?.價值主張?.副標題 || `${dictionary?.共用?.應用名稱 || "血壓管家"}專注於提供便捷的血壓記錄功能，幫助您清晰記錄和分析血壓數值，智能管理您的健康數據。`}
           </motion.p>
         </div>
 
