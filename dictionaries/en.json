@@ -19,7 +19,7 @@
         "功能特色": "Features",
         "未來展望": "Future Outlook",
         "常見問題": "FAQ",
-        "預先註冊": "Pre-Register"
+        "預先註冊": "Waitlist"
     },
     "首頁": {
         "標題": "Blood Pressure Monitor",
@@ -64,10 +64,10 @@
             "副標題": "1 in 4 adults is at risk of hypertension. Our smart blood pressure assistant provides easy recording tools and professional analysis to help you monitor and manage your blood pressure effectively.",
             "手機版副標題": "1 in 4 people is at risk of hypertension. Our smart assistant helps you record and analyze blood pressure, safeguarding your health.",
             "輸入框文字": "Your email address",
-            "註冊按鈕": "Pre-Register",
-            "已註冊": "Pre-registered",
+            "註冊按鈕": "Waitlist",
+            "已註冊": "Added to waitlist",
             "即將發布": "Coming Soon",
-            "註冊成功訊息": "Pre-registration successful! You will receive product launch notifications and enjoy exclusive early access and special offers."
+            "註冊成功訊息": "Successfully added to waitlist! You will receive product launch notifications and enjoy exclusive early access and special offers."
         },
         "社會證明": {
             "隱私保障": "Privacy Protection",
@@ -156,17 +156,17 @@
         "訂閱失敗，請稍後再試": "Subscription failed, please try again later"
     },
     "訂閱表單": {
-        "標題": "Complete Pre-Registration",
+        "標題": "Join Our Waitlist",
         "副標題": "Fill in more information to get product launch priority experience qualification",
         "電子郵件": "Email",
         "輸入框文字": "Please enter your email",
-        "預先註冊按鈕": "Pre-Register",
+        "預先註冊按鈕": "Join Waitlist",
         "返回按鈕": "Back",
         "接收通知說明": "I agree to receive product launch notifications, exclusive offers and health management recommendations",
         "隱私說明": "We value your privacy, you can unsubscribe at any time. Check our",
         "隱私政策連結": "Privacy Policy",
-        "註冊成功標題": "Registration Successful!",
-        "註冊成功訊息": "Thank you for pre-registering. We will notify you as soon as the product is released and provide exclusive offers."
+        "註冊成功標題": "Successfully Added to Waitlist!",
+        "註冊成功訊息": "Thank you for joining our waitlist. We will notify you as soon as the product is released and provide exclusive offers."
     },
     "價值主張": {
         "標題": "Why Choose ",
