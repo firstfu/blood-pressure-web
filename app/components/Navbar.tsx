@@ -94,15 +94,13 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-slate-50 dark:bg-slate-950 shadow-medium py-2" : "bg-slate-50 dark:bg-slate-950 py-3"}`}
       >
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-2 sm:px-4 overflow-visible">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="flex-shrink-0">
               <Link href={getNavHref("/")} className="flex items-center space-x-2 group">
                 <motion.div className="relative flex items-center" whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-                  <span className="heading-serif text-3xl font-bold relative flex items-center">
-                    {" "}
-                    {/* 增加 Logo 字體大小 */}
+                  <span className="heading-serif text-2xl md:text-3xl font-bold relative flex items-center">
                     <motion.span
                       className="text-gradient-primary mr-1"
                       animate={{
@@ -115,14 +113,14 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      <Droplets className="h-8 w-8 mr-1 text-teal-600 dark:text-teal-400" />
+                      <Droplets className="h-7 w-7 md:h-8 md:w-8 mr-1 text-teal-600 dark:text-teal-400" />
                     </motion.span>
                     {/* 確保客戶端和服務器渲染一致 */}
                     <div className={`flex ${locale === "en" ? "flex-col" : "flex-row"} items-center leading-tight whitespace-nowrap`}>
                       {locale === "en" ? (
                         <>
-                          <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱_上 || "Blood Pressure"}</span>
-                          <span className="text-emerald-600 dark:text-emerald-400">{dictionary?.共用?.應用名稱_下 || "Manager"}</span>
+                          <span className="text-teal-600 dark:text-teal-400 text-sm md:text-base">{dictionary?.共用?.應用名稱_上 || "Blood Pressure"}</span>
+                          <span className="text-emerald-600 dark:text-emerald-400 text-sm md:text-base">{dictionary?.共用?.應用名稱_下 || "Manager"}</span>
                         </>
                       ) : (
                         <span className="text-teal-600 dark:text-teal-400">血壓管家</span>
@@ -224,7 +222,7 @@ export default function Navbar() {
                   </Button>
                 </SheetTrigger>
 
-                <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-slate-50 dark:bg-slate-950 border-none">
+                <SheetContent side="right" className="w-4/5 max-w-[300px] sm:max-w-[400px] bg-slate-50 dark:bg-slate-950 border-none">
                   <SheetTitle className="sr-only">導航選單</SheetTitle>
                   <nav className="flex flex-col gap-6 mt-12">
                     <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
@@ -276,7 +274,7 @@ export default function Navbar() {
                     <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.5, duration: 0.4 }} className="mt-8">
                       <Button className="w-full rounded-xl gradient-primary-to-accent shadow-medium hover:shadow-lg transition-all duration-300 py-6 text-lg" asChild>
                         <Link href={getNavHref("#subscribe")} onClick={() => setIsMobileMenuOpen(false)}>
-                          <span className="flex items-center justify-center space-x-2">
+                          <span className="flex items-center justify-center">
                             <span>{dictionary?.導航?.預先註冊 || "預先註冊"}</span>
                             <motion.span
                               animate={{ x: [0, 5, 0] }}
@@ -286,6 +284,7 @@ export default function Navbar() {
                                 repeatType: "loop",
                                 ease: "easeInOut",
                               }}
+                              className="ml-2"
                             >
                               <ChevronRight className="h-5 w-5" />
                             </motion.span>

@@ -251,6 +251,8 @@ body {
   font-feature-settings: var(--font-feature-settings);
   -webkit-locale: var(--webkit-locale);
   hanging-punctuation: var(--hanging-punctuation);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* 容器 */
@@ -289,6 +291,8 @@ body {
 /* 平滑滾動 */
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* 全局動畫 */
