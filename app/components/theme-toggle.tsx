@@ -12,14 +12,24 @@ import { Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCallback } from "react";
 
-export function ThemeToggle() {
+// 添加 onToggle 回調函數屬性
+interface ThemeToggleProps {
+  onToggle?: () => void;
+}
+
+export function ThemeToggle({ onToggle }: ThemeToggleProps = {}) {
   const { theme, setTheme } = useTheme();
 
   // 使用 useCallback 確保切換函數的穩定性
   const toggleTheme = useCallback(() => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
-  }, [theme, setTheme]);
+
+    // 調用 onToggle 回調函數（如果提供）
+    if (onToggle) {
+      onToggle();
+    }
+  }, [theme, setTheme, onToggle]);
 
   return (
     <Button
