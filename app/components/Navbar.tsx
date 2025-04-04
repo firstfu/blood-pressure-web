@@ -7,7 +7,7 @@
 
 import { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronRight, Heart, Activity, Bell, BarChart2, Droplets } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
@@ -217,7 +217,7 @@ export default function Navbar() {
 
             {/* Mobile Navigation */}
             <div className="flex md:hidden">
-              <Sheet>
+              <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="relative" onClick={() => setIsMobileMenuOpen(true)}>
                     <Menu className="h-6 w-6" />
@@ -225,6 +225,7 @@ export default function Navbar() {
                 </SheetTrigger>
 
                 <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-slate-50 dark:bg-slate-950 border-none">
+                  <SheetTitle className="sr-only">導航選單</SheetTitle>
                   <nav className="flex flex-col gap-6 mt-12">
                     <motion.div className="flex items-center justify-center mb-8" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                       <span className="text-4xl font-bold">
