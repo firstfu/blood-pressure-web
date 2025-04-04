@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronRight, Heart, Activity, Bell, BarChart2, Droplets } from "lucide-react";
@@ -113,7 +114,7 @@ export default function Navbar() {
                         repeatType: "reverse",
                       }}
                     >
-                      <Droplets className="h-7 w-7 md:h-8 md:w-8 mr-1 text-teal-600 dark:text-teal-400" />
+                      <Image src="/logo.svg" alt="血壓管家" width={32} height={32} className="mr-1" />
                     </motion.span>
                     {/* 確保客戶端和服務器渲染一致 */}
                     <div className={`flex ${locale === "en" ? "flex-col" : "flex-row"} items-center leading-tight whitespace-nowrap`}>
@@ -229,6 +230,7 @@ export default function Navbar() {
                       <span className="text-4xl font-bold">
                         {/* 確保客戶端和服務器渲染一致 */}
                         <div className={`flex ${locale === "en" ? "flex-col" : "flex-row"} items-center leading-tight whitespace-nowrap`}>
+                          <Image src="/logo.svg" alt="血壓管家" width={40} height={40} className="mr-2" />
                           {locale === "en" ? (
                             <>
                               <span className="text-teal-600 dark:text-teal-400">{dictionary?.共用?.應用名稱_上 || "Blood Pressure"}</span>
