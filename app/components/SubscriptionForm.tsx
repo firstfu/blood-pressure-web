@@ -1,7 +1,7 @@
 /**
  * @ Author: firstfu
  * @ Create Time: 2024-06-05 15:35:00
- * @ Description: 預先註冊訂閱表單組件，提供電子郵件訂閱功能和表單驗證
+ * @ Description: 等待名單訂閱表單組件，提供電子郵件訂閱功能和表單驗證
  */
 "use client";
 
@@ -23,6 +23,7 @@ export default function SubscriptionForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
@@ -43,16 +44,39 @@ export default function SubscriptionForm() {
       return;
     }
 
-    setIsSubmitting(true);
+    // 檢查是否同意條款
+    if (!acceptTerms) {
+      setError("請同意我們的條款和條件");
+      return;
+    }
 
-    // 模擬 API 請求
+    setIsSubmitting(true);
+    const requestData = {
+      email,
+      accepted_terms: acceptTerms,
+    };
+
     try {
-      // 在實際應用中，這裡會是一個真正的 API 請求
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // 呼叫等待名單 API
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "加入等待名單失敗");
+      }
+
       setIsSuccess(true);
       setEmail("");
+      setAcceptTerms(false);
     } catch (err) {
-      setError(dictionary?.錯誤?.["訂閱失敗，請稍後再試"] || "訂閱失敗，請稍後再試");
+      setError(err instanceof Error ? err.message : dictionary?.錯誤?.["訂閱失敗，請稍後再試"] || "訂閱失敗，請稍後再試");
     } finally {
       setIsSubmitting(false);
     }
@@ -68,7 +92,7 @@ export default function SubscriptionForm() {
       <div className="container mx-auto px-4">
         <div ref={ref} className="max-w-4xl mx-auto">
           <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">{dictionary?.訂閱表單?.標題 || "完整預先註冊"}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">{dictionary?.訂閱表單?.標題 || "加入等待名單"}</h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
               {dictionary?.訂閱表單?.副標題 || "填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議"}
             </p>
@@ -87,7 +111,7 @@ export default function SubscriptionForm() {
                 </div>
                 <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-foreground">{dictionary?.訂閱表單?.註冊成功標題 || "註冊成功！"}</h3>
                 <p className="text-lg md:text-xl text-muted-foreground max-w-lg mx-auto">
-                  {dictionary?.訂閱表單?.註冊成功訊息 || "感謝您的預先註冊，我們將在產品發布時第一時間通知您，並提供獨家優惠。"}
+                  {dictionary?.訂閱表單?.註冊成功訊息 || "感謝您加入等待名單，我們將在產品發布時第一時間通知您，並提供獨家優惠。"}
                 </p>
                 <Button className="mt-8 text-lg h-12 px-6" onClick={() => setIsSuccess(false)}>
                   {dictionary?.訂閱表單?.返回按鈕 || "返回"}
@@ -109,15 +133,27 @@ export default function SubscriptionForm() {
                       className="flex-1 text-lg h-14 px-4"
                     />
                     <Button type="submit" disabled={isSubmitting} className="gap-2 text-lg h-14 px-6">
-                      {dictionary?.訂閱表單?.預先註冊按鈕 || "預先註冊"}
-                      <ArrowRight className="h-5 w-5" />
+                      {isSubmitting ? (
+                        <span className="flex items-center">
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                          </svg>
+                          {"處理中"}
+                        </span>
+                      ) : (
+                        <>
+                          {dictionary?.訂閱表單?.預先註冊按鈕 || "加入等待名單"}
+                          <ArrowRight className="h-5 w-5" />
+                        </>
+                      )}
                     </Button>
                   </div>
                   {error && <p className="text-base text-red-500 dark:text-red-400 mt-2">{error}</p>}
                 </div>
 
                 <div className="flex items-start space-x-3 mt-6">
-                  <Checkbox id="terms" className="mt-1" />
+                  <Checkbox id="terms" className="mt-1" checked={acceptTerms} onCheckedChange={checked => setAcceptTerms(checked === true)} />
                   <div className="grid gap-1.5 leading-normal">
                     <Label htmlFor="terms" className="text-base font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-muted-foreground">
                       {dictionary?.訂閱表單?.接收通知說明 || "我同意接收產品發布通知、獨家優惠及健康管理建議"}

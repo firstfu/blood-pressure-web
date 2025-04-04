@@ -15,17 +15,28 @@ import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
  * @returns 配置好的 Supabase 客戶端
  */
 export function createServerSupabaseClient() {
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-    global: {
-      headers: {
-        "x-client-info": "nextjs-api",
+  // 打印環境變數，幫助診斷問題 (僅在開發環境中)
+  if (process.env.NODE_ENV === "development") {
+    console.log('NEXT_PUBLIC_SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log('SUPABASE_SERVICE_ROLE_KEY length:', process.env.SUPABASE_SERVICE_ROLE_KEY?.length || 0);
+  }
+
+  try {
+    return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
       },
-    },
-  });
+      global: {
+        headers: {
+          "x-client-info": "nextjs-api",
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Supabase 客戶端創建失敗:", error);
+    throw error;
+  }
 }
 
 /**
@@ -37,45 +48,50 @@ export function createServerSupabaseClient() {
 export async function createServerAdminSupabaseClient() {
   const cookieStore = await cookies();
 
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    cookies: {
-      get(name) {
-        return cookieStore.get(name)?.value;
+  try {
+    return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
+      cookies: {
+        get(name) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name, value, options) {
+          try {
+            cookieStore.set({
+              name,
+              value,
+              ...options,
+            });
+          } catch (error) {
+            // 管理員客戶端通常不會設置 cookies，但函數是必需的
+            console.error("設置 cookie 時出錯:", error);
+          }
+        },
+        remove(name, options) {
+          try {
+            cookieStore.set({
+              name,
+              value: "",
+              ...options,
+              maxAge: 0,
+            });
+          } catch (error) {
+            // 管理員客戶端通常不會刪除 cookies，但函數是必需的
+            console.error("刪除 cookie 時出錯:", error);
+          }
+        },
       },
-      set(name, value, options) {
-        try {
-          cookieStore.set({
-            name,
-            value,
-            ...options,
-          });
-        } catch (error) {
-          // 管理員客戶端通常不會設置 cookies，但函數是必需的
-          console.error("設置 cookie 時出錯:", error);
-        }
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
       },
-      remove(name, options) {
-        try {
-          cookieStore.set({
-            name,
-            value: "",
-            ...options,
-            maxAge: 0,
-          });
-        } catch (error) {
-          // 管理員客戶端通常不會刪除 cookies，但函數是必需的
-          console.error("刪除 cookie 時出錯:", error);
-        }
+      global: {
+        headers: {
+          "x-client-info": "nextjs-api",
+        },
       },
-    },
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-    global: {
-      headers: {
-        "x-client-info": "nextjs-api",
-      },
-    },
-  });
+    });
+  } catch (error) {
+    console.error("Supabase 管理員客戶端創建失敗:", error);
+    throw error;
+  }
 }
