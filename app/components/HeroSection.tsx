@@ -213,12 +213,20 @@ export default function HeroSection() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [email, setEmail] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(heroRef, { once: false, amount: 0.1 });
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
+
+  // 驗證電子郵件格式
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(email));
+  }, [email]);
 
   // 社會證明數據 - 使用字典中的翻譯
   const socialProofs = [
@@ -243,13 +251,45 @@ export default function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
 
   const handlePreRegister = async () => {
+    // 重置錯誤訊息
+    setErrorMessage(null);
     setIsSubmitting(true);
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // 呼叫 waitlist API
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          accepted_terms: true, // 假設用戶已接受條款，或者您可以添加一個複選框
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // 處理 API 錯誤
+        throw new Error(data.message || "預先註冊失敗，請稍後再試");
+      }
+
+      // 處理成功響應
       setIsSuccess(true);
+
+      // 3秒後隱藏成功訊息
       setTimeout(() => setIsSuccess(false), 3000);
+
+      // 清空電子郵件輸入
+      setEmail("");
     } catch (err) {
+      // 處理錯誤
       console.error("註冊失敗", err);
+      setErrorMessage(err instanceof Error ? err.message : "預先註冊失敗，請稍後再試");
+
+      // 3秒後隱藏錯誤訊息
+      setTimeout(() => setErrorMessage(null), 3000);
     } finally {
       setIsSubmitting(false);
     }
@@ -281,7 +321,15 @@ export default function HeroSection() {
                 {dictionary?.首頁?.英雄區塊?.副標題 || "面臨高血壓風險。我們的智能血壓管家為您提供簡便的記錄工具和專業的分析功能，幫助您更有效地監測和管理血壓數值。"}
               </span>
             </motion.p>
-            <ActionButtons handlePreRegister={handlePreRegister} isSubmitting={isSubmitting} isSuccess={isSuccess} email={email} setEmail={setEmail} dictionary={dictionary} />
+            <ActionButtons
+              handlePreRegister={handlePreRegister}
+              isSubmitting={isSubmitting}
+              isSuccess={isSuccess}
+              email={email}
+              setEmail={setEmail}
+              isValidEmail={isValidEmail}
+              dictionary={dictionary}
+            />
           </motion.div>
 
           {/* 右側 App 預覽 */}
@@ -335,6 +383,28 @@ export default function HeroSection() {
                 </svg>
               </div>
               <span className="text-base">{dictionary?.首頁?.英雄區塊?.註冊成功訊息 || "預先註冊成功！您將獲得產品發布通知，並享有首批測試資格與專屬優惠。"}</span>
+            </div>
+          </motion.div>
+        )}
+
+        {errorMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white rounded-lg shadow-lg text-center -translate-x-1/2 bottom-5 dark:bg-gray-800 fixed left-1/2 px-4 py-3 transform z-50"
+          >
+            <div className="flex gap-2 items-center">
+              <div className="bg-red-100 p-1.5 rounded-full text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span className="text-base">{errorMessage}</span>
             </div>
           </motion.div>
         )}
@@ -423,22 +493,30 @@ const HeadingSection = ({ dictionary }) => (
 );
 
 // 動作按鈕元件
-const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail, dictionary }) => (
+const ActionButtons = ({ handlePreRegister, isSubmitting, isSuccess, email, setEmail, isValidEmail, dictionary }) => (
   <motion.div className="flex flex-col sm:flex-row gap-4 sm:items-center mt-3 sm:mt-0 mx-auto lg:mx-0 max-w-md lg:max-w-none" variants={animations.item}>
     <div className="relative flex-grow">
       <Input
         type="email"
         placeholder={dictionary?.首頁?.英雄區塊?.輸入框文字 || "您的電子郵件"}
-        className="shadow-sm border-slate-200 dark:border-slate-800 h-14 sm:h-12 text-base px-5 pr-28 rounded-full transition-all hover:border-teal-300 focus:border-teal-500 dark:focus:border-teal-400"
+        className={`shadow-sm border-slate-200 dark:border-slate-800 h-14 sm:h-12 text-base px-5 pr-28 rounded-full transition-all ${
+          email && !isValidEmail
+            ? "border-red-300 focus:border-red-500 dark:border-red-700 dark:focus:border-red-500"
+            : "hover:border-teal-300 focus:border-teal-500 dark:focus:border-teal-400"
+        }`}
         value={email}
         onChange={e => setEmail(e.target.value)}
       />
       <div className="absolute right-1 top-1">
         <Button
-          onClick={() => email && handlePreRegister()}
-          disabled={isSubmitting || isSuccess}
+          onClick={() => isValidEmail && handlePreRegister()}
+          disabled={isSubmitting || isSuccess || !isValidEmail}
           className={`rounded-full px-5 h-12 sm:h-10 transition-all ${
-            isSuccess ? "bg-emerald-600 hover:bg-emerald-700" : "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600"
+            isSuccess
+              ? "bg-emerald-600 hover:bg-emerald-700"
+              : !email || !isValidEmail
+              ? "bg-slate-300 dark:bg-slate-700 cursor-not-allowed"
+              : "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600"
           }`}
         >
           {isSubmitting ? (

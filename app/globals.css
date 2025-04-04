@@ -94,8 +94,8 @@
   --sidebar-ring: var(--color-primary-500);
 
   /* 字型系統 */
-  --font-sans: var(--font-noto-sans-tc), var(--font-ibm-plex-sans-jp), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-noto-sans-tc), var(--font-ibm-plex-sans-jp), var(--font-inter), var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-noto-serif-tc), "Zen Old Mincho", serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-heading: var(--font-noto-serif-tc), "Zen Old Mincho", var(--font-ibm-plex-sans-jp), var(--font-noto-sans-tc), serif;
