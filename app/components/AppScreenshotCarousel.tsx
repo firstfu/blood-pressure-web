@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useLocale } from "../i18n/context";
 import { getLocalizedImages } from "@/utils/localeImages";
+import { useDisplayMode } from "@/utils/useDisplayMode";
 
 // 基本截圖集合，實際使用時會根據語系進行轉換
 const baseScreenshots = [
@@ -53,11 +54,12 @@ const baseScreenshots = [
 
 export default function AppScreenshotCarousel() {
   const { locale, dictionary } = useLocale();
+  const { mode } = useDisplayMode();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
 
-  // 根據當前語系獲取語系化的圖片路徑
-  const screenshots = getLocalizedImages(baseScreenshots, locale);
+  // 根據當前語系和顯示模式獲取語系化的圖片路徑
+  const screenshots = getLocalizedImages(baseScreenshots, locale, mode);
 
   // 自動輪播
   useEffect(() => {

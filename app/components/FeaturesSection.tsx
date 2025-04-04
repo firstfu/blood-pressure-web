@@ -13,6 +13,7 @@ import { LineChart, Bell, Share2, Calendar, Cloud, Smartphone } from "lucide-rea
 import Image from "next/image";
 import { useLocale } from "../i18n/context";
 import { getLocalizedImages } from "@/utils/localeImages";
+import { useDisplayMode } from "@/utils/useDisplayMode";
 
 // 輪播圖片集 - 基本定義，實際使用時會根據語系進行處理
 const baseFeatureImages = [
@@ -37,10 +38,11 @@ const baseFeatureImages = [
 // SVG手機預覽元件
 const PhonePreviewSVG = () => {
   const { locale } = useLocale();
+  const { mode } = useDisplayMode();
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
 
-  // 根據當前語系獲取語系化的圖片路徑
-  const screenImages = getLocalizedImages(baseFeatureImages, locale);
+  // 根據當前語系和顯示模式獲取語系化的圖片路徑
+  const screenImages = getLocalizedImages(baseFeatureImages, locale, mode);
 
   // 自動輪播
   useEffect(() => {
