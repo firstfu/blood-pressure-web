@@ -93,9 +93,7 @@ export default function SubscriptionForm() {
         <div ref={ref} className="max-w-4xl mx-auto">
           <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">{dictionary?.訂閱表單?.標題 || "加入等待名單"}</h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              {dictionary?.訂閱表單?.副標題 || "填寫更多資訊，獲取產品發布優先體驗資格、專屬折扣碼及個人化血壓管理建議"}
-            </p>
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">{dictionary?.訂閱表單?.副標題 || "填寫更多資訊，獲取產品發布優先體驗資格"}</p>
           </motion.div>
 
           <motion.div
